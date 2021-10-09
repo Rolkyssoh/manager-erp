@@ -1,5 +1,5 @@
 {
-  "npmScope": "manger-erp",
+  "npmScope": "merp",
   "affected": {
     "defaultBase": "master"
   },
@@ -28,6 +28,15 @@
   },
   "projects": {
     "api": {
+      "tags": []
+    },
+    "constants": {
+      "tags": ["shared"]
+    },
+    "entities": {
+      "tags": []
+    },
+    "migrations": {
       "tags": []
     }
   }

@@ -1,11 +1,10 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+const status = require('dotenv').config({
+  path: `${__dirname}/.env`
+})
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
+import {  getConnection,} from 'typeorm'
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
@@ -14,6 +13,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3333;
   await app.listen(port, () => {
+    getConnection().runMigrations()
     Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
   });
 }

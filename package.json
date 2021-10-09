@@ -1,20 +1,28 @@
 {
-  "name": "manger-erp",
+  "name": "merp",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "orm:migration:create": "ts-node --project libs/migrations/tsconfig.lib.json ./node_modules/typeorm/cli.js migration:create",
+    "orm:migration:generate": "ts-node --project libs/migrations/tsconfig.lib.json ./node_modules/typeorm/cli.js migration:generate"
   },
   "private": true,
   "dependencies": {
-    "@nestjs/common": "^7.0.0",
-    "@nestjs/core": "^7.0.0",
-    "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/common": "^7.6.18",
+    "@nestjs/core": "^7.6.18",
+    "@nestjs/platform-express": "^7.6.18",
+    "@nestjs/typeorm": "^8.0.2",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
+    "dotenv": "^10.0.0",
+    "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "~6.6.3",
-    "tslib": "^2.0.0"
+    "rxjs": "^7",
+    "tslib": "^2.0.0",
+    "typeorm": "^0.2.38"
   },
   "devDependencies": {
     "@nestjs/schematics": "^7.0.0",
@@ -23,8 +31,8 @@
     "@nrwl/eslint-plugin-nx": "12.9.0",
     "@nrwl/jest": "12.9.0",
     "@nrwl/linter": "12.9.0",
-    "@nrwl/nest": "12.9.0",
-    "@nrwl/node": "12.9.0",
+    "@nrwl/nest": "^12.5.9",
+    "@nrwl/node": "^12.5.9",
     "@nrwl/tao": "12.9.0",
     "@nrwl/workspace": "12.9.0",
     "@types/jest": "26.0.24",

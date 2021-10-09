@@ -1,0 +1,13 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "erp",
+  "password": "erp",
+  "database": "erp",
+  "entities": ["libs/entities/src/lib/*.entity.ts"],
+  "migrations": ["libs/migrations/src/lib/*.migration.ts"],
+  "cli": {
+      "migrationsDir": "libs/migrations/src/lib"
+  }
+}

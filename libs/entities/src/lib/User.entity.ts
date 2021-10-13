@@ -10,8 +10,8 @@ import {
 import { IsOptional, MinLength, MaxLength, IsString } from 'class-validator';
 import { Exclude } from 'class-transformer';
 import { AbstractEntity } from './abstract-entity';
-// import { RoleEntity } from '../user/Role.entity';
-// var bcrypt = require('bcryptjs');
+import { RoleEntity } from '../';
+import * as bcrypt from 'bcryptjs'
 
 export enum SEX {
   male = 'M',
@@ -27,14 +27,8 @@ export class UserEntity extends AbstractEntity {
     const user = new UserEntity();
     user.first_name = partialUser.first_name;
     user.last_name = partialUser.last_name;
-    // user.email = partialUser.email;
-    // user.adress = partialUser.adress;
-    // user.phonenumber = partialUser.phonenumber;
-    // user.is_retailer = partialUser.is_retailer;
-    // user.password = partialUser.password;
-    // user.deleted = false;
-    // if(partialUser.company_name)
-    // user.company_name = partialUser.company_name;
+    user.password = partialUser.password;
+    user.email = partialUser.email;
     return user;
   }
 
@@ -44,71 +38,47 @@ export class UserEntity extends AbstractEntity {
   @Column({ nullable: true })
   last_name: string;
 
-  // @Column({
-  //   nullable: true,
-  //   type: 'enum',
-  //   enum: SEX,
-  // })
-  // sex: SEX;
+  @Column({ nullable: true, unique: true })
+  email: string;
 
 
-  // @Column({ nullable: true })
-  // email: string;
+  @ManyToOne('RoleEntity', 'users', { eager: true })
+  role: RoleEntity;
 
-  // @Column()
-  // adress: string;
-
-  // @Column()
-  // phonenumber: string;
-
-  // @Column({ default: 'fr' })
-  // language: 'en' | 'fr';
-
-  // @ManyToOne('RoleEntity', 'users', { eager: true })
-  // role: RoleEntity;
-
-  // @Column({ nullable: true })
-  // is_retailer: boolean;
-
-  // @Column({ nullable: true })
-  // company_name?: string;
-
-  // @Column({ nullable: true })
-  // @Exclude()
-  // @MinLength(4)
-  // @MaxLength(MAX_PASSWORD_LENGTH)
-  // @IsString()
-  // password: string;
-
-  // @Column({ nullable: true })
-  // @Exclude()
-  // @IsString()
-  // @IsOptional()
-  // otp?: string;
+  @Column({ nullable: true })
+  @Exclude()
+  @MinLength(4)
+  @MaxLength(MAX_PASSWORD_LENGTH)
+  @IsString()
+  password: string;
 
 
-  // @Column({ default: false })
-  // @IsOptional()
-  // deleted?: boolean;
-  /*
   @BeforeUpdate()
-  async updatePassword() {
-    if (this.role.id !== AUDIENCE)
-      if (this.password.length <= MAX_PASSWORD_LENGTH) {
-        // this.password = bcrypt.hashSync(this.password, 10)
-        this.password = this.password
-      }
+  async updateUser() {
+    if (this.password.length <= MAX_PASSWORD_LENGTH) {
+      this.password = bcrypt.hashSync(this.password, 10)
+    }
+    this.email = this.email.toLowerCase()
+    this.first_name = this.first_name.toLowerCase()
+    this.last_name = this.last_name.toLowerCase()
   }
 
   @BeforeInsert()
-  async hashPassword() {
-    if (this.role.id !== AUDIENCE)
-      // this.password = bcrypt.hashSync(this.password, 10)
-      this.password = this.password
+  async beforeInsert() {
+    this.email = this.email.toLowerCase()
+    this.first_name = this.first_name.toLowerCase()
+    this.last_name = this.last_name.toLowerCase()
+    this.password = bcrypt.hashSync(this.password, 10)
   }
 
   comparePassword(attemptedPassword: string): boolean {
-    // return bcrypt.compareSync(attemptedPassword, this.password)
-    return true;
-  } */
+    return bcrypt.compareSync(attemptedPassword, this.password)
+  }
+
+  liteUser() {
+    delete this.password
+    delete this.created_at
+    delete this.deleted_at
+    return this;
+  }
 }

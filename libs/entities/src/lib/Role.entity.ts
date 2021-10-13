@@ -1,8 +1,8 @@
 import {
   Entity, Column,
-  PrimaryGeneratedColumn, BaseEntity,
+  PrimaryGeneratedColumn, JoinTable, OneToMany,
 } from 'typeorm';
-// import { UserEntity } from '..';
+import { UserEntity } from '..';
 
 @Entity('role')
 export class RoleEntity {
@@ -18,7 +18,7 @@ export class RoleEntity {
   @Column()
   name: string;
 
-  // @JoinTable()
-  // @OneToMany('UserEntity', 'roles')
-  // users: UserEntity[];
+  @JoinTable()
+  @OneToMany('UserEntity', 'role')
+  users: UserEntity[];
 }

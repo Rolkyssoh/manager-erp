@@ -1,1 +1,1 @@
-export const DEMO_EXPORT = 1;
+export * from './lib/ROLE'

@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { ENTITIES } from '@merp/entities';
 import { ORM_CONFIG } from './ormconfig';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { UserModule } from './user/user.module';
       entities: ENTITIES,
     }),
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

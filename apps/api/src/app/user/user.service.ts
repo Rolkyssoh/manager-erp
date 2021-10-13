@@ -12,12 +12,12 @@ export class UserService {
     private _userRepo: Repository<UserEntity>
   ) { }
 
-  getData() {
+  getUsers() {
     return this._userRepo.find();
   }
+
   saveUser(data: Partial<UserEntity>) {
     const user = UserEntity.newUserEntity(data);
-
-    this._userRepo.save(user);
+    return this._userRepo.save(user);
   }
 }

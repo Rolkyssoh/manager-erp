@@ -1,19 +1,28 @@
 import { UserEntity } from '@merp/entities';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
+import { AuthGuard } from '@nestjs/passport';
+import { User } from '../auth/user.decorator';
+import { RoleValidationGuard } from '../auth/role-validation.guard';
 
 @Controller('/user')
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Get()
-  getData() {
-    return this.userService.getData();
+  @UseGuards(
+    AuthGuard(),
+    new RoleValidationGuard()
+  )
+  getUsers(
+    @User() user: UserEntity
+  ) {
+    return this.userService.getUsers();
   }
 
   @Post()
   saveUser(
-    @Body() data: Partial<UserEntity>
+    @Body() data: Partial<UserEntity>,
   ) {
     return this.userService.saveUser(data);
   }

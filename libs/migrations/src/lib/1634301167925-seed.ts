@@ -1,19 +1,21 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 import {
-  SECTOR_CHIEF, COMMERCIAL_DELEGATE,
-  DELIVERER, SUPER_ADMIN,
-} from '@merp/constants'
-export class seed1634150755714 implements MigrationInterface {
-
+  SECTOR_DELEGATE,
+  COMMERCIAL_DIRECTOR,
+  DELIVERER,
+  SUPER_ADMIN,
+  CUSTOMER,
+} from '@merp/constants';
+export class seed1635196336948 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-
     await queryRunner.query(`
         INSERT INTO role (id, name) values
-          (${SECTOR_CHIEF}, 'sector_chief'),
+          (${SECTOR_DELEGATE}, 'sector_delegate'),
           (${DELIVERER}, 'deliverer'),
           (${SUPER_ADMIN}, 'super_admin'),
-          (${COMMERCIAL_DELEGATE}, 'commercial_delegate')
-    `)
+          (${COMMERCIAL_DIRECTOR}, 'commercial_director'),
+          (${CUSTOMER}, 'customer')
+    `);
 
     await queryRunner.query(`
       INSERT INTO
@@ -35,10 +37,8 @@ export class seed1634150755714 implements MigrationInterface {
           '$2a$10$HcOZJfJVp2nTQtuM9Ny3UeAQnGobXw4qiuSSB8VO68/ITkK1utYf2',
           '${SUPER_ADMIN}'
         )
-    `)
-
+    `);
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> { }
-
+  public async down(queryRunner: QueryRunner): Promise<void> {}
 }

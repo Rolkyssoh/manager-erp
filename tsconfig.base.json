@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@merp/constants": ["libs/constants/src/index.ts"],
+      "@merp/dto": ["libs/dto/src/index.ts"],
       "@merp/entities": ["libs/entities/src/index.ts"],
       "@merp/migrations": ["libs/migrations/src/index.ts"]
     }

@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_DB: ${DATABASE}
     volumes:
-      - ./data/postgressql:/var/lib/postgresql/data
+      - ./data/postgressql:/var/lib/postgresql/datas
     ports:
       - ${DATABASE_PORT}:${DATABASE_PORT}
   adminer:

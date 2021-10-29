@@ -11,7 +11,10 @@ import { IsOptional, MinLength, MaxLength, IsString } from 'class-validator';
 import { Exclude } from 'class-transformer';
 import { AbstractEntity } from './abstract-entity';
 import { RoleEntity } from '../';
-import * as bcrypt from 'bcryptjs'
+import * as bcrypt from 'bcryptjs';
+import { CompanyEntity } from './Company.entity';
+import { OrderEntity } from './order.entity';
+import { ProductEntity } from './product.entity';
 
 export enum SEX {
   male = 'M',
@@ -29,6 +32,8 @@ export class UserEntity extends AbstractEntity {
     user.last_name = partialUser.last_name;
     user.password = partialUser.password;
     user.email = partialUser.email;
+    user.role = partialUser.role;
+    user.company = partialUser.company;
     return user;
   }
 
@@ -41,9 +46,17 @@ export class UserEntity extends AbstractEntity {
   @Column({ nullable: true, unique: true })
   email: string;
 
-
   @ManyToOne('RoleEntity', 'users', { eager: true })
   role: RoleEntity;
+
+  @ManyToOne('CompanyEntity', 'users', { eager: true })
+  company: CompanyEntity;
+
+  @OneToMany('OrderEntity', 'users')
+  oders: OrderEntity[];
+
+  @OneToMany('ProductEntity', 'users')
+  products: ProductEntity[];
 
   @Column({ nullable: true })
   @Exclude()
@@ -52,33 +65,32 @@ export class UserEntity extends AbstractEntity {
   @IsString()
   password: string;
 
-
   @BeforeUpdate()
   async updateUser() {
     if (this.password.length <= MAX_PASSWORD_LENGTH) {
-      this.password = bcrypt.hashSync(this.password, 10)
+      this.password = bcrypt.hashSync(this.password, 10);
     }
-    this.email = this.email.toLowerCase()
-    this.first_name = this.first_name.toLowerCase()
-    this.last_name = this.last_name.toLowerCase()
+    this.email = this.email.toLowerCase();
+    this.first_name = this.first_name.toLowerCase();
+    this.last_name = this.last_name.toLowerCase();
   }
 
   @BeforeInsert()
   async beforeInsert() {
-    this.email = this.email.toLowerCase()
-    this.first_name = this.first_name.toLowerCase()
-    this.last_name = this.last_name.toLowerCase()
-    this.password = bcrypt.hashSync(this.password, 10)
+    this.email = this.email.toLowerCase();
+    this.first_name = this.first_name.toLowerCase();
+    this.last_name = this.last_name.toLowerCase();
+    this.password = bcrypt.hashSync(this.password, 10);
   }
 
   comparePassword(attemptedPassword: string): boolean {
-    return bcrypt.compareSync(attemptedPassword, this.password)
+    return bcrypt.compareSync(attemptedPassword, this.password);
   }
 
   liteUser() {
-    delete this.password
-    delete this.created_at
-    delete this.deleted_at
+    delete this.password;
+    delete this.created_at;
+    delete this.deleted_at;
     return this;
   }
 }

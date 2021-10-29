@@ -1,11 +1,13 @@
-export const SECTOR_CHIEF = 2;
+export const SECTOR_DELEGATE = 2;
 export const DELIVERER = 1;
 export const SUPER_ADMIN = -10;
-export const COMMERCIAL_DELEGATE = -7;
+export const COMMERCIAL_DIRECTOR = -7;
+export const CUSTOMER = 120;
 
 export const ROLES = [
-  SECTOR_CHIEF,
+  SECTOR_DELEGATE,
   DELIVERER,
   SUPER_ADMIN,
-  COMMERCIAL_DELEGATE,
+  COMMERCIAL_DIRECTOR,
+  CUSTOMER,
 ];

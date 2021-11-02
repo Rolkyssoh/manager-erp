@@ -6,6 +6,8 @@ import { OrderEntity } from './lib/order.entity';
 import { ProductEntity } from './lib/product.entity';
 import { ProductsToOrdersEntity } from './lib/ProductOrder.entity';
 
+export * from './constants';
+
 const ENTITIES = [
   RoleEntity,
   ArticleEntity,

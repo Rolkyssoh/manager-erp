@@ -1,14 +1,6 @@
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { UserEntity } from '..';
 import { AbstractEntity } from './abstract-entity';
-import { OrderEntity } from './order.entity';
 import { ProductsToOrdersEntity } from './ProductOrder.entity';
 
 @Entity('product')

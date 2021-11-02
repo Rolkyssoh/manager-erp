@@ -6,7 +6,7 @@ import {
   SUPER_ADMIN,
   CUSTOMER,
 } from '@merp/constants';
-export class seed1635196336948 implements MigrationInterface {
+export class seed1635725878039 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
         INSERT INTO role (id, name) values

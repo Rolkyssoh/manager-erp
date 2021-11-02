@@ -1,1 +1,1 @@
-export * from './lib/ROLE'
+export * from './lib/ROLE';

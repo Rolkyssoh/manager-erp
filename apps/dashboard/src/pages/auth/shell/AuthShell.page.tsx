@@ -15,6 +15,12 @@ export const AuthShellPage: React.FC<IAuthShellPageProps> = () => {
   return (
     <div>
       hello world from auth page
+      <Routes>
+        <Route path="/" element={<Navigate to="login" />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignUpPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+      </Routes>
     </div>
   )
 }

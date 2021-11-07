@@ -1,0 +1,34 @@
+// Responsive breakpoints
+$breakpoints: (
+  sm: 320px,
+  md: 480px,
+  lg: 640px,
+  xl: 1024px,
+  xxl: 1366px,
+  xxxl: 1920px,
+) !default;
+
+:root {
+  --text-primary-light: #a4b0e5;
+  --bg-color: #f2f5fa;
+  --primary-color: #191919;
+  --sidenav-bg-color: transparent;
+  --color-warning: #ffa500;
+  --color-danger: #e8404d;
+  --color-danger-light: #e8404e2c;
+  --color-success: #25c1ba;
+  --color-success-light: #25c1ba2c;
+  --color-result-request: #66422d;
+  --color-booked: #dd7474;
+  --color-sampled: #b08c77;
+  --color-teal: teal;
+  --color-white: white;
+  --color-blue: #304993;
+  --color-neutral-secondary: #718ba7;
+
+  //Elevations
+  --elevation_1: 0 1.6px 3.6px 0 rgb(0 0 0 / 13%),
+    0 0.3px 0.9px 0 rgb(0 0 0 / 11%);
+  --nivelation_1: inset 0 1.6px 3.6px 0 rgb(0 0 0 / 13%),
+    inset 0 0.3px 0.9px 0 rgb(0 0 0 / 11%);
+}

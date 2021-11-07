@@ -1,0 +1,48 @@
+.no-height {
+  height: unset;
+}
+
+.color_error {
+  color: var(--color-danger);
+}
+
+.color_blue {
+  color: var(--color-blue);
+}
+
+.color_teal {
+  color: teal;
+}
+
+.color_maroon {
+  color: var(--color-booked);
+}
+
+.color_sampled {
+  color: var(--color-sampled);
+}
+
+.color_success {
+  color: var(--color-success);
+}
+
+.color_result_request {
+  color: var(--color-result-request);
+}
+
+.no-margin-top {
+  margin-top: 0 !important;
+}
+
+.no-padding-top {
+  padding-top: 0 !important;
+}
+
+.full_opacity{
+  opacity: 0;
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
+}

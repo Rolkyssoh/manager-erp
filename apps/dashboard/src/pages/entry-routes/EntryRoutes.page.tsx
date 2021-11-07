@@ -19,11 +19,9 @@ export const EntryRoutesPage: React.FC<IEntryRoutesPageProps> = () => {
     <>
     <span>Entry page</span>
     <Routes>
-      <Route path="auth" element={<AuthShellPage />} >
-        <Route path="login" element={<LoginPage />} />
-        <Route path="login" element={<LoginPage />} />
-      </Route>
-      <Route path="dashboard" element={<DashboardShellPage />} />
+      <Route path="/" element={<Navigate to="auth" />} />
+      <Route path="auth/*" element={<AuthShellPage />} />
+      <Route path="dashboard/*" element={<DashboardShellPage />} />
     </Routes >
     </>
   )

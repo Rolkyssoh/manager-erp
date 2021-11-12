@@ -1,3 +1,4 @@
+import { LoginDtoOut } from '@merp/dto';
 import { UserEntity } from '@merp/entities';
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';

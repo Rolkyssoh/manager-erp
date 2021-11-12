@@ -3,6 +3,7 @@ import { Navigate, Route, RouteProps, Routes } from 'react-router';
 import {
   AuthShellPage,
   DashboardShellPage,
+  HomePage,
   LoginPage,
   ResetPasswordPage,
   SignUpPage,
@@ -15,9 +16,10 @@ export interface IEntryRoutesPageProps {
 export const EntryRoutesPage: React.FC<IEntryRoutesPageProps> = () => {
   return (
     <Routes>
-      {/* <Route path="auth/*" element={<AuthShellPage />} /> */}
-      {/* <Route path="auth" element={<Navigate to="login" />} /> */}
+      <Route path="/" element={<HomePage />} />
+      <Route path="auth/*" element={<AuthShellPage />} />
       <Route path="dashboard/*" element={<DashboardShellPage />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 };

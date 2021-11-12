@@ -1,8 +1,13 @@
 .homepage {
   position: relative;
-  //   background-color: red;
   display: flex;
   flex-direction: column;
+
+  .singing{
+    max-width: 200px;
+    justify-self: center;
+    align-self: center;
+  }
 }
 .header {
 }

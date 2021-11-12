@@ -16,11 +16,12 @@ export const DashboardShellPage: React.FC<IDashboardShellPageProps> = () => {
   return (
     <div>
       {/* hello world from dashboard page */}
-      {/* <Route path="/" element={<Navigate to="/login" />} />
+      {/*
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} /> */}
+      <Route path="/reset-password" element={<ResetPasswordPage />} /> */}
       <Routes>
+        <Route path="*" element={<Navigate to="/" />} />
         <Route path="home" element={<HomePage />} />
         <Route path="company" element={<CompanyPage />} />
       </Routes>

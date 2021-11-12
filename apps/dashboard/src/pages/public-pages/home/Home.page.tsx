@@ -1,9 +1,11 @@
+import { PrimaryButton } from '@fluentui/react';
+import { LoginDialog } from '../../../dialogs';
 import React, { useState } from 'react';
 import { RouteProps } from 'react-router';
 import {
   CompanyCardComponent,
   HeaderComponent,
-} from 'apps/dashboard/src/components';
+} from '../../../components';
 
 import './home.styles.scss';
 
@@ -14,7 +16,13 @@ export interface IHomePageProps extends RouteProps {
 export const HomePage: React.FC<IHomePageProps> = () => {
   return (
     <div className="homepage">
-      <HeaderComponent />
+      <LoginDialog
+        renderTrigger={(trigger) => (
+          <PrimaryButton onClick={trigger} text="Send" className='singing' />
+        )}
+      />
+
+      {/* <HeaderComponent />
       <div className="homebody">
         <div className="searchzone">
           <span className="home-indication">En Livraison Chez vous </span>
@@ -59,7 +67,7 @@ export const HomePage: React.FC<IHomePageProps> = () => {
           <CompanyCardComponent />
         </div>
       </div>
-      <div className="footer">Footer</div>
+      <div className="footer">Footer</div> */}
     </div>
   );
 };

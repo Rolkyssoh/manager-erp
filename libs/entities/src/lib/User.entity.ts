@@ -28,12 +28,12 @@ const MAX_PASSWORD_LENGTH = 8;
 export class UserEntity extends AbstractEntity {
   static newUserEntity(partialUser: Partial<UserEntity>) {
     const user = new UserEntity();
-    user.first_name = partialUser.first_name;
-    user.last_name = partialUser.last_name;
-    user.password = partialUser.password;
-    user.email = partialUser.email;
-    user.role = partialUser.role;
-    user.company = partialUser.company;
+    if (partialUser.first_name) user.first_name = partialUser.first_name;
+    if (partialUser.last_name) user.last_name = partialUser.last_name;
+    if (partialUser.password) user.password = partialUser.password;
+    if (partialUser.email) user.email = partialUser.email;
+    if (partialUser.role) user.role = partialUser.role;
+    if (partialUser.company) user.company = partialUser.company;
     return user;
   }
 
@@ -63,12 +63,12 @@ export class UserEntity extends AbstractEntity {
   @MinLength(4)
   @MaxLength(MAX_PASSWORD_LENGTH)
   @IsString()
-  password: string;
+  password?: string;
 
   @BeforeUpdate()
   async updateUser() {
-    if (this.password.length <= MAX_PASSWORD_LENGTH) {
-      this.password = bcrypt.hashSync(this.password, 10);
+    if ((this.password??'').length <= MAX_PASSWORD_LENGTH) {
+      this.password = bcrypt.hashSync(this.password??'', 10);
     }
     this.email = this.email.toLowerCase();
     this.first_name = this.first_name.toLowerCase();
@@ -80,11 +80,11 @@ export class UserEntity extends AbstractEntity {
     this.email = this.email.toLowerCase();
     this.first_name = this.first_name.toLowerCase();
     this.last_name = this.last_name.toLowerCase();
-    this.password = bcrypt.hashSync(this.password, 10);
+    this.password = bcrypt.hashSync(this.password?? '', 10);
   }
 
   comparePassword(attemptedPassword: string): boolean {
-    return bcrypt.compareSync(attemptedPassword, this.password);
+    return bcrypt.compareSync(attemptedPassword, this.password??'');
   }
 
   liteUser() {

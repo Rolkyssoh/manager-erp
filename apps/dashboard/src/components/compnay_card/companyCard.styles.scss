@@ -1,0 +1,23 @@
+.company-card {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  width: 350px;
+  background-color: brown;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  border-radius: 10px;
+}
+.company-image {
+  display: flex;
+  justify-content: center;
+}
+.company-text {
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}

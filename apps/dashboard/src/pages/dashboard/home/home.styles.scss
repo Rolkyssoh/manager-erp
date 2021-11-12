@@ -1,0 +1,68 @@
+.homepage {
+  position: relative;
+  //   background-color: red;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+}
+.homebody {
+}
+.searchzone {
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+  // background-color: #f8e5ab;
+  padding: 20px;
+}
+.home-indication {
+  font-size: 50px;
+  font-weight: bolder;
+  // justify-content: center;
+  // background-color: red;
+  text-align: center;
+  margin: 25px;
+}
+.search-barre {
+  width: 40%;
+  background-color: white;
+  margin: 30px;
+  height: 50px;
+}
+
+.search-zone-items {
+  // background-color: green;
+  width: 40%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px;
+  align-items: center;
+}
+.company-item {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  margin: 6px;
+}
+.productszone {
+  //   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  //   flex-direction: column;
+  justify-content: space-between;
+  padding-top: 30px;
+  padding-left: 110px;
+  padding-right: 110px;
+}
+.footer {
+  background-color: darkslategrey;
+  display: flex;
+  justify-content: center;
+}

@@ -5,9 +5,8 @@ import { blackAndWhiteTheme } from './theme';
 import { initializeIcons, loadTheme } from '@fluentui/react';
 import App from './app/app';
 
-loadTheme(blackAndWhiteTheme)
-initializeIcons()
-
+loadTheme(blackAndWhiteTheme);
+initializeIcons();
 
 ReactDOM.render(
   <StrictMode>

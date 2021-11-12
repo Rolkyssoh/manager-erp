@@ -7,9 +7,7 @@ import { Route, Link, Routes } from 'react-router-dom';
 import { EntryRoutesPage } from '../pages';
 
 export function App() {
-  return (
-    <EntryRoutesPage />
-  );
+  return <EntryRoutesPage />;
 }
 
 export default App;

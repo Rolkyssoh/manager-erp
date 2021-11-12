@@ -1,0 +1,112 @@
+.comapny-body {
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  // background-color: forestgreen;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.products-side {
+  // background-color: darkturquoise;
+  display: grid;
+  grid-template-rows: 220px auto;
+}
+.company-header-container {
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 35px;
+  margin: 20px 0;
+}
+.company-name {
+  font-size: 50px;
+  font-weight: bolder;
+}
+.company-subtitle {
+  font-size: 18px;
+}
+.products-items {
+  // background-color: white;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  // margin: 20px 0;
+}
+.nav-menu {
+  background-color: white;
+  overflow: hidden;
+  overflow-y: scroll;
+  width: 175px;
+  // margin-right: 25px;
+  padding: 5px;
+}
+.render-part {
+}
+.search-bar {
+  height: 30px;
+}
+.items {
+  // background-color: hotpink;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 25px;
+  justify-content: space-between;
+}
+
+.command-box {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: space-evenly;
+  height: 450px;
+  border-radius: 20px;
+  margin: 20px 0 0 20px;
+  // overflow: hidden;
+}
+.box-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 35px;
+}
+.box-title {
+  font-size: 25px;
+  font-weight: bolder;
+}
+.box-subtitle {
+  font-weight: lighter;
+}
+.box-body {
+  overflow: hidden;
+  overflow-y: scroll;
+  margin: 0 20px 20px 20px;
+  // padding-bottom: 5px;
+}
+@media (width < 1024px) {
+  .command-box {
+    // width: 0;
+    // height: 0;
+    display: none;
+  }
+  .comapny-body {
+    grid-template-columns: auto;
+  }
+  // .box-title {
+  //   font-size: 0;
+  // }
+  // .box-subtitle {
+  //   font-size: 0;
+  // }
+}
+
+@media (width < 601px) {
+  .nav-menu {
+    // width: 0;
+    // font-size: 0;
+    display: none;
+  }
+  .products-items {
+    grid-template-columns: auto;
+  }
+}

@@ -1,0 +1,24 @@
+.header {
+  background-color: chocolate;
+  height: 100px;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+.brand {
+  background-color: cornsilk;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.first-search-bar {
+  background-color: darkgoldenrod;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menu-item {
+  background-color: darkorchid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

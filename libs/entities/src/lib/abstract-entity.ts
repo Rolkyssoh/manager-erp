@@ -16,7 +16,7 @@ export abstract class AbstractEntity {
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  created_at: Date;
+  created_at?: Date;
 
   @UpdateDateColumn({
     type: 'timestamptz',
@@ -29,7 +29,7 @@ export abstract class AbstractEntity {
   disabled: boolean;
 
   @DeleteDateColumn()
-  deleted_at: Date;
+  deleted_at?: Date;
 
   toJSON(): any {
     return classToPlain(this);

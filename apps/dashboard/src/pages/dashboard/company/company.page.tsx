@@ -2,7 +2,7 @@ import {
   HeaderComponent,
   OrderedPrductCardComponent,
   ProductCardComponent,
-} from 'apps/dashboard/src/components';
+} from '../../../components';
 import React, { useState } from 'react';
 import { RouteProps } from 'react-router';
 

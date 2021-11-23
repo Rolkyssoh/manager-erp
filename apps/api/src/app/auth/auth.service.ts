@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { RoleEntity, UserEntity } from '@merp/entities';
 import { JwtService } from '@nestjs/jwt';
 import { CUSTOMER } from '@merp/constants';
+import { LoginDtoOut } from '@merp/dto';
 
 export class LoginInfo {
   email: string;
@@ -33,7 +34,7 @@ export class AuthService {
     return this._userRepo.find();
   }
 
-  async login(data: LoginInfo) {
+  async login(data: LoginInfo) : Promise<LoginDtoOut> {
     const user = await this._userRepo.findOne({
       where: { email: data.email.toLowerCase() },
     });
@@ -58,9 +59,9 @@ export class AuthService {
     const token = await this._jwt.sign(payload);
 
     const returnData = {
-      ...user.liteUser(),
+      user: user.liteUser(),
       token,
-    };
+    } as unknown as LoginDtoOut;
 
     return returnData;
   }

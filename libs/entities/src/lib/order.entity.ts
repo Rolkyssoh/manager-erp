@@ -7,11 +7,11 @@ import { ProductsToOrdersEntity } from './ProductOrder.entity';
 export class OrderEntity extends AbstractEntity {
   static newOrderEntity(PartialOrder: Partial<OrderEntity>) {
     const order = new OrderEntity();
-    order.order_status = PartialOrder.order_status;
-    order.delivery_date = PartialOrder.delivery_date;
-    order.delivery_address = PartialOrder.delivery_address;
-    order.products_to_orders = PartialOrder.products_to_orders;
-    order.user = PartialOrder.user;
+    if(PartialOrder.order_status) order.order_status = PartialOrder.order_status;
+    if(PartialOrder.delivery_date) order.delivery_date = PartialOrder.delivery_date;
+    if(PartialOrder.delivery_address) order.delivery_address = PartialOrder.delivery_address;
+    if(PartialOrder.products_to_orders) order.products_to_orders = PartialOrder.products_to_orders;
+    if(PartialOrder.user) order.user = PartialOrder.user;
     return order;
   }
 

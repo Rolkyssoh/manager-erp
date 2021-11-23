@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { blackAndWhiteTheme } from './theme';
 import { initializeIcons, loadTheme } from '@fluentui/react';
 import App from './app/app';
+import "./styles.scss"
 
 loadTheme(blackAndWhiteTheme);
 initializeIcons();

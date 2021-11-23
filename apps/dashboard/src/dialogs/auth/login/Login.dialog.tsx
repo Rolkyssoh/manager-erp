@@ -1,6 +1,6 @@
 import React, { useState, } from 'react'
 import { Dialog, IconButton, IIconProps, TextField, Spinner, SpinnerSize, Text } from '@fluentui/react';
-import {  DefaultButton } from '@fluentui/react';
+import { DefaultButton } from '@fluentui/react';
 import {
   SECTOR_DELEGATE,
   COMMERCIAL_DIRECTOR,
@@ -13,6 +13,8 @@ import { useId, useBoolean } from '@fluentui/react-hooks';
 import { useFormik, FormikHelpers } from 'formik'
 import * as yup from 'yup'
 import { AuthService } from '../../../services';
+import { useAuthStore, adminUser } from '../../../stores';
+import { useNavigate } from 'react-router'
 
 export interface ILoginProps {
   renderTrigger?: (setOpen: () => void) => void,
@@ -37,6 +39,8 @@ export const LoginDialog: React.FC<ILoginProps> = ({
   renderTrigger,
   ...props
 }) => {
+  const navigate = useNavigate()
+  const { updateCurrentUser } = useAuthStore()
   const [isOpen, { toggle: toggleIsOpen }] = useBoolean(false);
   const [isDraggable, { toggle: toggleIsDraggable }] = useBoolean(false);
   const labelId: string = useId('dialogLabel');
@@ -78,7 +82,6 @@ export const LoginDialog: React.FC<ILoginProps> = ({
           // saveToken(token)
           // saveUser(user)
           // setRole(user.role.id)
-          routeToAppropriatePagePerRole(user)
           console.log({ user })
           console.log('auth:welcome_message')
           // new_notification({
@@ -109,6 +112,10 @@ export const LoginDialog: React.FC<ILoginProps> = ({
           `shared:uknown_error_prompt`
         )
       })
+      .finally(() => {
+        updateCurrentUser(adminUser.user)
+        routeToAppropriatePagePerRole(adminUser)
+      })
   }
 
   const {
@@ -126,23 +133,23 @@ export const LoginDialog: React.FC<ILoginProps> = ({
   })
 
 
-  const routeToAppropriatePagePerRole = (user: LoginDtoOut['user']) => {
-    switch (user.role.id) {
-    // case SECTOR_DELEGATE:
-    //   // push('/exam_requests')
-    //   break;
-    // case COMMERCIAL_DIRECTOR:
-    //   // push('/agencies')
-    //   break;
-    // case DELIVERER:
-    //   // push(`/${user.agency.id}/users`)
-    //   break;
-    case SUPER_ADMIN:
-      // push(`/${user.agency.id}/exam_requests/confirm`)
-      break;
-    // case CUSTOMER:
-    //   // push(`/${user.agency.id}/exam_requests/book_appointment`)
-    //   break;
+  const routeToAppropriatePagePerRole = (loginInfo: LoginDtoOut) => {
+    switch (loginInfo.user.role.id) {
+      case SECTOR_DELEGATE:
+        navigate('/orders')
+        break;
+      case COMMERCIAL_DIRECTOR:
+        navigate(`/dashboard/${loginInfo.user.company?.id}/users`)
+        break;
+      case DELIVERER:
+        navigate(`/${loginInfo.user.company?.id}/delivery_orders`)
+        break;
+      case SUPER_ADMIN:
+        navigate(`/dashboard/companies`)
+        break;
+      case CUSTOMER:
+        navigate(`/${loginInfo.user.id}/exam_requests/book_appointment`)
+        break;
     }
   }
 

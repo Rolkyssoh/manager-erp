@@ -16,11 +16,7 @@ export interface IHomePageProps extends RouteProps {
 export const HomePage: React.FC<IHomePageProps> = () => {
   return (
     <div className="homepage">
-      <LoginDialog
-        renderTrigger={(trigger) => (
-          <PrimaryButton onClick={trigger} text="Send" className='singing' />
-        )}
-      />
+      home page
 
       {/* <HeaderComponent />
       <div className="homebody">

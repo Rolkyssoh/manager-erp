@@ -6,3 +6,5 @@ export * from './dashboard/dashboard-shell/DashboardShell.page';
 export * from './entry-routes/EntryRoutes.page';
 export * from './public-pages/home/Home.page';
 export * from './dashboard/company/company.page';
+export * from './dashboard/users/User.page'
+export * from './dashboard/user-details/UserDetails.page'

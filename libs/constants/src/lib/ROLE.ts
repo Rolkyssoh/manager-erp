@@ -10,4 +10,6 @@ export const ROLES = [
   SUPER_ADMIN,
   COMMERCIAL_DIRECTOR,
   CUSTOMER,
-];
+] as const;
+
+export type IRole = typeof ROLES[number]

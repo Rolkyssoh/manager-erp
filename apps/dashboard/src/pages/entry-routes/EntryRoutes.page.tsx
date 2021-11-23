@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Navigate, Route, RouteProps, Routes } from 'react-router';
+import React from 'react';
+import { Navigate, Route, Routes } from 'react-router';
 import {
   AuthShellPage,
   DashboardShellPage,

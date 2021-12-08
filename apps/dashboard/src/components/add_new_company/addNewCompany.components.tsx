@@ -8,10 +8,12 @@ import {
 } from '@fluentui/react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import CompanyService from '../../services/company.service';
+import { CompanyService } from '../../services';
+import { ICompany } from '@merp/entities';
+import { NewCompanyDtoIn } from '@merp/dto';
 
 export interface IAddNewCompanyProps {
-  default_props?: boolean;
+  onCreate: (_: NewCompanyDtoIn) => void;
 }
 
 interface IAddNewCompany {
@@ -34,7 +36,7 @@ const validationSchema = yup.object().shape({
   last_name: yup.string().required(),
 });
 
-export const AddNewCompanyComponent: React.FC<IAddNewCompanyProps> = () => {
+export const AddNewCompanyComponent: React.FC<IAddNewCompanyProps> = (props) => {
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const onSubmit = async (value: IAddNewCompany) => {
@@ -43,7 +45,11 @@ export const AddNewCompanyComponent: React.FC<IAddNewCompanyProps> = () => {
     console.log('the localStorage:', localStorage.getItem('access_token'));
     CompanyService.new_company(value)
       .then(async (response) => {
-        console.log({ response });
+        if (response.status !== 200)
+          //@TODO #4
+          console.log({ response });
+        const data = await response.json() as NewCompanyDtoIn
+        props.onCreate(data)
       })
       .catch((err) => {
         console.log({ err });

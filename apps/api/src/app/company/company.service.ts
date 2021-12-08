@@ -1,5 +1,5 @@
 import { COMMERCIAL_DIRECTOR } from '@merp/constants';
-import { NewCompanyDto } from '@merp/dto';
+import { CompaniesDtoIn, NewCompanyDto, NewCompanyDtoIn } from '@merp/dto';
 import { CompanyEntity, RoleEntity, UserEntity } from '@merp/entities';
 import {
   ConflictException,
@@ -16,9 +16,16 @@ export class CompanyService {
     private _companyRepo: Repository<CompanyEntity>,
     @InjectRepository(UserEntity)
     private _userRepo: Repository<UserEntity>
-  ) {}
+  ) { }
 
-  async newCompany(data: NewCompanyDto, commDirector: UserEntity) {
+  async getCompanies(): Promise<CompaniesDtoIn> {
+    const [companies, count] = await this._companyRepo.findAndCount()
+    return {
+      companies, count
+    }
+  }
+
+  async newCompany(data: NewCompanyDto, commDirector: UserEntity): Promise<NewCompanyDtoIn> {
     const company = CompanyEntity.newCompanyEntity({
       company_name: data.company_name,
       company_phone_number: data.company_phone_number,
@@ -37,7 +44,7 @@ export class CompanyService {
         company,
       });
       const userCreated = await this._userRepo.save(user);
-      return userCreated;
+      return { company, user: userCreated };
     } catch (error) {
       // Duplicate company_name or company_phone_number
       if (error.code === '23505') {
@@ -94,17 +101,13 @@ export class CompanyService {
   async disableCompany(id: string) {
     const company = await this.getCompanyById(id);
     console.log('the company to disable:', company);
-    if (!Boolean(company.disabled)) {
-      company.disabled = !company.disabled;
-    }
+    company.disabled = true;
     return this._companyRepo.save(company);
   }
 
   async enableCompany(id: string) {
     const company = await this.getCompanyById(id);
-    if (Boolean(company.disabled)) {
-      company.disabled = false;
-    }
+    company.disabled = false;
     return this._companyRepo.save(company);
   }
 }

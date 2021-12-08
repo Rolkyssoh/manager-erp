@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Patch,
   Post,
@@ -12,17 +13,24 @@ import { AuthGuard } from '@nestjs/passport';
 import { RoleValidationGuard } from '../auth/role-validation.guard';
 import { User } from '../auth/user.decorator';
 import { CompanyService } from './company.service';
-import { NewCompanyDto } from '@merp/dto';
+import { CompaniesDtoIn, NewCompanyDto } from '@merp/dto';
 import { COMMERCIAL_DIRECTOR, SUPER_ADMIN } from '@merp/constants';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('/company')
+@ApiTags('Companies')
 export class CompanyController {
-  constructor(private readonly companyService: CompanyService) {}
+  constructor(private readonly companyService: CompanyService) { }
+
+  @Get('')
+  @UseGuards(AuthGuard(), new RoleValidationGuard())
+  getCompanies(): Promise<CompaniesDtoIn> {
+    return this.companyService.getCompanies()
+  }
 
   @Post('add')
   @UseGuards(AuthGuard(), new RoleValidationGuard())
   newCompany(@Body() data: NewCompanyDto, @User() commDirector: UserEntity) {
-    // console.log(commDirector);
     return this.companyService.newCompany(data, commDirector);
   }
 

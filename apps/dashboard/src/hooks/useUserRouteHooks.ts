@@ -9,8 +9,7 @@ import { useEffect, useState } from 'react';
 import { IRoute } from '../components';
 import {
   UsersPage,
-  UserDetailsPage,
-  ManageCompaniesPage,
+  CompaniesPage,
   ManageCompanyUsersPage,
   ManageCompanyOperationsPage,
   ManageCompanyOrdersPage,
@@ -31,7 +30,7 @@ export function useUserRouteHooks() {
       path: `compagnies`,
       label: 'Entreprises',
       icon: 'la-id-badge',
-      component: ManageCompaniesPage,
+      component: CompaniesPage,
       roles: [SUPER_ADMIN],
     },
 

@@ -17,8 +17,8 @@ export const userUrls = {
 
 export const companyUrls = {
   ADD_NEW_COMPANY: `${prefixer}company/add`,
-  // UPDATE_COMPANY: (id: string) => `${prefixer}companies/${id}`,
-  // TOGGLE_DISABLE_COMPANY: (id: string) => `${prefixer}companies/disable/${id}`,
-  // LIST_AGENCIES: `${prefixer}companies`,
-  // DELETE_COMPANY: (id: string) => `${prefixer}companies/${id}`,
+  GET_COMPANIES: `${prefixer}company`,
+  DELETE_COMPANY: (id: string) => `${prefixer}company/${id}`,
+  DISABLE_COMPANY: (id: string) => `${prefixer}company/${id}/disable`,
+  ENABLE_COMPANY: (id: string) => `${prefixer}company/${id}/enable`,
 };

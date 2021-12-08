@@ -22,8 +22,6 @@ export const DashboardShellPage: React.FC<IDashboardShellPageProps> = () => {
               element={<route.component />}
             />
           ))}
-          {/* <Route path="*" element={<Navigate to={permittedRoutes[0].path} />} /> */}
-          {/* <Route path="/companyId/userId" /> */}
         </Routes>
       </section>
     </main>

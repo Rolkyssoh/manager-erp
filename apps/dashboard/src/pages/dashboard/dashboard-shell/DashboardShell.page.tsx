@@ -8,16 +8,22 @@ export interface IDashboardShellPageProps extends RouteProps {
 }
 
 export const DashboardShellPage: React.FC<IDashboardShellPageProps> = () => {
-  const permittedRoutes = useUserRouteHooks()
+  const permittedRoutes = useUserRouteHooks();
+  console.log({ permittedRoutes });
   return (
-    <main className='dashboard__shell'>
+    <main className="dashboard__shell">
       <SidenavComponent />
       <section className="dashboard__content">
         <Routes>
-          {permittedRoutes.map(route => (
-            <Route path={route.path} element={<route.component />} />
+          {permittedRoutes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<route.component />}
+            />
           ))}
-          <Route path="*" element={<Navigate to={permittedRoutes[0].path} />} />
+          {/* <Route path="*" element={<Navigate to={permittedRoutes[0].path} />} /> */}
+          {/* <Route path="/companyId/userId" /> */}
         </Routes>
       </section>
     </main>

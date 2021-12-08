@@ -1,5 +1,13 @@
-import React, { useState, } from 'react'
-import { Dialog, IconButton, IIconProps, TextField, Spinner, SpinnerSize, Text } from '@fluentui/react';
+import React, { useState } from 'react';
+import {
+  Dialog,
+  IconButton,
+  IIconProps,
+  TextField,
+  Spinner,
+  SpinnerSize,
+  Text,
+} from '@fluentui/react';
 import { DefaultButton } from '@fluentui/react';
 import {
   SECTOR_DELEGATE,
@@ -8,17 +16,21 @@ import {
   SUPER_ADMIN,
   CUSTOMER,
 } from '@merp/constants';
-import { LoginDtoOut } from '@merp/dto'
+import { LoginDtoOut } from '@merp/dto';
 import { useId, useBoolean } from '@fluentui/react-hooks';
-import { useFormik, FormikHelpers } from 'formik'
-import * as yup from 'yup'
+import { useFormik, FormikHelpers } from 'formik';
+import * as yup from 'yup';
 import { AuthService } from '../../../services';
-import { useAuthStore, adminUser } from '../../../stores';
-import { useNavigate } from 'react-router'
+import {
+  useAuthStore,
+  // adminUser
+} from '../../../stores';
+import { useNavigate } from 'react-router';
+import { userInfo } from 'os';
 
 export interface ILoginProps {
-  renderTrigger?: (setOpen: () => void) => void,
-  open?: boolean,
+  renderTrigger?: (setOpen: () => void) => void;
+  open?: boolean;
 }
 
 interface ILogin {
@@ -27,36 +39,36 @@ interface ILogin {
 }
 
 const validationSchema = yup.object().shape({
-  email: yup.string().required("auth:username_required"),
-  password: yup.string().required("auth:password_required"),
-})
-
+  email: yup.string().required('auth:username_required'),
+  password: yup.string().required('auth:password_required'),
+});
 
 const cancelIcon: IIconProps = { iconName: 'Cancel' };
-
 
 export const LoginDialog: React.FC<ILoginProps> = ({
   renderTrigger,
   ...props
 }) => {
-  const navigate = useNavigate()
-  const { updateCurrentUser } = useAuthStore()
+  const navigate = useNavigate();
+  const { updateCurrentUser, updateToken } = useAuthStore();
   const [isOpen, { toggle: toggleIsOpen }] = useBoolean(false);
   const [isDraggable, { toggle: toggleIsDraggable }] = useBoolean(false);
   const labelId: string = useId('dialogLabel');
   const subTextId: string = useId('subTextLabel');
   const titleId = useId('Login');
-  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-
-  const onSubmit = async (value: ILogin, { setSubmitting }: FormikHelpers<ILogin>) => {
+  const onSubmit = async (
+    value: ILogin,
+    { setSubmitting }: FormikHelpers<ILogin>
+  ) => {
     // setErrorMessage('')
     AuthService.login(value)
-      .then(async response => {
+      .then(async (response) => {
         if ([200, 201].includes(response.status)) {
-          const { user, token } = await response.json() as LoginDtoOut
+          const { user, token } = (await response.json()) as LoginDtoOut;
           if (user.disabled) {
-            console.log('auth:user_disabled')
+            console.log('auth:user_disabled');
             // new_notification({
             //   title: 'Oooppsss!',
             //   message: 'auth:user_disabled',
@@ -65,10 +77,10 @@ export const LoginDialog: React.FC<ILoginProps> = ({
             //   shouldTranslate: true,
             //   durationMillis: 10000,
             // })
-            return
+            return;
           }
           if (user.company && user.company.disabled) {
-            console.log('auth:org_disabled')
+            console.log('auth:org_disabled');
             // new_notification({
             //   title: 'Oooppsss!',
             //   message: 'auth:org_disabled',
@@ -77,13 +89,15 @@ export const LoginDialog: React.FC<ILoginProps> = ({
             //   shouldTranslate: true,
             //   durationMillis: 10000,
             // })
-            return
+            return;
           }
-          // saveToken(token)
-          // saveUser(user)
+
+          routeToAppropriatePagePerRole(user);
+          updateCurrentUser(user);
+          updateToken(token);
           // setRole(user.role.id)
-          console.log({ user })
-          console.log('auth:welcome_message')
+          console.log({ user });
+          console.log('auth:welcome_messag e');
           // new_notification({
           //   title: 'auth:login_welcome',
           //   message: 'auth:welcome_message',
@@ -93,69 +107,61 @@ export const LoginDialog: React.FC<ILoginProps> = ({
           //   durationMillis: 3000,
           // })
         } else if ([404, 401].includes(response.status)) {
-          setErrorMessage(
-            'auth:no_username_password_match'
-          )
-          const { message } = await response.json()
-          console.log({ message })
+          setErrorMessage('auth:no_username_password_match');
+          const { message } = await response.json();
+          console.log({ message });
         } else if ([500, 504].includes(response.status)) {
-          const { message } = await response.json()
-          console.log({ message })
-          setErrorMessage(
-            `code: 500. ${message}`
-          )
+          const { message } = await response.json();
+          console.log({ message });
+          setErrorMessage(`code: 500. ${message}`);
         }
       })
-      .catch(err => {
-        console.log({ err })
-        setErrorMessage(
-          `shared:uknown_error_prompt`
-        )
-      })
-      .finally(() => {
-        updateCurrentUser(adminUser.user)
-        routeToAppropriatePagePerRole(adminUser)
-      })
-  }
+      .catch((err) => {
+        console.log({ err });
+        setErrorMessage(`shared:uknown_error_prompt`);
+      });
+  };
 
   const {
-    values, handleChange,
-    handleBlur, touched,
-    errors, handleSubmit,
+    values,
+    handleChange,
+    handleBlur,
+    touched,
+    errors,
+    handleSubmit,
     isSubmitting,
   } = useFormik<ILogin>({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     validationSchema,
     onSubmit,
-  })
+  });
 
-
-  const routeToAppropriatePagePerRole = (loginInfo: LoginDtoOut) => {
-    switch (loginInfo.user.role.id) {
+  const routeToAppropriatePagePerRole = (user: LoginDtoOut['user']) => {
+    switch (user.role.id) {
       case SECTOR_DELEGATE:
-        navigate('/orders')
+        navigate(`/dashboard/${user.company?.id}/${user?.id}`);
         break;
       case COMMERCIAL_DIRECTOR:
-        navigate(`/dashboard/${loginInfo.user.company?.id}/users`)
+        navigate(`/dashboard/${user.company?.id}/${user?.id}`);
         break;
       case DELIVERER:
-        navigate(`/${loginInfo.user.company?.id}/delivery_orders`)
+        navigate(`/dashboard/${user.company?.id}/${user?.id}`);
         break;
       case SUPER_ADMIN:
-        navigate(`/dashboard/companies`)
+        navigate(`/dashboard/`);
         break;
       case CUSTOMER:
-        navigate(`/${loginInfo.user.id}/exam_requests/book_appointment`)
+        navigate(`/${user?.id}`);
         break;
     }
-  }
+  };
 
   const handleSignup = () => {
-    console.log('handling signup')
-  }
+    console.log('handling signup');
+  };
 
   return (
     <>
@@ -168,7 +174,7 @@ export const LoginDialog: React.FC<ILoginProps> = ({
       >
         <form onSubmit={handleSubmit}>
           <div className="modal__header">
-            <Text variant='xLarge'>Se connecter</Text>
+            <Text variant="xLarge">Se connecter</Text>
             <IconButton
               iconProps={cancelIcon}
               ariaLabel="Close popup modal"
@@ -179,7 +185,7 @@ export const LoginDialog: React.FC<ILoginProps> = ({
             <p
               style={{
                 fontSize: 16,
-                textDecoration: 'underline'
+                textDecoration: 'underline',
               }}
               onClick={handleSignup}
             >
@@ -193,7 +199,7 @@ export const LoginDialog: React.FC<ILoginProps> = ({
               name="email"
             />
             <TextField
-              type='password'
+              type="password"
               label={'Mot de passe'}
               value={values.password}
               onChange={handleChange}
@@ -207,7 +213,7 @@ export const LoginDialog: React.FC<ILoginProps> = ({
               // }
               text={'Se connecter'}
               disabled={isSubmitting}
-              type='submit'
+              type="submit"
             >
               {isSubmitting && <Spinner size={SpinnerSize.xSmall} />}
             </DefaultButton>
@@ -215,5 +221,5 @@ export const LoginDialog: React.FC<ILoginProps> = ({
         </form>
       </Dialog>
     </>
-  )
-}
+  );
+};

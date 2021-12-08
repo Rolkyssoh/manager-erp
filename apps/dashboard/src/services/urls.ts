@@ -1,10 +1,24 @@
 // import config from 'config'
 // /*Urls for the application */
-export const prefixer = 'api/v1/';
+export const prefixer = 'http://127.0.0.1:3000/api/v1/';
 
 export const authUrls = {
   LOGIN_USER: `${prefixer}auth/login`,
-  LOGIN_BY_OTP: (agency_id:string) => `${prefixer}auth/${agency_id}/login`,
-  REQUEST_OTP: (agency_id:string) => `${prefixer}auth/${agency_id}/send/otp`,
+  LOGIN_BY_OTP: (agency_id: string) => `${prefixer}auth/${agency_id}/login`,
+  REQUEST_OTP: (agency_id: string) => `${prefixer}auth/${agency_id}/send/otp`,
   CURRENT_USER: `${prefixer}auth/logged?refresh_token=${true}`,
-}
+};
+
+export const userUrls = {
+  NEW_SECTOR_DELEGATE: `${prefixer}user/delegate`,
+  NEW_DELIVERER: `${prefixer}user/deliverer`,
+  NEW_CUSTOMER: `${prefixer}user/customer`,
+};
+
+export const companyUrls = {
+  ADD_NEW_COMPANY: `${prefixer}company/add`,
+  // UPDATE_COMPANY: (id: string) => `${prefixer}companies/${id}`,
+  // TOGGLE_DISABLE_COMPANY: (id: string) => `${prefixer}companies/disable/${id}`,
+  // LIST_AGENCIES: `${prefixer}companies`,
+  // DELETE_COMPANY: (id: string) => `${prefixer}companies/${id}`,
+};

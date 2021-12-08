@@ -49,13 +49,13 @@
     align-items: center;
     margin-top: 16px;
     gap: 1.5em;
-    &--thin{
+    &--thin {
       padding: 0;
       grid-template-columns: 1fr;
       justify-items: flex-end;
       padding-top: 1.5em;
     }
-    &>*{
+    & > * {
       min-width: 120px;
     }
   }

@@ -1,0 +1,16 @@
+.add_companies_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2em;
+}
+.company_infos {
+  margin: 0 1em 0 0;
+}
+.infos_dr {
+  margin: 0 0 0 1em;
+}
+.text_style {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 1em 0;
+}

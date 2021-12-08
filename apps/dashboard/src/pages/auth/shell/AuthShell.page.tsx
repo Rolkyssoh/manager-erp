@@ -8,11 +8,11 @@ export interface IAuthShellPageProps extends RouteProps {
 
 export const AuthShellPage: React.FC<IAuthShellPageProps> = () => {
   return (
-      <Routes>
-        <Route path="login" element={<LoginPage />} />
-        <Route path="signup" element={<SignUpPage />} />
-        <Route path="*" element={<Navigate to="login" />}/>
-        <Route path="reset_password" element={<ResetPasswordPage />} />
-      </Routes>
+    <Routes>
+      <Route path="login" element={<LoginPage />} />
+      <Route path="signup" element={<SignUpPage />} />
+      <Route path="*" element={<Navigate to="login" />} />
+      <Route path="reset_password" element={<ResetPasswordPage />} />
+    </Routes>
   );
 };

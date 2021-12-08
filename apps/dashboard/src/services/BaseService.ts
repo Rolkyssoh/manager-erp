@@ -1,149 +1,173 @@
 // import fetch from "isomorphic-fetch";
 //require("es6-promise").polyfill();
 
-import { stringify } from "querystring";
+import { stringify } from 'querystring';
 
 // require('isomorphic-fetch');
 class BaseService {
   static getHeaders = (isFile?: boolean) => {
+    console.log('on entre bien dans le getHeaders!!!!!');
     const headers = new Headers();
     if (!isFile) {
-      headers.append("Content-Type", "application/json");
+      headers.append('Content-Type', 'application/json');
     }
-    headers.append("Accept", "application/json");
-    headers.append("Access-Control-Allow-Origin", "*");
-    headers.append("Origin", "*");
-    headers.append("Credentials", "same-origin");
+    headers.append('Accept', 'application/json');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Origin', '*');
+    headers.append('Credentials', 'same-origin');
     //headers.append("Access-Control-Request-Headers", "X-Custom-Header");
-    const lang = localStorage.getItem("lang")
-      ? (localStorage.getItem("lang") || '').toString()
-      : "en";
-    headers.append("lang", lang);
+    // const lang = localStorage.getItem('lang')
+    //   ? (localStorage.getItem('lang') || '').toString()
+    //   : 'en';
+    // headers.append('lang', lang);
     return headers;
   };
 
   static getHeadersAuth = (isFile?: boolean) => {
     const headers = BaseService.getHeaders(isFile);
-    const token = localStorage.getItem("access_token")
-      ? (localStorage.getItem("access_token") || '').toString()
+    const token = localStorage.getItem('access_token')
+      ? (localStorage.getItem('access_token') || '').toString()
       : '';
+    console.log('nous sommes bien dans le getHeadersAuth', JSON.parse(token));
     // if (token === '') {
     //     window.location.pathname = `/auth/login/?redirect=${window.location.pathname}`
     // }
-    headers.append("Authorization", `Bearer ${token}`);
+    headers.append('Authorization', `Bearer ${JSON.parse(token)}`);
     return headers;
   };
 
-
   static getToken = () => {
-    return (localStorage.getItem("access_token") || '').toString();
+    return (localStorage.getItem('access_token') || '').toString();
   };
 
-  static postRequest = async (url: string, body: unknown, required_auth: boolean) => {
+  static postRequest = async (
+    url: string,
+    body: unknown,
+    required_auth: boolean
+  ) => {
+    console.log('Nous sommes dans le post request', required_auth);
     const head = required_auth
       ? BaseService.getHeadersAuth()
       : BaseService.getHeaders();
 
     const headers = {
-      method: "POST",
+      method: 'POST',
       headers: head,
-      mode: "cors" as RequestMode,
-      cache: "default" as RequestCache,
-      body: JSON.stringify(body)
+      mode: 'cors' as RequestMode,
+      cache: 'default' as RequestCache,
+      body: JSON.stringify(body),
     };
 
-    return fetch(url, headers)
+    return fetch(url, headers);
   };
 
-  static postFileRequest = async (url: string, body: unknown, required_auth: boolean) => {
+  static postFileRequest = async (
+    url: string,
+    body: unknown,
+    required_auth: boolean
+  ) => {
     const head = required_auth
       ? BaseService.getHeadersAuth(true)
       : BaseService.getHeaders(true);
 
     const headers = {
-      method: "POST",
+      method: 'POST',
       headers: head,
-      mode: "cors" as RequestMode,
-      cache: "default" as RequestCache,
+      mode: 'cors' as RequestMode,
+      cache: 'default' as RequestCache,
       body: body as string,
     };
     const response = await fetch(url, headers)
-      .then(response => {
+      .then((response) => {
         return response;
       })
-      .catch(err => {
+      .catch((err) => {
         return err;
       });
     return response;
   };
 
-  static putFileRequest = async (url: string, body: unknown, required_auth: boolean) => {
+  static putFileRequest = async (
+    url: string,
+    body: unknown,
+    required_auth: boolean
+  ) => {
     const head = required_auth
       ? BaseService.getHeadersAuth(true)
       : BaseService.getHeaders(true);
 
     const headers = {
-      method: "PUT",
+      method: 'PUT',
       headers: head,
-      mode: "cors" as RequestMode,
-      cache: "default" as RequestCache,
+      mode: 'cors' as RequestMode,
+      cache: 'default' as RequestCache,
       body: body as string,
     };
     const response = await fetch(url, headers)
-      .then(response => {
+      .then((response) => {
         return response;
       })
-      .catch(err => {
+      .catch((err) => {
         return err;
       });
     return response;
   };
 
-  static putRequest = async (url: string, body: unknown, required_auth: boolean) => {
+  static putRequest = async (
+    url: string,
+    body: unknown,
+    required_auth: boolean
+  ) => {
     const head = required_auth
       ? BaseService.getHeadersAuth()
       : BaseService.getHeaders();
 
     const headers = {
-      method: "PUT",
+      method: 'PUT',
       headers: head,
-      mode: "cors" as RequestMode,
-      cache: "default" as RequestCache,
-      body: JSON.stringify(body)
+      mode: 'cors' as RequestMode,
+      cache: 'default' as RequestCache,
+      body: JSON.stringify(body),
     };
-    return fetch(url, headers)
+    return fetch(url, headers);
   };
 
-
-  static patchRequest = async (url: string, body: unknown, required_auth: boolean) => {
+  static patchRequest = async (
+    url: string,
+    body: unknown,
+    required_auth: boolean
+  ) => {
     const head = required_auth
       ? BaseService.getHeadersAuth()
       : BaseService.getHeaders();
 
     const headers = {
-      method: "PATCH",
+      method: 'PATCH',
       headers: head,
-      mode: "cors" as RequestMode,
-      cache: "default" as RequestCache,
-      body: JSON.stringify(body)
+      mode: 'cors' as RequestMode,
+      cache: 'default' as RequestCache,
+      body: JSON.stringify(body),
     };
-    return fetch(url, headers)
+    return fetch(url, headers);
   };
 
-
-  static deconsteRequest = async (url: string, body: Record<string, string>, required_auth: boolean) => {
+  static deconsteRequest = async (
+    url: string,
+    body: Record<string, string>,
+    required_auth: boolean
+  ) => {
     const head = required_auth
       ? BaseService.getHeadersAuth()
       : BaseService.getHeaders();
 
     const headers = {
-      method: "DEconstE",
+      method: 'DEconstE',
       headers: head,
-      mode: "cors" as RequestMode,
-      cache: "default" as RequestCache,
-      body: JSON.stringify(body)
+      mode: 'cors' as RequestMode,
+      cache: 'default' as RequestCache,
+      body: JSON.stringify(body),
     };
-    return fetch(url, headers)
+    return fetch(url, headers);
   };
 
   static getRequest = async (url: string, required_auth: boolean) => {
@@ -152,12 +176,31 @@ class BaseService {
       : BaseService.getHeaders();
 
     const headers = {
-      method: "GET",
+      method: 'GET',
       headers: head,
-      mode: "cors" as RequestMode,
-      cache: "default" as RequestCache
+      mode: 'cors' as RequestMode,
+      cache: 'default' as RequestCache,
     };
-    return fetch(url, headers)
+    return fetch(url, headers);
+  };
+
+  static deleteRequest = async (
+    url: string,
+    body: unknown,
+    required_auth: boolean
+  ) => {
+    let head = required_auth
+      ? BaseService.getHeadersAuth()
+      : BaseService.getHeaders();
+
+    let headers = {
+      method: 'DELETE',
+      headers: head,
+      mode: 'cors' as RequestMode,
+      cache: 'default' as RequestCache,
+      body: JSON.stringify(body),
+    };
+    return fetch(url, headers);
   };
 }
 

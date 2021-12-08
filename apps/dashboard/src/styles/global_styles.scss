@@ -7,11 +7,16 @@
 //components
 @import './components/modal.component';
 @import './components/sidenav.component';
+@import './components/add-new-company.component';
+@import './components/add-new-user.component.scss';
 
 // pages
 @import './pages/Login.page';
 @import './pages/Dashboard.shell';
 @import './pages/Profile.page';
+@import './pages/ManageCompanies.page';
+@import './pages/ManageCompanyUsers';
+@import './pages//ManageCompanyDeliverer';
 
 html,
 body,

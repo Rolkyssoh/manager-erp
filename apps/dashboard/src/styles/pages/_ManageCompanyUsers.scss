@@ -1,0 +1,17 @@
+.container_manage_company_users {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+.add-new-user-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 2em;
+
+  padding: 2em;
+}
+
+.custom_search_bar {
+  display: 'flex';
+  justify-content: 'flex-end';
+  flex-direction: 'row';
+}

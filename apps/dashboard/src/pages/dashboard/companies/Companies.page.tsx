@@ -6,10 +6,10 @@ import {
 } from '@fluentui/react';
 import { useId } from '@fluentui/react-hooks'
 import { ICompany } from '@merp/entities';
-import { CompanyService } from './../../../../services'
+import { CompanyService } from '../../../services'
 import { CompaniesDtoIn, NewCompanyDtoIn } from '@merp/dto';
-import { CreateCompanyDialog } from '../../../../dialogs';
-import { CompanyComponent } from '../../../../components';
+import { CreateCompanyDialog } from '../../../dialogs';
+import { CompanyComponent } from '../../../components';
 
 export interface ICompaniesProps extends RouteProps {
   default_props?: boolean;

@@ -4,7 +4,6 @@ import { PrimaryButton, DefaultButton } from '@fluentui/react';
 import { hiddenContentStyle, mergeStyles } from '@fluentui/react';
 import { ContextualMenu } from '@fluentui/react';
 import { useId, useBoolean } from '@fluentui/react-hooks';
-// import { useIntl } from 'react-intl';
 
 export interface IConfirmActionProps {
   renderTrigger?: (

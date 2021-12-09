@@ -10,8 +10,8 @@ import {
   PivotItem,
   PrimaryButton,
 } from '@fluentui/react';
-import { AddUserDialog } from 'apps/dashboard/src/dialogs';
-import { CustomSearchBoxComponent } from 'apps/dashboard/src/components';
+import { AddUserDialog } from '../../../../dialogs';
+import { CustomSearchBoxComponent } from '../../../../components';
 
 export interface IManageCompanyUsersPageProps extends RouteProps {
   default_props?: boolean;

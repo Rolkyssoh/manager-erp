@@ -1,5 +1,5 @@
 // import { AgencyEntity, UserEntity } from '@clams/entities';
-import { CompanyEntity } from '@merp/entities';
+import { CompanyEntity, ICompany, IUser } from '@merp/entities';
 import { NewUserDto } from './user.dto';
 
 // export class AgencyDto {
@@ -15,10 +15,13 @@ export class NewCompanyDto extends NewUserDto {
   company_address: string;
 }
 
-// export class NewAgencyDtoIn {
-//   admin: UserEntity
-//   agency: AgencyEntity
-// }
+export interface NewCompanyDtoIn {
+  user: IUser,
+  company: ICompany,
+}
 
-// export class AgencyDtoIn extends AgencyEntity{}
-export class CompanyDtoIn extends CompanyEntity {}
+export interface CompaniesDtoIn {
+  companies: ICompany[]
+  count: number
+}
+

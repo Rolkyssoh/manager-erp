@@ -9,13 +9,13 @@ import {
 } from 'typeorm';
 import { IsOptional, MinLength, MaxLength, IsString } from 'class-validator';
 import { Exclude } from 'class-transformer';
-import { AbstractEntity } from './abstract-entity';
-import { RoleEntity } from '../';
+import { AbstractEntity } from '../abstract-entity';
+import { RoleEntity } from '../..';
 import * as bcrypt from 'bcryptjs';
-import { CompanyEntity } from './Company.entity';
-import { OrderEntity } from './order.entity';
-import { ProductEntity } from './product.entity';
-
+import { CompanyEntity } from '../company/Company.entity';
+import { OrderEntity } from '../order.entity';
+import { ProductEntity } from '../product.entity';
+import {IUser} from './User'
 export enum SEX {
   male = 'M',
   female = 'F',
@@ -25,7 +25,7 @@ const AUDIENCE = 1;
 const MAX_PASSWORD_LENGTH = 8;
 
 @Entity('users')
-export class UserEntity extends AbstractEntity {
+export class UserEntity extends AbstractEntity implements IUser{
   static newUserEntity(partialUser: Partial<UserEntity>) {
     const user = new UserEntity();
     if (partialUser.first_name) user.first_name = partialUser.first_name;

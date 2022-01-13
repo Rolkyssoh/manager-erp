@@ -40,12 +40,12 @@ export const ManageCompanyDelivererPage: React.FC<IManageCompanyDelivererProps> 
             <Label styles={labelStyles}>
               <div className="add-new-user-item">
                 {/* For Deliverer */}
-                <AddUserDialog
+                {/* <AddUserDialog
                   renderTrigger={(trigger) => (
                     <PrimaryButton onClick={trigger} text="Add New Deliverer" />
                   )}
                   formTitle="Deliverer"
-                />
+                /> */}
               </div>
             </Label>
           </PivotItem>

@@ -13,3 +13,6 @@ export * from './dashboard/commercial-director-pages/manage-company-orders/Manag
 export * from './dashboard/commercial-director-pages/manage-company-users/ManageCompanyUsers.page';
 export * from './dashboard/sector-delegate-pages/manage-company-deliverer/ManageCompanyDeliverer.page';
 export * from './dashboard/sector-delegate-pages/manage-company-operations/ManageCompanyOperations.page';
+export * from './dashboard/users/Users.page';
+export * from './dashboard/orders/Orders.page';
+export * from './dashboard/profile/UserProfile.page';

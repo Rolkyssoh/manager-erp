@@ -5,4 +5,8 @@ export * from './ordered_product_card/OrderedProductCard.components';
 export * from './sidenav/Sidenav.components';
 export * from './add_new_company/addNewCompany.components';
 export * from './custom_search_box/customSearchBox.components';
-export * from './company/Company.component'
+export * from './company/Company.component';
+export * from './user/User.component';
+export * from './management_dashboard/ManagementDashboard.components';
+export * from './order/Order.component';
+export * from './profil-nav/ProfileNav.components';

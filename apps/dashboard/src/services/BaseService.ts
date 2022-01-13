@@ -26,9 +26,12 @@ class BaseService {
   static getHeadersAuth = (isFile?: boolean) => {
     const headers = BaseService.getHeaders(isFile);
     const token = localStorage.getItem('access_token')
-      ? (localStorage.getItem('access_token') || '').toString()
+      ? localStorage.getItem('access_token') || ''
       : '';
-    console.log('nous sommes bien dans le getHeadersAuth', JSON.parse(token));
+    console.log(
+      'nous sommes bien dans le getHeadersAuth',
+      `Bearer ${JSON.parse(token)}`
+    );
     // if (token === '') {
     //     window.location.pathname = `/auth/login/?redirect=${window.location.pathname}`
     // }
@@ -45,7 +48,7 @@ class BaseService {
     body: unknown,
     required_auth: boolean
   ) => {
-    console.log('Nous sommes dans le post request', required_auth);
+    console.log('Nous sommes dans le post request', url, required_auth);
     const head = required_auth
       ? BaseService.getHeadersAuth()
       : BaseService.getHeaders();

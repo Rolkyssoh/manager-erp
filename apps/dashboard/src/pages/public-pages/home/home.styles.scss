@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
 
-  .singing{
+  .singing {
     max-width: 200px;
     justify-self: center;
     align-self: center;
@@ -29,11 +29,18 @@
   text-align: center;
   margin: 25px;
 }
-.search-barre {
+.home-action {
   width: 40%;
   background-color: white;
   margin: 30px;
   height: 50px;
+  border-radius: 3em;
+}
+.home-action-button {
+  width: 100%;
+  height: 100%;
+  border-radius: 3em;
+  font-size: 25px;
 }
 
 .search-zone-items {

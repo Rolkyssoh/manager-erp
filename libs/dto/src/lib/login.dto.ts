@@ -1,5 +1,4 @@
-import { CompanyEntity } from '@merp/entities';
-import { IRole } from '@merp/constants';
+import { CompanyEntity, RoleEntity } from '@merp/entities';
 
 export class LoginDtoIn {
   email: string;
@@ -13,10 +12,7 @@ export class LoginDtoOut {
     last_name: string;
     id: string;
     email: string;
-    role: {
-      id: IRole;
-      name: string;
-    };
+    role: { id: number; name: string };
     company?: Partial<CompanyEntity>;
     disabled?: boolean;
   };

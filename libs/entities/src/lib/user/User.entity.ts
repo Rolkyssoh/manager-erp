@@ -15,7 +15,7 @@ import * as bcrypt from 'bcryptjs';
 import { CompanyEntity } from '../company/Company.entity';
 import { OrderEntity } from '../order.entity';
 import { ProductEntity } from '../product.entity';
-import {IUser} from './User'
+import { IUser } from './User';
 export enum SEX {
   male = 'M',
   female = 'F',
@@ -25,7 +25,7 @@ const AUDIENCE = 1;
 const MAX_PASSWORD_LENGTH = 8;
 
 @Entity('users')
-export class UserEntity extends AbstractEntity implements IUser{
+export class UserEntity extends AbstractEntity implements IUser {
   static newUserEntity(partialUser: Partial<UserEntity>) {
     const user = new UserEntity();
     if (partialUser.first_name) user.first_name = partialUser.first_name;
@@ -67,8 +67,8 @@ export class UserEntity extends AbstractEntity implements IUser{
 
   @BeforeUpdate()
   async updateUser() {
-    if ((this.password??'').length <= MAX_PASSWORD_LENGTH) {
-      this.password = bcrypt.hashSync(this.password??'', 10);
+    if ((this.password ?? '').length <= MAX_PASSWORD_LENGTH) {
+      this.password = bcrypt.hashSync(this.password ?? '', 10);
     }
     this.email = this.email.toLowerCase();
     this.first_name = this.first_name.toLowerCase();
@@ -80,11 +80,11 @@ export class UserEntity extends AbstractEntity implements IUser{
     this.email = this.email.toLowerCase();
     this.first_name = this.first_name.toLowerCase();
     this.last_name = this.last_name.toLowerCase();
-    this.password = bcrypt.hashSync(this.password?? '', 10);
+    this.password = bcrypt.hashSync(this.password ?? '', 10);
   }
 
   comparePassword(attemptedPassword: string): boolean {
-    return bcrypt.compareSync(attemptedPassword, this.password??'');
+    return bcrypt.compareSync(attemptedPassword, this.password ?? '');
   }
 
   liteUser() {

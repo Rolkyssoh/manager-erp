@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, } from 'react'
+import React, { ReactNode, useState } from 'react';
 import { Dialog, DialogType, DialogFooter } from '@fluentui/react';
 import { PrimaryButton, DefaultButton } from '@fluentui/react';
 import { hiddenContentStyle, mergeStyles } from '@fluentui/react';
@@ -9,13 +9,14 @@ export interface IConfirmActionProps {
   renderTrigger?: (
     setOpen: () => void,
     renderDialog: () => ReactNode
-  ) => ReactNode,
-  renderPositive?: (setOpen: () => void) => void,
-  onPositive?: () => void,
-  renderNegative?: (setOpen: () => void) => void,
-  title: string, negativeText?: string,
-  message?: { id: string, values?: any },
-  positiveText?: string,
+  ) => ReactNode;
+  renderPositive?: (setOpen: () => void) => void;
+  onPositive?: () => void;
+  renderNegative?: (setOpen: () => void) => void;
+  title: string;
+  negativeText?: string;
+  message?: { id: string; values?: any };
+  positiveText?: string;
 }
 
 const dialogStyles = { main: { maxWidth: 450 } };
@@ -27,15 +28,14 @@ const dragOptions = {
 };
 const screenReaderOnly = mergeStyles(hiddenContentStyle);
 
-
 export const ConfirmActionDialog: React.FC<IConfirmActionProps> = ({
   renderTrigger,
   renderPositive,
   renderNegative,
-  title = "shared:ooopss",
-  message = { id: "shared:confirm_action" },
-  negativeText = "shared:cancel",
-  positiveText = "shared:proceed",
+  title = 'shared:ooopss',
+  message = { id: 'shared:confirm_action' },
+  negativeText = 'shared:cancel',
+  positiveText = 'shared:proceed',
   onPositive,
   ...props
 }) => {
@@ -53,14 +53,14 @@ export const ConfirmActionDialog: React.FC<IConfirmActionProps> = ({
       styles: dialogStyles,
       dragOptions: isDraggable ? dragOptions : undefined,
     }),
-    [isDraggable, labelId, subTextId],
+    [isDraggable, labelId, subTextId]
   );
 
   const dialogContentProps = {
     type: DialogType.close,
-    title: title,// formatMessage({ id: title }),
+    title: title, // formatMessage({ id: title }),
     closeButtonAriaLabel: negativeText, // formatMessage({ id: negativeText }),
-    subText: message.values
+    subText: message.values,
     // formatMessage(
     //   {id:message.id},
     //   {...message.values}
@@ -78,23 +78,20 @@ export const ConfirmActionDialog: React.FC<IConfirmActionProps> = ({
         {renderNegative ? (
           <>{renderNegative(toggleHideDialog)}</>
         ) : (
-          <DefaultButton
-            onClick={toggleHideDialog}
-            text={negativeText}
-          />
+          <DefaultButton onClick={toggleHideDialog} text={negativeText} />
         )}
         {renderPositive ? (
           <>{renderPositive(toggleHideDialog)}</>
         ) : (
           <PrimaryButton
             style={{
-              backgroundColor: "var(--color-danger)",
-              borderColor: "transparent"
+              backgroundColor: 'var(--color-danger)',
+              borderColor: 'transparent',
             }}
             onClick={() => {
-              toggleHideDialog()
+              toggleHideDialog();
               if (onPositive) {
-                onPositive()
+                onPositive();
               }
             }}
             text={positiveText}
@@ -102,11 +99,7 @@ export const ConfirmActionDialog: React.FC<IConfirmActionProps> = ({
         )}
       </DialogFooter>
     </Dialog>
-  )
+  );
 
-  return (
-    <>
-      {renderTrigger && renderTrigger(toggleHideDialog, renderDialog)}
-    </>
-  )
-}
+  return <>{renderTrigger && renderTrigger(toggleHideDialog, renderDialog)}</>;
+};

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   DefaultButton,
   Text,
@@ -14,6 +14,7 @@ import { NewCompanyDtoIn } from '@merp/dto';
 
 export interface IAddNewCompanyProps {
   onCreate: (_: NewCompanyDtoIn) => void;
+  toEdit?: NewCompanyDtoIn;
 }
 
 interface IAddNewCompany {
@@ -36,8 +37,19 @@ const validationSchema = yup.object().shape({
   last_name: yup.string().required(),
 });
 
-export const AddNewCompanyComponent: React.FC<IAddNewCompanyProps> = (props) => {
+export const AddNewCompanyComponent: React.FC<IAddNewCompanyProps> = ({
+  onCreate,
+  toEdit,
+}) => {
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [infosCompany, setInfosCompany] = useState<NewCompanyDtoIn>();
+
+  useEffect(() => {
+    if (toEdit) {
+      setInfosCompany(toEdit);
+    }
+    console.log({ toEdit });
+  }, [toEdit]);
 
   const onSubmit = async (value: IAddNewCompany) => {
     console.log('the sumbited value:', value);
@@ -48,8 +60,8 @@ export const AddNewCompanyComponent: React.FC<IAddNewCompanyProps> = (props) => 
         if (response.status !== 200)
           //@TODO #4
           console.log({ response });
-        const data = await response.json() as NewCompanyDtoIn
-        props.onCreate(data)
+        const data = (await response.json()) as NewCompanyDtoIn;
+        onCreate(data);
       })
       .catch((err) => {
         console.log({ err });
@@ -67,13 +79,13 @@ export const AddNewCompanyComponent: React.FC<IAddNewCompanyProps> = (props) => 
     isSubmitting,
   } = useFormik<IAddNewCompany>({
     initialValues: {
-      email: '',
+      email: infosCompany ? infosCompany.user.email : '',
       password: '',
-      company_name: '',
+      company_name: infosCompany ? infosCompany.company.company_name : '',
       company_phone_number: '',
-      company_address: '',
-      first_name: '',
-      last_name: '',
+      company_address: infosCompany ? infosCompany.company.company_address : '',
+      first_name: infosCompany ? infosCompany.user.first_name : '',
+      last_name: infosCompany ? infosCompany.user.last_name : '',
     },
     validationSchema,
     onSubmit,
@@ -141,16 +153,31 @@ export const AddNewCompanyComponent: React.FC<IAddNewCompanyProps> = (props) => 
             name="password"
           />
           <div className="modal__footer modal__footer--thin no-padding-top">
-            <DefaultButton
-              // onRenderIcon={
-              //   () => <i className="las la-calendar-week color_maroon"></i>
-              // }
-              text={'Sauvegarder'}
-              disabled={isSubmitting}
-              type="submit"
-            >
-              {isSubmitting && <Spinner size={SpinnerSize.xSmall} />}
-            </DefaultButton>
+            {!infosCompany && (
+              <DefaultButton
+                // onRenderIcon={
+                //   () => <i className="las la-calendar-week color_maroon"></i>
+                // }
+                text={'Sauvegarder'}
+                disabled={isSubmitting}
+                type="submit"
+              >
+                {isSubmitting && <Spinner size={SpinnerSize.xSmall} />}
+              </DefaultButton>
+            )}
+
+            {infosCompany && (
+              <DefaultButton
+                // onRenderIcon={
+                //   () => <i className="las la-calendar-week color_maroon"></i>
+                // }
+                text={'Modifier'}
+                disabled={isSubmitting}
+                type="submit"
+              >
+                {isSubmitting && <Spinner size={SpinnerSize.xSmall} />}
+              </DefaultButton>
+            )}
           </div>
         </div>
       </div>

@@ -23,8 +23,10 @@ export class UserService {
     private _userRepo: Repository<UserEntity>
   ) {}
 
-  getUsers() {
-    return this._userRepo.find();
+  async getUsers() {
+    const users = await this._userRepo.find();
+    return users;
+    // const [companies, count] = await this._companyRepo.findAndCount();
   }
 
   saveAdmin(data: Partial<UserEntity>) {

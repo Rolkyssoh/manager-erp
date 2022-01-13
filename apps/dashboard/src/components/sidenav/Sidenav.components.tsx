@@ -10,7 +10,6 @@ import {
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useUserRouteHooks } from '../../hooks';
-import { UsersPage, UserDetailsPage } from '../../pages';
 import { useAuthStore } from './../../stores';
 
 export interface ISidenavProps {

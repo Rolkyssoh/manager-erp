@@ -1,15 +1,10 @@
-import React, { useState, } from 'react'
-import { RouteProps } from 'react-router'
+import React, { useState } from 'react';
+import { RouteProps } from 'react-router';
 
-export interface IUsersPageProps extends RouteProps {
-  default_props?: boolean
+export interface IUserPageProps extends RouteProps {
+  default_props?: boolean;
 }
 
-export const UsersPage: React.FC<IUsersPageProps> = () => {
-
-  return (
-    <div className='Users__page'>
-      Users page works
-    </div>
-  )
-}
+export const UserPage: React.FC<IUserPageProps> = () => {
+  return <div className="User__page">User page works</div>;
+};

@@ -1,11 +1,8 @@
-import { PrimaryButton } from '@fluentui/react';
+import { DefaultButton, PrimaryButton } from '@fluentui/react';
 import { LoginDialog } from '../../../dialogs';
 import React, { useState } from 'react';
 import { RouteProps } from 'react-router';
-import {
-  CompanyCardComponent,
-  HeaderComponent,
-} from '../../../components';
+import { CompanyCardComponent, HeaderComponent } from '../../../components';
 
 import './home.styles.scss';
 
@@ -16,13 +13,13 @@ export interface IHomePageProps extends RouteProps {
 export const HomePage: React.FC<IHomePageProps> = () => {
   return (
     <div className="homepage">
-      home page
-
-      {/* <HeaderComponent />
+      <HeaderComponent />
       <div className="homebody">
         <div className="searchzone">
           <span className="home-indication">En Livraison Chez vous </span>
-          <div className="search-barre">Search barrer here</div>
+          <div className="home-action">
+            <DefaultButton text="Se connecter" className="home-action-button" />
+          </div>
 
           <div className="search-zone-items">
             <div className="company-item">
@@ -54,6 +51,7 @@ export const HomePage: React.FC<IHomePageProps> = () => {
             </div>
           </div>
         </div>
+        <div>Alimentation près de vous</div>
         <div className="productszone">
           <CompanyCardComponent />
           <CompanyCardComponent />
@@ -63,7 +61,7 @@ export const HomePage: React.FC<IHomePageProps> = () => {
           <CompanyCardComponent />
         </div>
       </div>
-      <div className="footer">Footer</div> */}
+      <div className="footer">Footer</div>
     </div>
   );
 };

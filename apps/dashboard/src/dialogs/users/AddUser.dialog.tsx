@@ -13,20 +13,23 @@ import { useBoolean } from '@fluentui/react-hooks';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import UserService from '../../services/user.service';
-import { NewUserDto } from '@merp/dto';
+import { NewUserDto, NewUserDtoIn } from '@merp/dto';
 
 export interface IAddUserProps {
   renderTrigger?: (setOpen: () => void) => void;
   open?: boolean;
   default_props?: boolean;
   formTitle: string;
+  onCreate: (data: NewUserDtoIn) => void;
 }
 
 interface IAddUser {
-  email: string;
-  password: string;
   first_name: string;
   last_name: string;
+  password: string;
+  email: string;
+  role: number;
+  company: string;
 }
 
 const validationSchema = yup.object().shape({
@@ -46,39 +49,32 @@ export const AddUserDialog: React.FC<IAddUserProps> = ({
   const [isOpen, { toggle: toggleIsOpen }] = useBoolean(false);
   console.log('the props: ', props.formTitle);
 
-  //   const rightRequest: IAddUserProps = (val: NewUserDto) => {
-  //   const { formTitle } = props;
-  //     if(formTitle == "Delegate"){
-  //         return UserService.new_sector_delegate(val)
-  //     }
-  //     if(formTitle == "Deliverer"){
-  //         return UserService.new_deliverer(val)
-  //     }
-  //   }
-
-  const onSubmit = async (value: NewUserDto) => {
-    const { formTitle } = props;
+  const onSubmit = async (value: IAddUser) => {
+    const { formTitle, onCreate } = props;
     console.log('the sumbited value:', value);
-    console.log('the form data:', localStorage.access_token);
-    console.log('the localStorage:', localStorage.getItem('access_token'));
+    // console.log('the form data:', localStorage.access_token);
     if (formTitle == 'Delegate') {
       UserService.new_sector_delegate(value)
         .then(async (response) => {
-          console.log({ response });
+          if (response.status !== 200) {
+            console.log({ response });
+          }
+          const data = (await response.json()) as NewUserDtoIn;
+          onCreate(data);
         })
         .catch((err) => {
           console.log({ err });
-          setErrorMessage('Error while adding new company!!');
+          setErrorMessage('Error while adding new Sector Delegate!!');
         });
     }
     if (formTitle == 'Deliverer') {
       UserService.new_deliverer(value)
         .then(async (response) => {
-          console.log({ response });
+          if (response.status !== 200) console.log({ response });
         })
         .catch((err) => {
           console.log({ err });
-          setErrorMessage('Error while adding new company!!');
+          setErrorMessage('Error while adding new Deliverer!!');
         });
     }
   };
@@ -140,14 +136,14 @@ export const AddUserDialog: React.FC<IAddUserProps> = ({
               <TextField
                 type="text"
                 label={'Prénom'}
-                // value={values.first_name}
+                value={values.first_name}
                 onChange={handleChange}
                 name="first_name"
               />
               <TextField
                 type="text"
                 label={'Nom'}
-                // value={values.last_name}
+                value={values.last_name}
                 onChange={handleChange}
                 name="last_name"
               />

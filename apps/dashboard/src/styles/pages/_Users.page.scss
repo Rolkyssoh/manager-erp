@@ -1,0 +1,46 @@
+.users_container {
+  display: flex;
+  flex-direction: column;
+}
+.users_page_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.users__nav {
+  display: grid;
+  margin-top: 1em;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: start;
+  gap: 1em;
+}
+
+.users__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  padding-inline-start: 0;
+  grid-gap: 1em;
+}
+
+.users__item {
+  list-style-type: none;
+  border: 1px solid;
+  border-radius: 2px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: start;
+}
+.user__center {
+  align-self: center;
+  margin-top: 1em;
+  justify-self: center;
+}
+.user__actions {
+  align-self: end;
+  display: flex;
+  gap: 8px;
+}

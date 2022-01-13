@@ -42,7 +42,7 @@ export const ManageCompanyUsersPage: React.FC<IManageCompanyUsersPageProps> =
                 {/* <div> */}
                 {/* <AddNewUserComponent formTitle="Sector delegate" /> */}
                 {/* For Delegate */}
-                <AddUserDialog
+                {/* <AddUserDialog
                   renderTrigger={(trigger) => (
                     <PrimaryButton
                       onClick={trigger}
@@ -50,14 +50,14 @@ export const ManageCompanyUsersPage: React.FC<IManageCompanyUsersPageProps> =
                     />
                   )}
                   formTitle="Delegate"
-                />
+                /> */}
                 {/* For Deliverer */}
-                <AddUserDialog
+                {/* <AddUserDialog
                   renderTrigger={(trigger) => (
                     <PrimaryButton onClick={trigger} text="Add New Deliverer" />
                   )}
                   formTitle="Deliverer"
-                />
+                /> */}
                 {/* </div>
                 <div> */}
                 {/* <AddNewUserComponent formTitle="Deliverer" /> */}

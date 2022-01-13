@@ -8,12 +8,15 @@ import {
 import { useEffect, useState } from 'react';
 import { IRoute } from '../components';
 import {
-  UsersPage,
+  UserPage,
   CompaniesPage,
   ManageCompanyUsersPage,
   ManageCompanyOperationsPage,
   ManageCompanyOrdersPage,
   ManageCompanyDelivererPage,
+  UsersPage,
+  OrdersPage,
+  UserProfilePage,
 } from '../pages';
 import { useAuthStore } from '../stores';
 
@@ -41,19 +44,12 @@ export function useUserRouteHooks() {
       path: `${user?.company?.id}/${user?.id}/orders`,
       label: 'Gérer Commandes',
       icon: 'la-id-badge',
-      component: ManageCompanyOrdersPage,
+      component: OrdersPage,
       roles: [SUPER_ADMIN, COMMERCIAL_DIRECTOR],
     },
     {
       path: `${user?.company?.id}/${user?.id}/users`,
       label: 'Employés',
-      icon: 'la-id-badge',
-      component: ManageCompanyUsersPage,
-      roles: [SUPER_ADMIN, COMMERCIAL_DIRECTOR],
-    },
-    {
-      path: `${user?.company?.id}/${user?.id}/profile`,
-      label: 'Profile',
       icon: 'la-id-badge',
       component: UsersPage,
       roles: [SUPER_ADMIN, COMMERCIAL_DIRECTOR],
@@ -84,7 +80,7 @@ export function useUserRouteHooks() {
       path: `${user?.company?.id}/${user?.id}/example`,
       label: 'Gestion Livraisons',
       icon: 'la-id-badge',
-      component: UsersPage,
+      component: UserPage,
       roles: [DELIVERER],
     },
 
@@ -95,7 +91,7 @@ export function useUserRouteHooks() {
       path: `${user?.company?.id}/${user?.id}/example`,
       label: 'go to',
       icon: 'la-id-badge',
-      component: UsersPage,
+      component: UserPage,
       roles: [CUSTOMER],
     },
 
@@ -106,8 +102,8 @@ export function useUserRouteHooks() {
       path: `${user?.company?.id}/${user?.id}/profile`,
       label: 'Profile',
       icon: 'la-id-badge',
-      component: UsersPage,
-      roles: [SECTOR_DELEGATE, DELIVERER],
+      component: UserProfilePage,
+      roles: [SUPER_ADMIN, COMMERCIAL_DIRECTOR, SECTOR_DELEGATE, DELIVERER],
     },
   ];
 
@@ -116,8 +112,9 @@ export function useUserRouteHooks() {
       setUserRoutes([]);
       return;
     }
+    const roleId_currentUser = user.role.id;
     const filteredRoutes = menuRoutes.filter((route) => {
-      return route.roles.includes(user.role.id);
+      return route.roles.includes(roleId_currentUser);
     });
     setUserRoutes(filteredRoutes);
   }, [user]);

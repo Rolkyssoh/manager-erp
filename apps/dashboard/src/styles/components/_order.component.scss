@@ -1,0 +1,16 @@
+.order__item {
+  list-style-type: none;
+  border: 1px solid;
+  border-radius: 2px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: start;
+}
+
+.order__actions {
+  align-self: end;
+  display: flex;
+  gap: 8px;
+}

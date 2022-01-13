@@ -18,13 +18,18 @@ import {
   SECTOR_DELEGATE,
   SUPER_ADMIN,
 } from '@merp/constants';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('user')
+@Controller('/user')
+@ApiTags('Users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
-  @UseGuards(AuthGuard(), new RoleValidationGuard())
+  @Get('')
+  @UseGuards(
+    AuthGuard(),
+    new RoleValidationGuard([SUPER_ADMIN, COMMERCIAL_DIRECTOR])
+  )
   getUsers(@User() user: UserEntity) {
     return this.userService.getUsers();
   }
@@ -46,7 +51,7 @@ export class UserController {
   @Post('deliverer')
   @UseGuards(
     AuthGuard(),
-    new RoleValidationGuard([SECTOR_DELEGATE, COMMERCIAL_DIRECTOR])
+    new RoleValidationGuard([SECTOR_DELEGATE, COMMERCIAL_DIRECTOR, SUPER_ADMIN])
   )
   createDeliverer(
     @Body() data: Partial<UserEntity>,

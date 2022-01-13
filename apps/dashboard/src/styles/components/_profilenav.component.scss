@@ -1,11 +1,12 @@
-.sidenav {
+.profilenav {
   flex: 0 0 250px;
-  background-color: rgb(227, 235, 235);
-  height: 100vh;
+  background-color: rgb(222, 231, 222);
+  //   height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  text-decoration: none;
 
   &__route {
     display: flex;

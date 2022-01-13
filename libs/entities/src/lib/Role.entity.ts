@@ -1,6 +1,9 @@
 import {
-  Entity, Column,
-  PrimaryGeneratedColumn, JoinTable, OneToMany,
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { UserEntity } from '..';
 

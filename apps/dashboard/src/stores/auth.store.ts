@@ -6,8 +6,8 @@ const USER_KEY = 'user';
 const TOKEN_KEY = 'access_token';
 
 type AuthStore = {
-  user: LoginDtoOut['user'] | undefined;
-  token: LoginDtoOut['token'] | undefined;
+  user: LoginDtoOut['user'];
+  token: LoginDtoOut['token'];
   updateCurrentUser: (user: LoginDtoOut['user']) => void;
   updateToken: (token: LoginDtoOut['token']) => void;
 };
@@ -26,10 +26,10 @@ export const useAuthStore = create<AuthStore>((set: SetState<AuthStore>) => {
     },
 
     updateToken: (token): void => {
+      set({ token });
       localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
       // if (token) console.log('le token stocké :', JSON.parse(token));
-      console.log('le token stocké :', token);
-      set({ token });
+      console.log('le token stocké :', JSON.stringify(token));
     },
   };
 });

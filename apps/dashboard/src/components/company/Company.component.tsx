@@ -1,16 +1,32 @@
-import React, { useState, } from 'react'
-import { Text, IconButton, IIconProps, TooltipHost } from '@fluentui/react'
-import { useId } from '@fluentui/react-hooks'
+import React, { useState } from 'react';
+import {
+  Text,
+  IconButton,
+  IIconProps,
+  TooltipHost,
+  PrimaryButton,
+} from '@fluentui/react';
+import { useId } from '@fluentui/react-hooks';
 import { ICompany } from '@merp/entities';
 
-import { ConfirmActionDialog } from './../../dialogs/confirm-action/ConfirmAction.dialog'
+import { ConfirmActionDialog } from './../../dialogs/confirm-action/ConfirmAction.dialog';
+import { CreateCompanyDialog } from '../../dialogs';
+import { NewCompanyDtoIn } from '@merp/dto';
 
 export interface ICompanyProps {
-  company: ICompany,
-  onDelete: (company:ICompany) => void
+  company: ICompany;
+  doDisable: (componay: ICompany) => void;
+  onDelete: (company: ICompany) => void;
+  renderError?: () => void;
 }
 
-export const CompanyComponent: React.FC<ICompanyProps> = ({ company, onDelete }) => {
+const handleEdit = () => {};
+
+export const CompanyComponent: React.FC<ICompanyProps> = ({
+  company,
+  doDisable,
+  onDelete,
+}) => {
   const disableIcon: IIconProps = { iconName: 'StatusCircleBlock' };
   const editIcon: IIconProps = { iconName: 'Edit' };
   const deleteIcon: IIconProps = { iconName: 'Delete' };
@@ -23,25 +39,31 @@ export const CompanyComponent: React.FC<ICompanyProps> = ({ company, onDelete })
       <Text>{company.company_phone_number}</Text>
 
       <div className="company__actions">
-        <TooltipHost
-          content="Edit Company"
-          id={tooltipId}
-        >
-          <IconButton iconProps={editIcon} title="Edit Company" ariaLabel="Edit Company" />
+        <TooltipHost content="Edit Company" id={tooltipId}>
+          <CreateCompanyDialog
+            onCreate={handleEdit}
+            // companyInfos={company}
+            renderTrigger={(trigger) => (
+              <IconButton
+                iconProps={editIcon}
+                title="Edit Company"
+                ariaLabel="Edit Company"
+                onClick={trigger}
+              />
+            )}
+          />
         </TooltipHost>
-        <TooltipHost
-          content="Disable Company"
-          id={tooltipId}
-        >
+        <TooltipHost content="Disable Company" id={tooltipId}>
           <ConfirmActionDialog
-            title='Disable Company'
+            title="Disable Company"
             message={{
-              values: "Are you sure you want to disable this company? All users of the company will be disabled as a result.",
-              id: 'lksdlksdo'
+              values:
+                'Are you sure you want to disable this company? All users of the company will be disabled as a result.',
+              id: 'lksdlksdo',
             }}
-            negativeText='Cancel'
-            positiveText='Delete Company'
-            onPositive={() => onDelete(company)}
+            negativeText="Cancel"
+            positiveText="Disable Company"
+            onPositive={() => doDisable(company)}
             renderTrigger={(trigger, renderDialog) => (
               <>
                 <IconButton
@@ -55,13 +77,31 @@ export const CompanyComponent: React.FC<ICompanyProps> = ({ company, onDelete })
             )}
           />
         </TooltipHost>
-        <TooltipHost
-          content="Delete Company"
-          id={tooltipId}
-        >
-          <IconButton iconProps={deleteIcon} title="Delete Company" ariaLabel="Delete Company" />
+        <TooltipHost content="Delete Company" id={tooltipId}>
+          <ConfirmActionDialog
+            title="Delete Compnay"
+            message={{
+              values:
+                'Are you sure you want to delete this compnay? All users of the company will be delete as a result.',
+              id: 'deleteeed',
+            }}
+            negativeText="Cancel"
+            positiveText="Delete Compnany"
+            onPositive={() => onDelete(company)}
+            renderTrigger={(trigger, renderDialog) => (
+              <>
+                <IconButton
+                  iconProps={deleteIcon}
+                  title="Delete Company"
+                  ariaLabel="Delete Company"
+                  onClick={trigger}
+                />
+                {renderDialog()}
+              </>
+            )}
+          />
         </TooltipHost>
       </div>
     </li>
-  )
-}
+  );
+};

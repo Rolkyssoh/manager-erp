@@ -9,6 +9,9 @@
 @import './components/sidenav.component';
 @import './components/add-new-company.component';
 @import './components/add-new-user.component.scss';
+@import './components/management-dashboard.component';
+@import './components/order.component';
+@import './components/profilenav.component';
 
 // pages
 @import './pages/Login.page';
@@ -16,7 +19,10 @@
 @import './pages/Profile.page';
 @import './pages/Companies.page';
 @import './pages/ManageCompanyUsers';
-@import './pages//ManageCompanyDeliverer';
+@import './pages/ManageCompanyDeliverer';
+@import './pages/Users.page';
+@import './pages/Orders.page';
+@import './pages/UserProfile.page';
 
 html,
 body,

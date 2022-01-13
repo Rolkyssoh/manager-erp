@@ -13,6 +13,10 @@ export const userUrls = {
   NEW_SECTOR_DELEGATE: `${prefixer}user/delegate`,
   NEW_DELIVERER: `${prefixer}user/deliverer`,
   NEW_CUSTOMER: `${prefixer}user/customer`,
+  GET_USERS: `${prefixer}user`,
+  DELETE_USER: (id: string) => `${prefixer}user/${id}`,
+  DISABLE_USER: (id: string) => `${prefixer}user/${id}/disable`,
+  ENABLE_USER: (id: string) => `${prefixer}user/${id}/enable`,
 };
 
 export const companyUrls = {

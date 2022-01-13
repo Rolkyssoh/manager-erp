@@ -1,0 +1,54 @@
+.user-profile__container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  position: relative;
+  margin: 1em;
+}
+.user-profile__nav {
+  position: static;
+  background-color: rgb(222, 231, 222);
+  border-radius: 1em;
+  margin: 0 2em 0 0;
+  padding: 1em;
+  height: 30em;
+}
+.user-profile__content {
+  position: relative;
+  margin: 0em 0em 1em 0em;
+}
+.user-profile__header {
+  background-color: rgb(222, 231, 222);
+  display: flex;
+  flex-direction: row;
+  border-radius: 1em;
+  align-items: center;
+  margin: 0 0 2em 0;
+  padding: 1em;
+}
+.user-profile__img {
+  height: 60px;
+  width: 60px;
+  margin-right: 2em;
+  background-color: red;
+  align-items: center;
+}
+.user-profile__subtitle {
+  display: flex;
+  flex-direction: column;
+}
+.user-profile__infos {
+  background-color: rgb(222, 231, 222);
+  padding: 1em;
+  margin: 0 0 2em 0;
+  border-radius: 1em;
+}
+.user-profile__infos-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.user-profile__pwd {
+  background-color: rgb(222, 231, 222);
+  padding: 1em;
+  border-radius: 1em;
+}

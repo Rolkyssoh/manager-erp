@@ -67,6 +67,7 @@ export const LoginDialog: React.FC<ILoginProps> = ({
       .then(async (response) => {
         if ([200, 201].includes(response.status)) {
           const { user, token } = (await response.json()) as LoginDtoOut;
+          console.log('le token dans le auth:', token);
           if (user.disabled) {
             console.log('auth:user_disabled');
             // new_notification({
@@ -140,7 +141,7 @@ export const LoginDialog: React.FC<ILoginProps> = ({
   });
 
   const routeToAppropriatePagePerRole = (user: LoginDtoOut['user']) => {
-    switch (user.role.id) {
+    switch (user.role?.id) {
       case SECTOR_DELEGATE:
         navigate(`/dashboard/${user.company?.id}/${user?.id}`);
         break;

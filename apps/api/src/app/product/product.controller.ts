@@ -1,9 +1,11 @@
 import { COMMERCIAL_DIRECTOR } from '@merp/constants';
+import { ProductDtoIn } from '@merp/dto';
 import { ProductEntity, UserEntity } from '@merp/entities';
 import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Patch,
   Post,
@@ -17,6 +19,12 @@ import { ProductService } from './product.service';
 @Controller('/product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
+
+  @Get('')
+  // @UseGuards(AuthGuard(), new RoleValidationGuard())
+  getProducts(): Promise<ProductDtoIn> {
+    return this.productService.getProducts();
+  }
 
   @UseGuards(AuthGuard(), new RoleValidationGuard([COMMERCIAL_DIRECTOR]))
   @Post('add')

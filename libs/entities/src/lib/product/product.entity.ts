@@ -1,17 +1,22 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
-import { UserEntity } from '..';
-import { AbstractEntity } from './abstract-entity';
-import { ProductsToOrdersEntity } from './ProductOrder.entity';
+import { UserEntity } from '../..';
+import { AbstractEntity } from '../abstract-entity';
+import { ProductsToOrdersEntity } from '../ProductOrder.entity';
 
 @Entity('product')
 export class ProductEntity extends AbstractEntity {
   static newProductEntity(PartialProduct: Partial<ProductEntity>) {
     const product = new ProductEntity();
-    if (PartialProduct.product_name) product.product_name = PartialProduct.product_name;
-    if (PartialProduct.product_description) product.product_description = PartialProduct.product_description;
-    if (PartialProduct.product_unit_price) product.product_unit_price = PartialProduct.product_unit_price;
-    if (PartialProduct.stock_quantity) product.stock_quantity = PartialProduct.stock_quantity;
-    if (PartialProduct.stock_alert_level) product.stock_alert_level = PartialProduct.stock_alert_level;
+    if (PartialProduct.product_name)
+      product.product_name = PartialProduct.product_name;
+    if (PartialProduct.product_description)
+      product.product_description = PartialProduct.product_description;
+    if (PartialProduct.product_unit_price)
+      product.product_unit_price = PartialProduct.product_unit_price;
+    if (PartialProduct.stock_quantity)
+      product.stock_quantity = PartialProduct.stock_quantity;
+    if (PartialProduct.stock_alert_level)
+      product.stock_alert_level = PartialProduct.stock_alert_level;
     if (PartialProduct.user) product.user = PartialProduct.user;
     return product;
   }

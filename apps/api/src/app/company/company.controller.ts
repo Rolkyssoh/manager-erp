@@ -23,7 +23,7 @@ export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
   @Get('')
-  @UseGuards(AuthGuard(), new RoleValidationGuard())
+  // @UseGuards(AuthGuard(), new RoleValidationGuard())
   getCompanies(): Promise<CompaniesDtoIn> {
     return this.companyService.getCompanies();
   }

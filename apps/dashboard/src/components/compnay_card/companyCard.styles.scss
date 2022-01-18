@@ -1,12 +1,21 @@
 .company-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 200px;
-  width: 350px;
+  width: 30%;
   background-color: brown;
   justify-content: space-between;
   margin-bottom: 40px;
   border-radius: 10px;
+  text-decoration: none;
+
+  @media only screen and (max-width: 920px) {
+    /* For mobile phones: */
+    // [class*='col-'] {
+    width: 100vw;
+    // }
+  }
 }
 .company-image {
   display: flex;
@@ -21,3 +30,20 @@
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
+
+.card-title {
+  position: absolute;
+  display: flex;
+  // background-color: red;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  width: 100%;
+  // opacity: 0.2;
+  // align-self: center;
+  // justify-self: center;
+  z-index: 2;
+}
+// span {
+//   z-index: 2;
+// }

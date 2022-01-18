@@ -1,3 +1,4 @@
+import { ProductDtoIn } from '@merp/dto';
 import { ProductEntity, UserEntity } from '@merp/entities';
 import {
   ConflictException,
@@ -13,6 +14,14 @@ export class ProductService {
     @InjectRepository(ProductEntity)
     private _productRep: Repository<ProductEntity>
   ) {}
+
+  async getProducts(): Promise<ProductDtoIn> {
+    const [products, count] = await this._productRep.findAndCount();
+    return {
+      products,
+      count,
+    };
+  }
 
   async addNewProduct(data: Partial<ProductEntity>, currentUser: UserEntity) {
     let user = data.user;

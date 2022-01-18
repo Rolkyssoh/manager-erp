@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { RouteProps } from 'react-router';
-import {
-  DefaultButton,
-  PrimaryButton,
-  SearchBox,
-  Spinner,
-  SpinnerSize,
-  Text,
-} from '@fluentui/react';
+import { DefaultButton, PrimaryButton, SearchBox, Text } from '@fluentui/react';
 import { useId } from '@fluentui/react-hooks';
 import { ICompany } from '@merp/entities';
 import { CompanyService } from '../../../services';
 import { CompaniesDtoIn, NewCompanyDtoIn } from '@merp/dto';
 import { CreateCompanyDialog } from '../../../dialogs';
-import { CompanyComponent } from '../../../components';
+import {
+  CompanyComponent,
+  EmptyComponent,
+  LoadingComponent,
+} from '../../../components';
 
 export interface ICompaniesProps extends RouteProps {
   default_props?: boolean;
@@ -23,17 +20,6 @@ const ErrorComponent = () => (
   <Text variant="xLarge" className="company__center">
     There was an error fetching company
   </Text>
-);
-
-const EmptyComponent = () => (
-  <Text variant="xLarge" className="company__center">
-    There are no companies. Start by clicking on "Create Company" button above
-    to create one
-  </Text>
-);
-
-const LoadingComponent = () => (
-  <Spinner size={SpinnerSize.large} className="company__center" />
 );
 
 export const CompaniesPage: React.FC<ICompaniesProps> = () => {

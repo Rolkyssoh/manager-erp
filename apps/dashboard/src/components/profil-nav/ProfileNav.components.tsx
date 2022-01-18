@@ -57,11 +57,11 @@ export const ProfileNavComponent: React.FC<IProfileNavProps> = () => {
         }
       >
         <i className={'las la-id-badge'}></i>
-        <span>Disconnect</span>
+        <span>Other</span>
       </NavLink>
 
       <NavLink
-        to="/auth"
+        to="/"
         className={({ isActive }) =>
           ['profilenav__route', isActive ? 'profilenav__route--current' : null]
             .filter(Boolean)
@@ -69,7 +69,7 @@ export const ProfileNavComponent: React.FC<IProfileNavProps> = () => {
         }
       >
         <DefaultButton
-          text="Delivery notes"
+          text="Disconnection"
           onClick={() => localStorage.clear()}
           // checked={showingDisabled}
         />

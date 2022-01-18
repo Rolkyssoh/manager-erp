@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router';
 import {
   AuthShellPage,
+  CompaniesShellPage,
   DashboardShellPage,
   HomePage,
   LoginPage,
@@ -19,6 +20,9 @@ export const EntryRoutesPage: React.FC<IEntryRoutesPageProps> = () => {
       <Route path="/" element={<HomePage />} />
       <Route path="auth/*" element={<AuthShellPage />} />
       <Route path="dashboard/*" element={<DashboardShellPage />} />
+      {/* <Route path="company/*" element={<CompaniesShellPage />} /> */}
+      <Route path="company/*" element={<CompaniesShellPage />} />
+
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

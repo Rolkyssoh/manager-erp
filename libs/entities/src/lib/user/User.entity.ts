@@ -14,7 +14,7 @@ import { RoleEntity } from '../..';
 import * as bcrypt from 'bcryptjs';
 import { CompanyEntity } from '../company/Company.entity';
 import { OrderEntity } from '../order.entity';
-import { ProductEntity } from '../product.entity';
+import { ProductEntity } from '../product/product.entity';
 import { IUser } from './User';
 export enum SEX {
   male = 'M',

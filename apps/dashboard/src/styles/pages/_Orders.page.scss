@@ -8,14 +8,22 @@
   align-items: center;
   justify-content: space-between;
 }
+.orders_content {
+  display: flex;
+  flex-direction: 'row';
+  justify-content: 'space-between';
+}
 
-.orders__nav {
-  display: grid;
-  margin-top: 1em;
-  grid-auto-flow: column;
-  align-items: center;
-  justify-content: start;
-  gap: 1em;
+.orders-action-product {
+  height: 100px;
+  width: 230px;
+  display: flex;
+  justify-content: center;
+  padding: 1em 0;
+}
+
+.orders_nav {
+  width: 100vw;
 }
 
 .orders__list {
@@ -24,26 +32,3 @@
   padding-inline-start: 0;
   grid-gap: 1em;
 }
-
-// .companies__item {
-//   list-style-type: none;
-//   border: 1px solid;
-//   border-radius: 2px;
-//   padding: 1em;
-//   display: flex;
-//   flex-direction: column;
-//   gap: 8px;
-//   align-items: start;
-// }
-
-// .company__actions {
-//   align-self: end;
-//   display: flex;
-//   gap: 8px;
-// }
-
-// .company__center {
-//   align-self: center;
-//   margin-top: 1em;
-//   justify-self: center;
-// }

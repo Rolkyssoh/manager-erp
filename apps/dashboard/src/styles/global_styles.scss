@@ -12,6 +12,9 @@
 @import './components/management-dashboard.component';
 @import './components/order.component';
 @import './components/profilenav.component';
+@import './components/loading.component';
+@import './components/product.component';
+@import './components//empty.component';
 
 // pages
 @import './pages/Login.page';
@@ -23,6 +26,7 @@
 @import './pages/Users.page';
 @import './pages/Orders.page';
 @import './pages/UserProfile.page';
+@import './pages/Home.page';
 
 html,
 body,

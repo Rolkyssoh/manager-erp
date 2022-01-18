@@ -10,3 +10,6 @@ export * from './user/User.component';
 export * from './management_dashboard/ManagementDashboard.components';
 export * from './order/Order.component';
 export * from './profil-nav/ProfileNav.components';
+export * from './loading_component/Loading.component';
+export * from './empty_component/empty.component';
+export * from './product/Product.component';

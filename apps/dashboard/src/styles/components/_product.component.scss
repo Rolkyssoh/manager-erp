@@ -1,0 +1,24 @@
+.products__item-container {
+  list-style-type: none;
+  border: 1px solid;
+  border-radius: 2px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: start;
+}
+
+.product__details {
+  display: flex;
+  flex-direction: column;
+  // alignItems: 'center',
+  //   justify-content: 'space-around';
+  width: 100%;
+}
+
+.product__actions {
+  align-self: end;
+  display: flex;
+  gap: 8px;
+}

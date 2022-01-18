@@ -26,3 +26,11 @@ export const companyUrls = {
   DISABLE_COMPANY: (id: string) => `${prefixer}company/${id}/disable`,
   ENABLE_COMPANY: (id: string) => `${prefixer}company/${id}/enable`,
 };
+
+export const productUrls = {
+  ADD_NEW_PRODUCT: `${prefixer}product/add`,
+  GET_PRODUCTS: `${prefixer}product`,
+  DELETE_PRODUCT: (id: string) => `${prefixer}product/${id}`,
+  DISABLE_PRODUCT: (id: string) => `${prefixer}product/${id}/disable`,
+  ENABLE_PRODUCT: (id: string) => `${prefixer}product/${id}/enable`,
+};

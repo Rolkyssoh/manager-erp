@@ -98,9 +98,9 @@ export const UsersPage: React.FC<IUsersPageProps> = () => {
 
   const handleOnCreate = (data: NewUserDtoIn) => {
     console.log('Dans le handleOncreate :', data);
-    // setSearch('');
-    // setShowingDisabled(false);
-    // setUsers([data.user, ...users]);
+    setSearch('');
+    setShowingDisabled(false);
+    setUsers([data.user, ...users]);
   };
 
   const onDisable = (state: boolean) => {
@@ -119,7 +119,7 @@ export const UsersPage: React.FC<IUsersPageProps> = () => {
         }
         const user = (await response.json()) as IUser;
         setUsers(users.filter((_) => _.id !== user.id));
-        return response.json();
+        return user;
       })
       .catch((err) => {
         //@TODO #
@@ -137,8 +137,8 @@ export const UsersPage: React.FC<IUsersPageProps> = () => {
         }
         const user = (await response.json()) as IUser;
         //@TODO: Success deleting user
-        setUsers(users.filter((_) => _.id !== user.id));
-        return response.json();
+        setUsers(users.filter((_) => _.id !== id));
+        return user;
       })
       .catch((err) => {
         //@TODO

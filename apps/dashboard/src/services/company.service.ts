@@ -18,6 +18,8 @@ export class CompanyService {
     BaseService.postRequest(productUrls.ADD_NEW_PRODUCT, infos, true);
   static get_products = () =>
     BaseService.getRequest(productUrls.GET_PRODUCTS, false);
+  static edit_product = (id: string, infos: unknown) =>
+    BaseService.patchRequest(productUrls.EDIT_PRODUCT(id), infos, true);
   static delete_product = (id: string) =>
     BaseService.deleteRequest(productUrls.DELETE_PRODUCT(id), {}, true);
   static disable_product = (id: string) =>

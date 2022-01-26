@@ -1,12 +1,12 @@
 // import { AgencyEntity, UserEntity } from '@clams/entities';
 import { CompanyEntity, ICompany, IUser } from '@merp/entities';
 import { NewUserDto } from './user.dto';
- 
+
 // export class AgencyDto {
 //   name: string
 //   symbol: string
 //   logo: string
-//   url: string 
+//   url: string
 // }
 
 export class NewCompanyDto extends NewUserDto {

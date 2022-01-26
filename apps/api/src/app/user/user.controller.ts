@@ -40,7 +40,10 @@ export class UserController {
   }
 
   @Post('delegate')
-  @UseGuards(AuthGuard(), new RoleValidationGuard([COMMERCIAL_DIRECTOR]))
+  @UseGuards(
+    AuthGuard(),
+    new RoleValidationGuard([SUPER_ADMIN, COMMERCIAL_DIRECTOR])
+  )
   createSectorDelegate(
     @Body() data: Partial<UserEntity>,
     @User() commDirector: UserEntity

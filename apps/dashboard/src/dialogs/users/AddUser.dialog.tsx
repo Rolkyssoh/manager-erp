@@ -60,7 +60,9 @@ export const AddUserDialog: React.FC<IAddUserProps> = ({
             console.log({ response });
           }
           const data = (await response.json()) as NewUserDtoIn;
+          console.log('the user send to delegate:', data);
           onCreate(data);
+          toggleIsOpen();
         })
         .catch((err) => {
           console.log({ err });
@@ -70,7 +72,13 @@ export const AddUserDialog: React.FC<IAddUserProps> = ({
     if (formTitle == 'Deliverer') {
       UserService.new_deliverer(value)
         .then(async (response) => {
-          if (response.status !== 200) console.log({ response });
+          if (response.status !== 200) {
+            console.log({ response });
+          }
+          const data = (await response.json()) as NewUserDtoIn;
+          console.log('the user send:', data);
+          onCreate(data);
+          toggleIsOpen();
         })
         .catch((err) => {
           console.log({ err });

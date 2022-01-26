@@ -33,7 +33,7 @@ export const UserComponent: React.FC<IUserProps> = ({
       <Text variant="mediumPlus">
         {user.first_name} {user.last_name}
       </Text>
-      <Text>User Role: {user?.role.name} </Text>
+      {user && <Text>User Role: {user?.role.name} </Text>}
       <Text>User company : {user.company?.company_name} </Text>
       <div className="user__actions">
         <TooltipHost>

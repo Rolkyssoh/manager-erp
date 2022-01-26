@@ -1,30 +1,23 @@
-import React, { useState } from 'react';
-import {
-  Text,
-  IconButton,
-  IIconProps,
-  TooltipHost,
-  PrimaryButton,
-} from '@fluentui/react';
+import React, { useEffect, useState } from 'react';
+import { Text, IconButton, IIconProps, TooltipHost } from '@fluentui/react';
 import { useId } from '@fluentui/react-hooks';
 import { IProduct } from '@merp/entities';
 
 import { ConfirmActionDialog } from './../../dialogs/confirm-action/ConfirmAction.dialog';
-import { CreateCompanyDialog } from '../../dialogs';
-import { NewCompanyDtoIn } from '@merp/dto';
-import { CompanyService } from '../../services';
+import { AddProductDialog } from '../../dialogs';
+import { NewProductDtoIn } from '@merp/dto';
 
 export interface IProductProps {
   product: IProduct;
   doDisable: (product: IProduct) => void;
   doDelete: (company: IProduct) => void;
   renderError?: () => void;
+  onEdit: (data: NewProductDtoIn) => void;
 }
-
-const handleEdit = () => {};
 
 export const ProductComponent: React.FC<IProductProps> = ({
   product,
+  onEdit,
   doDisable,
   doDelete,
 }) => {
@@ -33,6 +26,8 @@ export const ProductComponent: React.FC<IProductProps> = ({
   const deleteIcon: IIconProps = { iconName: 'Delete' };
   const tooltipId = useId('tooltip');
   const [productInfos, setProductInfos] = useState<IProduct[]>([]);
+
+  useEffect(() => {}, [product, onEdit]);
 
   return (
     <li className="products__item-container">
@@ -55,9 +50,9 @@ export const ProductComponent: React.FC<IProductProps> = ({
 
       <div className="company__actions">
         <TooltipHost content="Edit Product" id={tooltipId}>
-          <CreateCompanyDialog
-            onCreate={handleEdit}
-            // companyInfos={company}
+          <AddProductDialog
+            onCreate={onEdit}
+            productDetails={product}
             renderTrigger={(trigger) => (
               <IconButton
                 iconProps={editIcon}

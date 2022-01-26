@@ -37,13 +37,22 @@ export class UserService {
     data: Partial<UserEntity>,
     commDirector: UserEntity
   ) {
-    return this.saveUser(
+    const user = await this.saveUser(
       data,
       RoleEntity.newRole(SECTOR_DELEGATE),
       commDirector
     );
+    return { user };
   }
 
+  async saveDeliverer(data: Partial<UserEntity>, sectorDelegate: UserEntity) {
+    const user = await this.saveUser(
+      data,
+      RoleEntity.newRole(DELIVERER),
+      sectorDelegate
+    );
+    return { user };
+  }
   async saveUser(
     data: Partial<UserEntity>,
     role: RoleEntity,
@@ -66,10 +75,6 @@ export class UserService {
         throw new InternalServerErrorException();
       }
     }
-  }
-
-  async saveDeliverer(data: Partial<UserEntity>, sectorDelegate: UserEntity) {
-    return this.saveUser(data, RoleEntity.newRole(DELIVERER), sectorDelegate);
   }
 
   async getUserById(id: string): Promise<UserEntity> {

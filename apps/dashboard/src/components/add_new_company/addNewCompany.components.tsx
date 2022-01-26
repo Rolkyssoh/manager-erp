@@ -14,14 +14,14 @@ import { NewCompanyDtoIn } from '@merp/dto';
 
 export interface IAddNewCompanyProps {
   onCreate: (_: NewCompanyDtoIn) => void;
-  toEdit?: NewCompanyDtoIn;
+  toEdit?: ICompany;
 }
 
 interface IAddNewCompany {
   email: string;
   password: string;
   company_name: string;
-  company_phone_number: string;
+  company_phone_number: number;
   company_address: string;
   first_name: string;
   last_name: string;
@@ -31,7 +31,7 @@ const validationSchema = yup.object().shape({
   email: yup.string().required('auth:username_required'),
   password: yup.string().required('auth:password_required'),
   company_name: yup.string().required(),
-  company_phone_number: yup.string().required(),
+  company_phone_number: yup.number().required(),
   company_address: yup.string().required(),
   first_name: yup.string().required(),
   last_name: yup.string().required(),
@@ -42,7 +42,7 @@ export const AddNewCompanyComponent: React.FC<IAddNewCompanyProps> = ({
   toEdit,
 }) => {
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [infosCompany, setInfosCompany] = useState<NewCompanyDtoIn>();
+  const [infosCompany, setInfosCompany] = useState<ICompany>();
 
   useEffect(() => {
     if (toEdit) {
@@ -79,13 +79,13 @@ export const AddNewCompanyComponent: React.FC<IAddNewCompanyProps> = ({
     isSubmitting,
   } = useFormik<IAddNewCompany>({
     initialValues: {
-      email: infosCompany ? infosCompany.user.email : '',
+      email: '',
       password: '',
-      company_name: infosCompany ? infosCompany.company.company_name : '',
-      company_phone_number: '',
-      company_address: infosCompany ? infosCompany.company.company_address : '',
-      first_name: infosCompany ? infosCompany.user.first_name : '',
-      last_name: infosCompany ? infosCompany.user.last_name : '',
+      company_name: infosCompany ? infosCompany.company_name : '',
+      company_phone_number: 0,
+      company_address: infosCompany ? infosCompany.company_address : '',
+      first_name: '',
+      last_name: '',
     },
     validationSchema,
     onSubmit,
@@ -106,9 +106,9 @@ export const AddNewCompanyComponent: React.FC<IAddNewCompanyProps> = ({
             name="company_name"
           />
           <TextField
-            type="text"
+            type="number"
             label={'Numéro de téléphone'}
-            value={values.company_phone_number}
+            // value={values.company_phone_number}
             onChange={handleChange}
             name="company_phone_number"
           />

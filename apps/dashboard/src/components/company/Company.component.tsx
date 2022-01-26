@@ -42,7 +42,7 @@ export const CompanyComponent: React.FC<ICompanyProps> = ({
         <TooltipHost content="Edit Company" id={tooltipId}>
           <CreateCompanyDialog
             onCreate={handleEdit}
-            // companyInfos={company}
+            companyInfos={company}
             renderTrigger={(trigger) => (
               <IconButton
                 iconProps={editIcon}

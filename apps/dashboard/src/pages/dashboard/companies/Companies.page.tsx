@@ -61,7 +61,7 @@ export const CompaniesPage: React.FC<ICompaniesProps> = () => {
   }, []);
 
   useEffect(() => {
-    const byKeyword = search ? filter(search) : companies;
+    const byKeyword = search ? filterItems(search) : companies;
     console.log('le byKeyword dans companies:', byKeyword);
     const byDisable = showingDisabled
       ? byKeyword.filter((_) => _.disabled)
@@ -85,8 +85,8 @@ export const CompaniesPage: React.FC<ICompaniesProps> = () => {
         }
         const company = (await response.json()) as ICompany;
         //@TODO #4 : Success deleting company
-        setCompanies(companies.filter((_) => _.id !== company.id));
-        return response.json();
+        setCompanies(companies.filter((_) => _.id !== id));
+        return company;
       })
       .catch((err) => {
         //@TODO #4
@@ -113,7 +113,7 @@ export const CompaniesPage: React.FC<ICompaniesProps> = () => {
       });
   };
 
-  const filter = (keyword: string) => {
+  const filterItems = (keyword: string) => {
     return companies.filter(
       (_) =>
         `${_.company_address} ${_.company_name} ${_.company_phone_number}`.indexOf(

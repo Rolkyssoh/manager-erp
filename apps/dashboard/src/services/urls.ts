@@ -31,6 +31,7 @@ export const productUrls = {
   ADD_NEW_PRODUCT: `${prefixer}product/add`,
   GET_PRODUCTS: `${prefixer}product`,
   DELETE_PRODUCT: (id: string) => `${prefixer}product/${id}`,
+  EDIT_PRODUCT: (id: string) => `${prefixer}product/${id}/edit`,
   DISABLE_PRODUCT: (id: string) => `${prefixer}product/${id}/disable`,
   ENABLE_PRODUCT: (id: string) => `${prefixer}product/${id}/enable`,
 };

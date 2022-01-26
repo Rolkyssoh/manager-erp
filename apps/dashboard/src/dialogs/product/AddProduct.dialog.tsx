@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   DefaultButton,
   TextField,
@@ -15,20 +15,22 @@ import * as yup from 'yup';
 import UserService from '../../services/user.service';
 import { NewProductDto, NewProductDtoIn } from '@merp/dto';
 import { CompanyService } from '../../services';
+import { IProduct } from '@merp/entities';
 
 export interface IAddProductProps {
   renderTrigger?: (setOpen: () => void) => void;
   open?: boolean;
   default_props?: boolean;
   onCreate: (data: NewProductDtoIn) => void;
+  productDetails?: any;
 }
 
 interface IAddProduct {
   product_name: string;
   product_description: string;
-  product_unit_price: string;
-  stock_quantity: string;
-  stock_alert_level: string;
+  product_unit_price: number;
+  stock_quantity: number;
+  stock_alert_level: number;
 }
 
 const validationSchema = yup.object().shape({
@@ -43,29 +45,60 @@ const cancelIcon: IIconProps = { iconName: 'Cancel' };
 
 export const AddProductDialog: React.FC<IAddProductProps> = ({
   renderTrigger,
+  productDetails,
   ...props
 }) => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isOpen, { toggle: toggleIsOpen }] = useBoolean(false);
 
+  useEffect(() => {
+    console.log('the product details:', productDetails);
+  }, []);
+
   const onSubmit = async (value: IAddProduct) => {
     const { onCreate } = props;
     console.log('the sumbited value:', value);
-    // console.log('the form data:', localStorage.access_token);
-    // UserService.new_sector_delegate(value);
-    CompanyService.new_product(value)
-      .then(async (response) => {
-        if (response.status !== 200) {
+    if (!productDetails) {
+      console.log('nous sommes dans le create ');
+      CompanyService.new_product(value)
+        .then(async (response) => {
+          if (response.status !== 200) {
+            console.log({ response });
+          }
           console.log({ response });
-        }
-        const data = (await response.json()) as NewProductDtoIn;
-        onCreate(data);
-        toggleIsOpen();
-      })
-      .catch((err) => {
-        console.log({ err });
-        setErrorMessage('Error while adding new product!');
-      });
+          const data = (await response.json()) as NewProductDtoIn;
+          onCreate(data);
+          toggleIsOpen();
+        })
+        .catch((err) => {
+          console.log({ err });
+          setErrorMessage('Error while adding new product!');
+        });
+    }
+
+    if (productDetails) {
+      console.log('nous sommes dans le edit ');
+
+      // const handleEditProduct = ({ id }: IProduct, val: IAddProduct) => {
+      CompanyService.edit_product(productDetails.id, value)
+        .then(async (response) => {
+          if (response.status !== 200) {
+            //@TODO #4
+            alert('Error editing product');
+            return;
+          }
+          const product = (await response.json()) as NewProductDtoIn;
+          console.log('The modif:', product);
+          props.onCreate(product);
+          toggleIsOpen();
+          return product;
+        })
+        .catch((err) => {
+          //@TODO #4
+          console.log({ err });
+        });
+      // };
+    }
   };
 
   const {
@@ -78,11 +111,17 @@ export const AddProductDialog: React.FC<IAddProductProps> = ({
     isSubmitting,
   } = useFormik<NewProductDto>({
     initialValues: {
-      product_name: '',
-      product_description: '',
-      product_unit_price: '',
-      stock_quantity: '',
-      stock_alert_level: '',
+      product_name: productDetails ? productDetails.product_name : '',
+      product_description: productDetails
+        ? productDetails.product_description
+        : '',
+      product_unit_price: productDetails
+        ? productDetails.product_unit_price
+        : null,
+      stock_quantity: productDetails ? productDetails.stock_quantity : null,
+      stock_alert_level: productDetails
+        ? productDetails.stock_alert_level
+        : null,
     },
     validationSchema,
     onSubmit,
@@ -108,7 +147,12 @@ export const AddProductDialog: React.FC<IAddProductProps> = ({
           <div className="modal__body">
             <div className="add-user-container">
               <div className="text_style">
-                <Text variant="xLargePlus">Nouveau produit</Text>
+                {!productDetails && (
+                  <Text variant="xLargePlus">Nouveau produit</Text>
+                )}
+                {productDetails && (
+                  <Text variant="xLargePlus">Modifier produit</Text>
+                )}
               </div>
               <TextField
                 type="text"
@@ -147,7 +191,7 @@ export const AddProductDialog: React.FC<IAddProductProps> = ({
               />
               <div className="modal__footer modal__footer--thin no-padding-top">
                 <DefaultButton
-                  text={'Sauvegarder'}
+                  text={productDetails ? 'Modifier' : 'Sauvegarder'}
                   disabled={isSubmitting}
                   type="submit"
                 >

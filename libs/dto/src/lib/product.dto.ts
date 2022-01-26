@@ -1,14 +1,15 @@
-import { IProduct } from '@merp/entities';
+import { IProduct, IUser } from '@merp/entities';
 
 export class NewProductDto {
   product_name: string;
   product_description: string;
-  product_unit_price: string;
-  stock_quantity: string;
-  stock_alert_level: string;
+  product_unit_price: number;
+  stock_quantity: number;
+  stock_alert_level: number;
 }
 
 export interface NewProductDtoIn {
+  user: IUser;
   product: IProduct;
 }
 

@@ -28,13 +28,14 @@ export class ProductService {
     if (!Boolean(user)) {
       user = currentUser;
     }
-    const product = ProductEntity.newProductEntity({
+    const saveProduct = ProductEntity.newProductEntity({
       ...data,
       user,
     });
 
     try {
-      return this._productRep.save(product);
+      const product = await this._productRep.save(saveProduct);
+      return { product, user };
     } catch (error) {
       // Duplicate company_name or company_phone_number
       if (error.code === '23505') {
@@ -62,15 +63,16 @@ export class ProductService {
   }
 
   async editProduct(id: string, data: Partial<ProductEntity>) {
-    const product = await this.getProductById(id);
-    product.product_name = data.product_name;
-    product.product_description = data.product_description;
-    product.product_unit_price = data.product_unit_price;
-    product.stock_quantity = data.stock_quantity;
-    product.stock_alert_level = data.stock_alert_level;
+    const editedProduct = await this.getProductById(id);
+    editedProduct.product_name = data.product_name;
+    editedProduct.product_description = data.product_description;
+    editedProduct.product_unit_price = data.product_unit_price;
+    editedProduct.stock_quantity = data.stock_quantity;
+    editedProduct.stock_alert_level = data.stock_alert_level;
 
     try {
-      return this._productRep.save(product);
+      const product = await this._productRep.save(editedProduct);
+      return { product };
     } catch (error) {
       // Duplicate company_name or company_phone_number
       if (error.code === '23505') {

@@ -16,16 +16,20 @@ export class CompanyService {
     private _companyRepo: Repository<CompanyEntity>,
     @InjectRepository(UserEntity)
     private _userRepo: Repository<UserEntity>
-  ) { }
+  ) {}
 
   async getCompanies(): Promise<CompaniesDtoIn> {
-    const [companies, count] = await this._companyRepo.findAndCount()
+    const [companies, count] = await this._companyRepo.findAndCount();
     return {
-      companies, count
-    }
+      companies,
+      count,
+    };
   }
 
-  async newCompany(data: NewCompanyDto, commDirector: UserEntity): Promise<NewCompanyDtoIn> {
+  async newCompany(
+    data: NewCompanyDto,
+    commDirector: UserEntity
+  ): Promise<NewCompanyDtoIn> {
     const company = CompanyEntity.newCompanyEntity({
       company_name: data.company_name,
       company_phone_number: data.company_phone_number,

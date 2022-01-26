@@ -30,7 +30,8 @@ const labelStyles: Partial<IStyleSet<ILabelStyles>> = {
 
 export const OrdersPage: React.FC<IOrdersPageProps> = () => {
   const [search, setSearch] = useState<string>('');
-  const [showingDisabled, setShowingDisabled] = useState<boolean>(false);
+  const [showingDisabledProduct, setShowingDisabledProduct] =
+    useState<boolean>(false);
   const [products, setProducts] = useState<IProduct[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
 
@@ -66,16 +67,32 @@ export const OrdersPage: React.FC<IOrdersPageProps> = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
   useEffect(() => {
-    if (products) {
-      setFilteredProducts(products.filter((_) => !_.disabled));
-    }
-  }, [products]);
+    // setFilteredProducts(products.filter((_) => !_.disabled));
+    const bySearchTerm = search ? searchProducts(search) : products;
+    const byDisabled = showingDisabledProduct
+      ? bySearchTerm.filter((_) => _.disabled)
+      : bySearchTerm.filter((_) => !_.disabled);
+    console.log({ products });
+    setFilteredProducts(byDisabled);
+  }, [products, search]);
 
   const handleOnCreate = (data: NewProductDtoIn) => {
     setSearch('');
-    // setShowingDisabled(false);
-    // setProducts([data.product, ...products]);
+    setProducts([data.product, ...products]);
+  };
+  const handleOnEdit = (data: NewProductDtoIn) => {
+    setSearch('');
+    console.log('data modif:', data);
+    setProducts(products);
+  };
+
+  const searchProducts = (keyword: string) => {
+    return products.filter(
+      (_) =>
+        `${_.product_name} ${_.product_description}`.indexOf(keyword) !== -1
+    );
   };
 
   const handleDisableProduct = ({ id }: IProduct) => {
@@ -88,7 +105,7 @@ export const OrdersPage: React.FC<IOrdersPageProps> = () => {
         }
         const product = (await response.json()) as IProduct;
         //@TODO #4 : Success disabled product
-        setProducts(products.filter((_) => _.id !== product.id));
+        setProducts(products.filter((_) => _.id !== id));
         return product;
       })
       .catch((err) => {
@@ -127,6 +144,7 @@ export const OrdersPage: React.FC<IOrdersPageProps> = () => {
           onChange={(_, newValue) => setSearch(newValue || '')}
         />
       </header>
+      {/* For Product */}
       <div className="orders_content">
         <div className="orders-action-product">
           <AddProductDialog
@@ -143,20 +161,24 @@ export const OrdersPage: React.FC<IOrdersPageProps> = () => {
         <Pivot aria-label="Count and Icon Pivot Example" className="orders_nav">
           <PivotItem
             headerText="All products"
-            itemCount={products.length}
+            itemCount={filteredProducts.length}
             itemIcon="Globe"
           >
             <Label styles={labelStyles}>
               <ul className="orders__list">
                 {filteredProducts.length
-                  ? filteredProducts.map((product) => (
-                      <ProductComponent
-                        doDisable={handleDisableProduct}
-                        doDelete={handleDeleteProduct}
-                        product={product}
-                        key={product.id}
-                      />
-                    ))
+                  ? filteredProducts.map(
+                      (product) => (
+                        <ProductComponent
+                          doDisable={handleDisableProduct}
+                          doDelete={handleDeleteProduct}
+                          onEdit={handleOnEdit}
+                          product={product}
+                          key={product.id}
+                        />
+                      )
+                      // console.log({ filteredProducts })
+                    )
                   : null}
               </ul>
             </Label>

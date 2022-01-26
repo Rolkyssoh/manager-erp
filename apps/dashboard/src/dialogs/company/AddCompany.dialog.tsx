@@ -21,7 +21,7 @@ import { ICompany } from '@merp/entities';
 export interface ICreateNewCompanyComponent {
   renderTrigger?: (setOpen: () => void) => void;
   onCreate: (data: NewCompanyDtoIn) => void;
-  companyInfos?: NewCompanyDtoIn;
+  companyInfos?: ICompany;
 }
 
 export const CreateCompanyDialog: React.FC<ICreateNewCompanyComponent> = ({

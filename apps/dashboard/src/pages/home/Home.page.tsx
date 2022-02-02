@@ -111,7 +111,7 @@ export const HomePage: React.FC<IHomePageProps> = () => {
                   <CompanyCardComponent key={company.id} company={company} />
                 ))
               ) : (
-                <EmptyComponent />
+                <EmptyComponent displayText="There are no companies now!" />
               )}
             </>
           )}

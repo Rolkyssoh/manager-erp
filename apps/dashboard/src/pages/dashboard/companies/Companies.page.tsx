@@ -197,7 +197,10 @@ export const CompaniesPage: React.FC<ICompaniesProps> = () => {
                   ))}
                 </ul>
               ) : (
-                <EmptyComponent />
+                <EmptyComponent
+                  displayText='There are no companies. Start by clicking on "Create Company" button
+        above to create one'
+                />
               )}
             </>
           )}

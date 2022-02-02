@@ -121,7 +121,7 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
                         />
                       ))
                     ) : (
-                      <EmptyComponent />
+                      <EmptyComponent displayText="There are no product now!" />
                     )}
                   </>
                 )}

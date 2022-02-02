@@ -6,9 +6,10 @@ import {
   OneToMany,
 } from 'typeorm';
 import { UserEntity } from '..';
+import { IRole } from './user/Role';
 
 @Entity('role')
-export class RoleEntity {
+export class RoleEntity implements IRole {
   static newRole(id: number) {
     const role = new RoleEntity();
     role.id = id;

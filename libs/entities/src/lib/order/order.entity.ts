@@ -1,17 +1,22 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
-import { STATE_ORDER_STATUS, UserEntity } from '..';
-import { AbstractEntity } from './abstract-entity';
+import { STATE_ORDER_STATUS, UserEntity } from '../..';
+import { AbstractEntity } from '../abstract-entity';
+import { IOrder } from './Order';
 import { ProductsToOrdersEntity } from './ProductOrder.entity';
 
 @Entity('order')
-export class OrderEntity extends AbstractEntity {
+export class OrderEntity extends AbstractEntity implements IOrder {
   static newOrderEntity(PartialOrder: Partial<OrderEntity>) {
     const order = new OrderEntity();
-    if(PartialOrder.order_status) order.order_status = PartialOrder.order_status;
-    if(PartialOrder.delivery_date) order.delivery_date = PartialOrder.delivery_date;
-    if(PartialOrder.delivery_address) order.delivery_address = PartialOrder.delivery_address;
-    if(PartialOrder.products_to_orders) order.products_to_orders = PartialOrder.products_to_orders;
-    if(PartialOrder.user) order.user = PartialOrder.user;
+    if (PartialOrder.order_status)
+      order.order_status = PartialOrder.order_status;
+    if (PartialOrder.delivery_date)
+      order.delivery_date = PartialOrder.delivery_date;
+    if (PartialOrder.delivery_address)
+      order.delivery_address = PartialOrder.delivery_address;
+    if (PartialOrder.products_to_orders)
+      order.products_to_orders = PartialOrder.products_to_orders;
+    if (PartialOrder.user) order.user = PartialOrder.user;
     return order;
   }
 

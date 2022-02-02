@@ -1,16 +1,17 @@
 .comapny-body {
+  position: relative;
   display: grid;
   grid-template-columns: 5fr 2fr;
-  // background-color: forestgreen;
   padding-left: 40px;
   padding-right: 40px;
 }
 .products-side {
-  // background-color: darkturquoise;
+  position: relative;
   display: grid;
   grid-template-rows: 220px auto;
 }
 .company-header-container {
+  position: relative;
   background-color: white;
   border-radius: 20px;
   display: flex;
@@ -20,33 +21,35 @@
   margin: 20px 0;
 }
 .company-name {
+  position: relative;
   font-size: 50px;
   font-weight: bolder;
 }
 .company-subtitle {
+  position: relative;
   font-size: 18px;
 }
 .products-items {
-  // background-color: white;
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 4fr;
-  // margin: 20px 0;
 }
 .nav-menu {
+  position: relative;
   background-color: white;
   overflow: hidden;
   overflow-y: scroll;
   width: 175px;
-  // margin-right: 25px;
   padding: 5px;
 }
 .render-part {
 }
 .search-bar {
-  height: 30px;
+  position: relative;
+  height: 40px;
 }
 .items {
-  // background-color: hotpink;
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   padding: 25px;
@@ -54,23 +57,24 @@
 }
 
 .command-box {
-  background-color: white;
+  position: relative;
+  background-color: #fff;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
-  align-items: center;
-  // justify-content: space-evenly;
   height: 450px;
   border-radius: 20px;
   margin: 20px 0 0 20px;
-  // overflow: hidden;
 }
 .box-detail {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 35px;
 }
 .box-title {
+  position: relative;
   font-size: 25px;
   font-weight: bolder;
 }
@@ -78,32 +82,41 @@
   font-weight: lighter;
 }
 .box-body {
+  position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   overflow-y: scroll;
-  margin: 0 20px 20px 20px;
-  // padding-bottom: 5px;
+  margin: 0 20px 20px 26px;
 }
+.box-footer {
+  position: relative;
+  text-align: center;
+  margin: 0 0 1.2em 0;
+}
+.box-button-style {
+  position: relative;
+  height: 3em;
+  font-size: 20px;
+  border-radius: 2em;
+}
+.empty-order-style {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
 @media (width < 1024px) {
   .command-box {
-    // width: 0;
-    // height: 0;
     display: none;
   }
   .comapny-body {
     grid-template-columns: auto;
   }
-  // .box-title {
-  //   font-size: 0;
-  // }
-  // .box-subtitle {
-  //   font-size: 0;
-  // }
 }
 
 @media (width < 601px) {
   .nav-menu {
-    // width: 0;
-    // font-size: 0;
     display: none;
   }
   .products-items {

@@ -1,10 +1,14 @@
 import { Column, Entity, ManyToMany, ManyToOne } from 'typeorm';
-import { OrderEntity, UserEntity } from '..';
-import { AbstractEntity } from './abstract-entity';
-import { ProductEntity } from '../index';
+import { OrderEntity, UserEntity } from '../..';
+import { AbstractEntity } from '../abstract-entity';
+import { ProductEntity } from '../../index';
+import { IProductOrder } from './ProductOrder';
 
 @Entity('products_to_orders')
-export class ProductsToOrdersEntity extends AbstractEntity {
+export class ProductsToOrdersEntity
+  extends AbstractEntity
+  implements IProductOrder
+{
   static newProductsToOrders(PartialOrder: Partial<ProductsToOrdersEntity>) {
     const products_orders = new ProductsToOrdersEntity();
     if (PartialOrder.product_quantity)

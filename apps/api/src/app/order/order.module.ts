@@ -1,7 +1,9 @@
 import {
+  CompanyEntity,
   OrderEntity,
   ProductEntity,
   ProductsToOrdersEntity,
+  UserEntity,
 } from '@merp/entities';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -16,6 +18,8 @@ import { OrderService } from './order.service';
       OrderEntity,
       ProductsToOrdersEntity,
       ProductEntity,
+      UserEntity,
+      CompanyEntity,
     ]),
     AuthModule,
   ],

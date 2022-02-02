@@ -26,6 +26,11 @@ export class ProductController {
     return this.productService.getProducts();
   }
 
+  @Get(':companyId/products')
+  getProductsByCompany(@Param('companyId') companyId: string) {
+    return this.productService.getProductsByCompany(companyId);
+  }
+
   @UseGuards(AuthGuard(), new RoleValidationGuard([COMMERCIAL_DIRECTOR]))
   @Post('add')
   addNewProduct(

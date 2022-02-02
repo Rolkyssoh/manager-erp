@@ -65,8 +65,8 @@ export const AddProductDialog: React.FC<IAddProductProps> = ({
           if (response.status !== 200) {
             console.log({ response });
           }
-          console.log({ response });
           const data = (await response.json()) as NewProductDtoIn;
+          console.log({ data });
           onCreate(data);
           toggleIsOpen();
         })

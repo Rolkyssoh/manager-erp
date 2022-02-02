@@ -1,6 +1,7 @@
+import { IProductOrder } from '../order/ProductOrder';
 import { IUser } from '../user/User';
 
-export class IProduct {
+export interface IProduct {
   id: string;
   product_name: string;
   product_description: string;
@@ -9,4 +10,5 @@ export class IProduct {
   stock_alert_level: number;
   user?: IUser;
   disabled: boolean;
+  products_to_orders?: IProductOrder[];
 }

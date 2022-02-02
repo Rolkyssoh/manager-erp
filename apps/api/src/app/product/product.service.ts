@@ -1,18 +1,22 @@
 import { ProductDtoIn } from '@merp/dto';
-import { ProductEntity, UserEntity } from '@merp/entities';
+import { CompanyEntity, ProductEntity, UserEntity } from '@merp/entities';
 import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { createQueryBuilder, getRepository, Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectRepository(ProductEntity)
-    private _productRep: Repository<ProductEntity>
+    private _productRep: Repository<ProductEntity>,
+    @InjectRepository(UserEntity)
+    private _userRepo: Repository<UserEntity>,
+    @InjectRepository(CompanyEntity)
+    private _companyRepo: Repository<CompanyEntity>
   ) {}
 
   async getProducts(): Promise<ProductDtoIn> {
@@ -21,6 +25,17 @@ export class ProductService {
       products,
       count,
     };
+  }
+
+  async getProductsByCompany(companyId: string) {
+    let query = this._productRep
+      .createQueryBuilder('product')
+      .innerJoin('product.user', 'user')
+      .innerJoin('user.company', 'company')
+      .where('company.id =:id', { id: companyId })
+      .andWhere('product.disabled =:disabled', { disabled: false });
+    const [products, count] = await query.getManyAndCount();
+    return { products, count };
   }
 
   async addNewProduct(data: Partial<ProductEntity>, currentUser: UserEntity) {

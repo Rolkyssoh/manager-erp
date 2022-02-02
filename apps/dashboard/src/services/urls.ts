@@ -30,6 +30,7 @@ export const companyUrls = {
 export const productUrls = {
   ADD_NEW_PRODUCT: `${prefixer}product/add`,
   GET_PRODUCTS: `${prefixer}product`,
+  GET_PRODUCTS_BY_COMPANY: (id: string) => `${prefixer}product/${id}/products`,
   DELETE_PRODUCT: (id: string) => `${prefixer}product/${id}`,
   EDIT_PRODUCT: (id: string) => `${prefixer}product/${id}/edit`,
   DISABLE_PRODUCT: (id: string) => `${prefixer}product/${id}/disable`,

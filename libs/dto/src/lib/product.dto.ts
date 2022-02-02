@@ -1,4 +1,4 @@
-import { IProduct, IUser } from '@merp/entities';
+import { IProductOrder, IProduct, IUser } from '@merp/entities';
 
 export class NewProductDto {
   product_name: string;
@@ -18,6 +18,10 @@ export interface NewProductDtoIn {
 export interface ProductDtoIn {
   products: IProduct[];
   count: number;
+}
+
+export interface OrderProducDtoIn {
+  order_products: IProductOrder[];
 }
 
 // export interface UserListDtoIn extends ListDtoIn<UserEntity> {

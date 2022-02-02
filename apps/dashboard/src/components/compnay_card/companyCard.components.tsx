@@ -14,7 +14,11 @@ export const CompanyCardComponent: React.FC<ICompanyCardProps> = ({
   company,
 }) => {
   return (
-    <Link to={`/company/${company.id}`} className="company-card">
+    <Link
+      to={`/company/${company.id}`}
+      state={{ company }}
+      className="company-card"
+    >
       <div className="company-image">image here</div>
       <div className="company-text">
         <span>{company.company_address}</span>

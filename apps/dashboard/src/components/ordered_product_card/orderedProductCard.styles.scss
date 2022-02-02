@@ -1,13 +1,12 @@
 .ordered-product-card-container {
-  //   background-color: brown;
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr 3fr 2fr;
+  grid-template-columns: 1fr 3fr;
   height: 80px;
   margin-bottom: 12px;
 }
 
 .ordered-left-part {
-  //   background-color: green;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17,9 +16,13 @@
   font-size: 17px;
 }
 .ordered-decrease-icon {
+  // margin: 0 0 7px 0;
 }
-.ordered-center-part {
-  //   background-color: red;
+.ordered-map {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+}
+.ordered-name-prod {
   padding: 0 10px;
 }
 .ordered-product-wording {
@@ -31,6 +34,7 @@
   justify-content: space-between;
 }
 .ordered-product-price {
+  align-self: flex-end;
 }
 .ordered-increase-icon {
   align-self: flex-end;

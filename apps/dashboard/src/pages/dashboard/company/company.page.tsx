@@ -25,9 +25,9 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [companyProducts, setCompanyProducts] = useState<IProduct[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [qteProductsOrdered, setQteProductsOrdered] = useState<number>();
+  const [priceProductsOrderd, setPriceProductsOrdered] = useState<number>();
   const [search, setSearch] = useState<string>('');
-  const [orderedAmountProduct, setOrderedAmountProduct] = useState(1);
-  // const [order, setOrder] = useState<IOrder>(new IOrder());
 
   useEffect(() => {
     console.log('the received company:', company);
@@ -35,6 +35,9 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
       getProductsByCompany(company);
     }
   }, [location]);
+  useEffect(() => {
+    getProductQuantitiesAndPrices();
+  }, [orders]);
 
   const getProductsByCompany = async ({ id }: ICompany) => {
     console.log('The company id:', id);
@@ -51,7 +54,6 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
         return response.json();
       })
       .then(({ products: resProducts }: ProductDtoIn) => {
-        console.log('the response:', resProducts);
         setCompanyProducts(resProducts);
         setLoading(false);
       })
@@ -67,20 +69,59 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
     const ids = orders.map((_) => _.product.id);
     const productInCart = ids.includes(selectedProduct.id);
     if (productInCart) {
+      /** increase product number in cart */
       const newOrders = orders.map((_) => {
         if (_.product.id == selectedProduct.id) {
-          _.quantity++;
+          if (selectedProduct.stock_quantity > _.quantity) {
+            _.quantity++;
+          } else {
+            console.log('plus de produit en stock!!!!!!!');
+          }
         }
         return _;
       });
       setOrders(newOrders);
     } else {
+      /** Add product to cart */
       const order: Order = {
         product: selectedProduct,
         quantity: 1,
       };
       setOrders([order, ...orders]);
-      console.log({ selectedProduct });
+    }
+  };
+
+  const doRemoveOrderProduct = (sletedProduct: IProduct) => {
+    const decreaseOrders = orders.map((_) => {
+      if (_.product.id == sletedProduct.id) {
+        if (_.quantity > 0) {
+          _.quantity--;
+        }
+      }
+      return _;
+    });
+    const filtereddd = filterItems(decreaseOrders);
+    setOrders(filtereddd);
+  };
+
+  const filterItems = (prdt: Order[]) => {
+    return prdt.filter((_) => _.quantity > 0);
+  };
+
+  const getProductQuantitiesAndPrices = () => {
+    const allQty = orders.map((_) => _.quantity);
+    const pricesByQties = orders.map(
+      (_) => _.product.product_unit_price * _.quantity
+    );
+    const reducer = (previousValue: number, currenValue: number) =>
+      previousValue + currenValue;
+    if (allQty.length) {
+      const totalQte = allQty.reduce(reducer);
+      setQteProductsOrdered(totalQte);
+    }
+    if (pricesByQties.length) {
+      const totalPrice = pricesByQties.reduce(reducer);
+      setPriceProductsOrdered(totalPrice);
     }
   };
 
@@ -144,7 +185,8 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
                     <OrderedPrductCardComponent
                       key={_.product.id}
                       orderProduct={_}
-                      amount={orderedAmountProduct}
+                      increaseNumberOfProducts={doAddOrderProduct}
+                      decreaseNumberOfProducts={doRemoveOrderProduct}
                     />
                   ))
                 ) : (
@@ -158,7 +200,7 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
           <div className="box-footer">
             {orders.length ? (
               <DefaultButton
-                text={`Order ${orders.length} for 443 MAD`}
+                text={`Order ${qteProductsOrdered} for ${priceProductsOrderd} MAD`}
                 className="box-button-style"
               />
             ) : (

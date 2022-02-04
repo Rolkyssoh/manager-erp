@@ -7,7 +7,8 @@ import { IProduct } from '@merp/entities';
 export interface IOrderedPrductCardProps {
   default_props?: boolean;
   orderProduct: Order;
-  amount: number;
+  increaseNumberOfProducts: (product: IProduct) => void;
+  decreaseNumberOfProducts: (product: IProduct) => void;
 }
 
 export type Order = {
@@ -17,7 +18,8 @@ export type Order = {
 
 export const OrderedPrductCardComponent: React.FC<IOrderedPrductCardProps> = ({
   orderProduct,
-  amount,
+  increaseNumberOfProducts,
+  decreaseNumberOfProducts,
 }) => {
   const [theOrder, setTheOrder] = useState<Order[]>([]);
   const addIcon: IIconProps = { iconName: 'Add' };
@@ -27,6 +29,14 @@ export const OrderedPrductCardComponent: React.FC<IOrderedPrductCardProps> = ({
     console.log({ orderProduct });
     setTheOrder([orderProduct]);
   }, []);
+
+  const doIncrease = () => {
+    increaseNumberOfProducts(orderProduct.product);
+  };
+
+  const doDecrease = () => {
+    decreaseNumberOfProducts(orderProduct.product);
+  };
 
   return (
     <div className="ordered-product-card-container">
@@ -38,7 +48,7 @@ export const OrderedPrductCardComponent: React.FC<IOrderedPrductCardProps> = ({
               <div className="ordered-decrease-icon">
                 <IconButton
                   iconProps={RemoveIcon}
-                  // title="Add product"
+                  onClick={doDecrease}
                   ariaLabel="Add"
                 />
               </div>
@@ -56,7 +66,7 @@ export const OrderedPrductCardComponent: React.FC<IOrderedPrductCardProps> = ({
                 <div className="ordered-increase-icon">
                   <IconButton
                     iconProps={addIcon}
-                    // title="Add product"
+                    onClick={doIncrease}
                     ariaLabel="Add"
                   />
                 </div>

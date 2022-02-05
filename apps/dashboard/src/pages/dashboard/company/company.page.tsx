@@ -24,6 +24,9 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [companyProducts, setCompanyProducts] = useState<IProduct[]>([]);
+  const [companyProductsToDisplay, setCompanyProductsToDisplay] = useState<
+    IProduct[]
+  >([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [qteProductsOrdered, setQteProductsOrdered] = useState<number>();
   const [priceProductsOrderd, setPriceProductsOrdered] = useState<number>();
@@ -37,7 +40,9 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
   }, [location]);
   useEffect(() => {
     getProductQuantitiesAndPrices();
-  }, [orders]);
+    const doSearch = search ? searchProduct(search) : companyProducts;
+    setCompanyProductsToDisplay(doSearch);
+  }, [orders, companyProducts, search]);
 
   const getProductsByCompany = async ({ id }: ICompany) => {
     console.log('The company id:', id);
@@ -63,6 +68,13 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
         console.log({ err });
         setError(true);
       });
+  };
+
+  const searchProduct = (keyword: string) => {
+    return companyProducts.filter(
+      (_) =>
+        `${_.product_name} ${_.product_description}`.indexOf(keyword) !== -1
+    );
   };
 
   const doAddOrderProduct = (selectedProduct: IProduct) => {
@@ -153,8 +165,8 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
                   <LoadingComponent />
                 ) : (
                   <>
-                    {companyProducts.length ? (
-                      companyProducts.map((product) => (
+                    {companyProductsToDisplay.length ? (
+                      companyProductsToDisplay.map((product) => (
                         <ProductCardComponent
                           key={product.id}
                           product={product}

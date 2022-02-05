@@ -42,7 +42,7 @@ export const OrderedPrductCardComponent: React.FC<IOrderedPrductCardProps> = ({
     <div className="ordered-product-card-container">
       {theOrder.length &&
         theOrder.map((_) => (
-          <>
+          <div key={_.product.id} className="ordered-product-content">
             <div className="ordered-left-part">
               <span className="ordered-quantity">{_.quantity}x</span>
               <div className="ordered-decrease-icon">
@@ -53,7 +53,7 @@ export const OrderedPrductCardComponent: React.FC<IOrderedPrductCardProps> = ({
                 />
               </div>
             </div>
-            <div key={_.product.id} className="ordered-map">
+            <div className="ordered-map">
               <div className="ordered-name-prod">
                 <span className="ordered-product-wording">
                   {_.product.product_name}
@@ -72,7 +72,7 @@ export const OrderedPrductCardComponent: React.FC<IOrderedPrductCardProps> = ({
                 </div>
               </div>
             </div>
-          </>
+          </div>
         ))}
     </div>
   );

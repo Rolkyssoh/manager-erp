@@ -1,12 +1,18 @@
 .ordered-product-card-container {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
   height: 80px;
   margin-bottom: 12px;
 }
+.ordered-product-content {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  height: 100%;
+  // height: 80px;
+}
 
 .ordered-left-part {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -28,7 +34,6 @@
 .ordered-product-wording {
 }
 .ordered-right-part {
-  //   background-color: yellow;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

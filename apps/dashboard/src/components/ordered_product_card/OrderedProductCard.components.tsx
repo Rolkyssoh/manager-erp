@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { DefaultButton, IIconProps, IconButton } from '@fluentui/react';
 
-import './orderedProductCard.styles.scss';
 import { IProduct } from '@merp/entities';
+import { LoadingComponent } from '..';
 
 export interface IOrderedPrductCardProps {
   default_props?: boolean;
@@ -24,10 +24,14 @@ export const OrderedPrductCardComponent: React.FC<IOrderedPrductCardProps> = ({
   const [theOrder, setTheOrder] = useState<Order[]>([]);
   const addIcon: IIconProps = { iconName: 'Add' };
   const RemoveIcon: IIconProps = { iconName: 'Remove' };
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     console.log({ orderProduct });
     setTheOrder([orderProduct]);
+    if (orderProduct) {
+      setLoading(false);
+    }
   }, []);
 
   const doIncrease = () => {
@@ -40,40 +44,47 @@ export const OrderedPrductCardComponent: React.FC<IOrderedPrductCardProps> = ({
 
   return (
     <div className="ordered-product-card-container">
-      {theOrder.length &&
-        theOrder.map((_) => (
-          <div key={_.product.id} className="ordered-product-content">
-            <div className="ordered-left-part">
-              <span className="ordered-quantity">{_.quantity}x</span>
-              <div className="ordered-decrease-icon">
-                <IconButton
-                  iconProps={RemoveIcon}
-                  onClick={doDecrease}
-                  ariaLabel="Add"
-                />
-              </div>
-            </div>
-            <div className="ordered-map">
-              <div className="ordered-name-prod">
-                <span className="ordered-product-wording">
-                  {_.product.product_name}
-                </span>
-              </div>
-              <div className="ordered-right-part">
-                <div className="ordered-product-price">
-                  {_.product.product_unit_price} MAD
+      {loading ? (
+        <LoadingComponent />
+      ) : (
+        <>
+          {theOrder.length
+            ? theOrder.map((_) => (
+                <div key={_.product.id} className="ordered-product-content">
+                  <div className="ordered-left-part">
+                    <span className="ordered-quantity">{_.quantity}x</span>
+                    <div className="ordered-decrease-icon">
+                      <IconButton
+                        iconProps={RemoveIcon}
+                        onClick={doDecrease}
+                        ariaLabel="Add"
+                      />
+                    </div>
+                  </div>
+                  <div className="ordered-map">
+                    <div className="ordered-name-prod">
+                      <span className="ordered-product-wording">
+                        {_.product.product_name}
+                      </span>
+                    </div>
+                    <div className="ordered-right-part">
+                      <div className="ordered-product-price">
+                        {_.product.product_unit_price} MAD
+                      </div>
+                      <div className="ordered-increase-icon">
+                        <IconButton
+                          iconProps={addIcon}
+                          onClick={doIncrease}
+                          ariaLabel="Add"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="ordered-increase-icon">
-                  <IconButton
-                    iconProps={addIcon}
-                    onClick={doIncrease}
-                    ariaLabel="Add"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+              ))
+            : null}
+        </>
+      )}
     </div>
   );
 };

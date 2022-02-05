@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { DefaultButton, IIconProps, IconButton } from '@fluentui/react';
+import { IIconProps, IconButton } from '@fluentui/react';
 
-import './productCard.styles.scss';
 import { IProduct } from '@merp/entities';
 
 export interface IProductCardProps {

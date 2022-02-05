@@ -8,7 +8,7 @@ export interface ILoadingProps {
 export const LoadingComponent: React.FC<ILoadingProps> = () => {
   return (
     <div className="cusstom-loading-container">
-      <Spinner size={SpinnerSize.large} />;
+      <Spinner size={SpinnerSize.large} />
     </div>
   );
 };

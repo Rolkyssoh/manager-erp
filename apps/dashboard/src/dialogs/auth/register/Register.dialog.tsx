@@ -28,16 +28,20 @@ import {
 } from '../../../stores';
 import { useNavigate } from 'react-router';
 import { userInfo } from 'os';
-import { RegisterDialog } from '../..';
+import { LoginDialog } from '../..';
+import { IUser } from '@merp/entities';
 
-export interface ILoginProps {
+export interface IRegisterProps {
   renderTrigger?: (setOpen: () => void) => void;
   open?: boolean;
 }
 
-interface ILogin {
+interface IRegister {
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
+  role: number;
 }
 
 const validationSchema = yup.object().shape({
@@ -47,7 +51,7 @@ const validationSchema = yup.object().shape({
 
 const cancelIcon: IIconProps = { iconName: 'Cancel' };
 
-export const LoginDialog: React.FC<ILoginProps> = ({
+export const RegisterDialog: React.FC<IRegisterProps> = ({
   renderTrigger,
   ...props
 }) => {
@@ -61,54 +65,17 @@ export const LoginDialog: React.FC<ILoginProps> = ({
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   const onSubmit = async (
-    value: ILogin,
-    { setSubmitting }: FormikHelpers<ILogin>
+    value: IRegister,
+    { setSubmitting }: FormikHelpers<IRegister>
   ) => {
     // setErrorMessage('')
-    AuthService.login(value)
+    AuthService.register(value)
       .then(async (response) => {
         if ([200, 201].includes(response.status)) {
-          const { user, token } = (await response.json()) as LoginDtoOut;
-          console.log('le token dans le auth:', token);
-          if (user.disabled) {
-            console.log('auth:user_disabled');
-            // new_notification({
-            //   title: 'Oooppsss!',
-            //   message: 'auth:user_disabled',
-            //   values: { name: user.user_name },
-            //   variant: 'danger',
-            //   shouldTranslate: true,
-            //   durationMillis: 10000,
-            // })
-            return;
-          }
-          if (user.company && user.company.disabled) {
-            console.log('auth:org_disabled');
-            // new_notification({
-            //   title: 'Oooppsss!',
-            //   message: 'auth:org_disabled',
-            //   values: { name: user.agency.name },
-            //   variant: 'danger',
-            //   shouldTranslate: true,
-            //   durationMillis: 10000,
-            // })
-            return;
-          }
-
-          routeToAppropriatePagePerRole(user);
-          updateCurrentUser(user);
-          updateToken(token);
-          // setRole(user.role.id)
-          console.log({ user });
-          console.log('auth:welcome_messag e');
-          // new_notification({
-          //   title: 'auth:login_welcome',
-          //   message: 'auth:welcome_message',
-          //   values: { name: user.user_name },
-          //   variant: 'success',
-          //   shouldTranslate: true,
-          //   durationMillis: 3000,
-          // })
+          const user = (await response.json()) as IUser;
+          console.log('auth:welcome_messag e', user);
+          // navigate('auth/login');
+          // onDismiss(toggleIsOpen)
         } else if ([404, 401].includes(response.status)) {
           setErrorMessage('auth:no_username_password_match');
           const { message } = await response.json();
@@ -133,10 +100,13 @@ export const LoginDialog: React.FC<ILoginProps> = ({
     errors,
     handleSubmit,
     isSubmitting,
-  } = useFormik<ILogin>({
+  } = useFormik<IRegister>({
     initialValues: {
+      first_name: '',
+      last_name: '',
       email: '',
       password: '',
+      role: 0,
     },
     validationSchema,
     onSubmit,
@@ -173,7 +143,7 @@ export const LoginDialog: React.FC<ILoginProps> = ({
       >
         <form onSubmit={handleSubmit}>
           <div className="modal__header">
-            <Text variant="xLarge">Se connecter</Text>
+            <Text variant="xLarge">S'inscrir</Text>
             <IconButton
               iconProps={cancelIcon}
               ariaLabel="Close popup modal"
@@ -187,17 +157,31 @@ export const LoginDialog: React.FC<ILoginProps> = ({
                 textDecoration: 'underline',
               }}
             >
-              {/** Go to register */}
-              <RegisterDialog
+              {/** Cliquez ici pour vous Connecter */}
+              <LoginDialog
                 renderTrigger={(trigger) => (
                   <ActionButton
-                    text="Cliquez ici pour vous Inscrire"
+                    text="Cliquez ici pour vous Connecter"
                     // className="home-action-button"
                     onClick={trigger}
                   />
                 )}
               />
             </p>
+            <TextField
+              type="text"
+              label={'Prénom'}
+              value={values.first_name}
+              onChange={handleChange}
+              name="first_name"
+            />
+            <TextField
+              type="text"
+              label={'Nom'}
+              value={values.last_name}
+              onChange={handleChange}
+              name="last_name"
+            />
             <TextField
               type="text"
               label={'Email'}
@@ -215,10 +199,7 @@ export const LoginDialog: React.FC<ILoginProps> = ({
           </div>
           <div className="modal__footer modal__footer--thin no-padding-top">
             <DefaultButton
-              // onRenderIcon={
-              //   () => <i className="las la-calendar-week color_maroon"></i>
-              // }
-              text={'Se connecter'}
+              text={'Valider'}
               disabled={isSubmitting}
               type="submit"
             >

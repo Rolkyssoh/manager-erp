@@ -34,7 +34,7 @@ export class AuthService {
     return this._userRepo.find();
   }
 
-  async login(data: LoginInfo) : Promise<LoginDtoOut> {
+  async login(data: LoginInfo): Promise<LoginDtoOut> {
     const user = await this._userRepo.findOne({
       where: { email: data.email.toLowerCase() },
     });
@@ -72,14 +72,14 @@ export class AuthService {
       role = RoleEntity.newRole(CUSTOMER);
     }
 
-    const user = UserEntity.newUserEntity({
+    const customer = UserEntity.newUserEntity({
       ...data,
       role,
     });
 
     try {
-      const customerCreated = await this._userRepo.save(user);
-      return customerCreated;
+      const user = await this._userRepo.save(customer);
+      return { user };
     } catch (error) {
       // Duplicate company_name or company_phone_number
       if (error.code === '23505') {

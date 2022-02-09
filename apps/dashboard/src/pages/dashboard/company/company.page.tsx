@@ -13,6 +13,7 @@ import { CompanyService } from 'apps/dashboard/src/services';
 import { ICompany, IProduct } from '@merp/entities';
 import { ProductDtoIn } from '@merp/dto';
 import { DefaultButton, SearchBox, Text } from '@fluentui/react';
+import { LoginDialog } from 'apps/dashboard/src/dialogs';
 
 export interface ICompanyPageProps extends RouteProps {
   default_props?: boolean;
@@ -31,12 +32,20 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
   const [qteProductsOrdered, setQteProductsOrdered] = useState<number>();
   const [priceProductsOrderd, setPriceProductsOrdered] = useState<number>();
   const [search, setSearch] = useState<string>('');
+  const [token, setToken] = useState<string>('');
 
   useEffect(() => {
     console.log('the received company:', company);
     if (location.state) {
       getProductsByCompany(company);
     }
+    // const tokennn = localStorage.getItem('user') as string;
+    const accessTok = localStorage.getItem('access_token')
+      ? localStorage.getItem('access_token') || ''
+      : '';
+    setToken(accessTok);
+    // const tokenParsed = JSON.parse(accessTok);
+    console.log({ token });
   }, [location]);
   useEffect(() => {
     getProductQuantitiesAndPrices();
@@ -137,6 +146,24 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
     }
   };
 
+  const doCheckOrder = () => {
+    if (!token) {
+      /** Open the login diaglog! */
+      <LoginDialog
+        renderTrigger={(trigger) => (
+          <DefaultButton
+            text="Se connecter"
+            className="home-action-button"
+            onClick={trigger}
+          />
+        )}
+      />;
+    } else {
+      /** check the order */
+      console.log('cheking order', token);
+    }
+  };
+
   return (
     <div className="company-container">
       <HeaderComponent />
@@ -214,8 +241,18 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
               <DefaultButton
                 text={`Order ${qteProductsOrdered} for ${priceProductsOrderd} MAD`}
                 className="box-button-style"
+                onClick={doCheckOrder}
               />
             ) : (
+              // <LoginDialog
+              //   renderTrigger={(trigger) => (
+              //     <DefaultButton
+              //       text={`Order ${qteProductsOrdered} for ${priceProductsOrderd} MAD`}
+              //       className="home-action-button"
+              //       onClick={doCheckOrder}
+              //     />
+              //   )}
+              // />
               <div>
                 <Text>
                   You've not added any products yet. When you do, you'll see

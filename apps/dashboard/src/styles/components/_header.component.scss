@@ -1,26 +1,38 @@
 .header {
-  // position: fixed;
+  position: fixed;
+  z-index: 2;
   background-color: var(--bg-color);
-  height: 100px;
+  height: 110px;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  margin: 0 auto;
 }
 .brand {
   position: relative;
-  background-color: cornsilk;
+  //   background-color: cornsilk;
   display: flex;
   justify-content: center;
+  height: 100%;
   align-items: center;
 }
 .first-search-bar {
-  background-color: darkgoldenrod;
+  //   background-color: darkgoldenrod;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .menu-item {
-  background-color: darkorchid;
+  //   background-color: darkorchid;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.header-start-button {
+  // background-color: red;
+  height: 3em;
+  border-radius: 2em;
+  // font-size: 20px;
 }

@@ -1,4 +1,4 @@
-import { DefaultButton, PrimaryButton } from '@fluentui/react';
+import { DefaultButton, PrimaryButton, Text } from '@fluentui/react';
 import { LoginDialog } from '../../dialogs';
 import React, { useEffect, useState } from 'react';
 import { RouteProps } from 'react-router';
@@ -57,7 +57,8 @@ export const HomePage: React.FC<IHomePageProps> = () => {
       <HeaderComponent />
       <div className="homebody">
         <div className="searchzone">
-          <span className="home-indication">En Livraison Chez vous </span>
+          {/* <span className="home-indication">En Livraison Chez vous </span> */}
+          <Text className="home-indication">En Livraison chez vous </Text>
           <div className="home-action">
             <LoginDialog
               renderTrigger={(trigger) => (
@@ -100,7 +101,9 @@ export const HomePage: React.FC<IHomePageProps> = () => {
             </div>
           </div>
         </div>
-        <div>Alimentation près de vous</div>
+        <div className="subtitle">
+          <Text variant="xxLarge">Alimentations pour vous</Text>
+        </div>
         <div className="productszone">
           {loading ? (
             <LoadingComponent />

@@ -143,7 +143,7 @@ export const RegisterDialog: React.FC<IRegisterProps> = ({
       >
         <form onSubmit={handleSubmit}>
           <div className="modal__header">
-            <Text variant="xLarge">S'inscrir</Text>
+            <Text variant="xLarge">S'inscrire</Text>
             <IconButton
               iconProps={cancelIcon}
               ariaLabel="Close popup modal"

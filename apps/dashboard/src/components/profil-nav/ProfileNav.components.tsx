@@ -1,33 +1,35 @@
 import { DefaultButton } from '@fluentui/react';
-import {
-  DELIVERER,
-  SUPER_ADMIN,
-  COMMERCIAL_DIRECTOR,
-  CUSTOMER,
-  IRole,
-  SECTOR_DELEGATE,
-  ROLES,
-} from '@merp/constants';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useUserRouteHooks } from '../../hooks';
+import { useProfileRouteHooks, useUserRouteHooks } from '../../hooks';
 import { useAuthStore } from './../../stores';
 
 export interface IProfileNavProps {
   default_props?: boolean;
 }
 
+export interface IProfileRoute {
+  path: string;
+  icon: string;
+  label: string;
+  action?: () => void;
+  component: any;
+}
+
 export const ProfileNavComponent: React.FC<IProfileNavProps> = () => {
-  const menuRoutes = useUserRouteHooks();
+  const subMenuRoutes = useProfileRouteHooks();
 
   return (
     <nav className="profilenav">
-      {/* {menuRoutes.map((_) => (
+      {subMenuRoutes.map((_) => (
         <NavLink
           key={_.path}
           to={_.path}
           className={({ isActive }) =>
-            ['sidenav__route', isActive ? 'sidenav__route--current' : null]
+            [
+              'profilenav__route',
+              isActive ? 'profilenav__route--current' : null,
+            ]
               .filter(Boolean)
               .join(' ')
           }
@@ -35,8 +37,8 @@ export const ProfileNavComponent: React.FC<IProfileNavProps> = () => {
           <i className={'las ' + _.icon}></i>
           <span>{_.label}</span>
         </NavLink>
-      ))} */}
-      <NavLink
+      ))}
+      {/* <NavLink
         to="/dashboard"
         className={({ isActive }) =>
           ['profilenav__route', isActive ? 'profilenav__route--current' : null]
@@ -46,9 +48,9 @@ export const ProfileNavComponent: React.FC<IProfileNavProps> = () => {
       >
         <i className={'las la-id-badge'}></i>
         <span>Settings</span>
-      </NavLink>
+      </NavLink> */}
 
-      <NavLink
+      {/* <NavLink
         to="/dashboard/lkdhfjhk"
         className={({ isActive }) =>
           ['profilenav__route', isActive ? 'profilenav__route--current' : null]
@@ -58,7 +60,7 @@ export const ProfileNavComponent: React.FC<IProfileNavProps> = () => {
       >
         <i className={'las la-id-badge'}></i>
         <span>Other</span>
-      </NavLink>
+      </NavLink> */}
 
       <NavLink
         to="/"

@@ -8,6 +8,8 @@ import {
   LoginPage,
   ResetPasswordPage,
   SignUpPage,
+  UserProfilePage,
+  UserProfileShellPage,
 } from '..';
 
 export interface IEntryRoutesPageProps {
@@ -20,6 +22,10 @@ export const EntryRoutesPage: React.FC<IEntryRoutesPageProps> = () => {
       <Route path="/" element={<HomePage />} />
       <Route path="auth/*" element={<AuthShellPage />} />
       <Route path="dashboard/*" element={<DashboardShellPage />} />
+      {/* <Route
+        path="dashboard/:userCompany/:userId/*"
+        element={<UserProfilePage />}
+      /> */}
       {/* <Route path="company/*" element={<CompaniesShellPage />} /> */}
       <Route path="company/*" element={<CompaniesShellPage />} />
 

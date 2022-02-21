@@ -17,6 +17,7 @@ import {
   UsersPage,
   OrdersPage,
   UserProfilePage,
+  UserProfileShellPage,
 } from '../pages';
 import { useAuthStore } from '../stores';
 
@@ -99,10 +100,10 @@ export function useUserRouteHooks() {
      * For all users
      */
     {
-      path: `${user?.company?.id}/${user?.id}/profile`,
+      path: `${user?.company?.id}/${user?.id}/*`,
       label: 'Profile',
       icon: 'la-id-badge',
-      component: UserProfilePage,
+      component: UserProfileShellPage,
       roles: [SUPER_ADMIN, COMMERCIAL_DIRECTOR, SECTOR_DELEGATE, DELIVERER],
     },
   ];

@@ -1,1 +1,2 @@
-export * from './useUserRouteHooks'
+export * from './useUserRouteHooks';
+export * from './useProfileRouteHooks';

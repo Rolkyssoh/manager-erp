@@ -147,8 +147,10 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
   };
 
   const doCheckOrder = () => {
+    console.log({ token });
     if (!token) {
       /** Open the login diaglog! */
+      console.log('token not exist!!');
       <LoginDialog
         renderTrigger={(trigger) => (
           <DefaultButton

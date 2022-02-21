@@ -16,4 +16,5 @@ export * from './dashboard/sector-delegate-pages/manage-company-operations/Manag
 export * from './dashboard/users/Users.page';
 export * from './dashboard/orders/Orders.page';
 export * from './dashboard/profile/UserProfile.page';
+export * from './dashboard/profile/UserProfileShell.page';
 export * from './dashboard/dashboard-shell/CompaniesShell.page';

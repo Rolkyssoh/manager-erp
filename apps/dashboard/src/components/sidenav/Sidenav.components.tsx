@@ -1,12 +1,4 @@
-import {
-  DELIVERER,
-  SUPER_ADMIN,
-  COMMERCIAL_DIRECTOR,
-  CUSTOMER,
-  IRole,
-  SECTOR_DELEGATE,
-  ROLES,
-} from '@merp/constants';
+import { IRole } from '@merp/constants';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useUserRouteHooks } from '../../hooks';

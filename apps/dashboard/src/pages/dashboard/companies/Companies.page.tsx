@@ -67,7 +67,7 @@ export const CompaniesPage: React.FC<ICompaniesProps> = () => {
       ? byKeyword.filter((_) => _.disabled)
       : byKeyword.filter((_) => !_.disabled);
     setFilteredCompanies(byDisable);
-  }, [search, showingDisabled, companies]);
+  }, [showingDisabled, search, companies]);
 
   const handleOnCreate = (data: NewCompanyDtoIn) => {
     setSearch('');

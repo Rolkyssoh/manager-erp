@@ -13,15 +13,18 @@ import { ConfirmActionDialog } from '../../dialogs/confirm-action/ConfirmAction.
 export interface IUserProps {
   user: IUser;
   onDelete: (user: IUser) => void;
-  doDisable: (componay: IUser) => void;
+  doDisable: (company: IUser) => void;
+  doEnable: (company: IUser) => void;
 }
 
 export const UserComponent: React.FC<IUserProps> = ({
   user,
   onDelete,
   doDisable,
+  doEnable,
 }) => {
   const disableIcon: IIconProps = { iconName: 'StatusCircleBlock' };
+  const enableIcon: IIconProps = { iconName: 'StatusCircleBlock' };
   const editIcon: IIconProps = { iconName: 'Edit' };
   const deleteIcon: IIconProps = { iconName: 'Delete' };
   const tooltipId = useId('tooltip');
@@ -44,24 +47,40 @@ export const UserComponent: React.FC<IUserProps> = ({
           />
         </TooltipHost>
 
-        <TooltipHost content="Disable User" id={tooltipId}>
+        <TooltipHost
+          content={user.disabled ? 'Enable User' : 'Disable User'}
+          id={tooltipId}
+        >
           <ConfirmActionDialog
-            title="Disable User"
+            title={user.disabled ? 'Enable User' : 'Disable User'}
             message={{
-              values: 'Are you sure you want to disable this User?',
+              values: user.disabled
+                ? 'Are you sure you want to enable this User? '
+                : 'Are you sure you want to disable this User?',
               id: 'lkksdo',
             }}
             negativeText="Cancel"
-            positiveText="Disable User"
-            onPositive={() => doDisable(user)}
+            positiveText={user.disabled ? 'Enable User' : 'Disable User'}
+            onPositive={() =>
+              user.disabled ? doEnable(user) : doDisable(user)
+            }
             renderTrigger={(trigger, renderDialog) => (
               <>
-                <IconButton
-                  iconProps={disableIcon}
-                  title="Disable User"
-                  ariaLabel="Disable User"
-                  onClick={trigger}
-                />
+                {user.disabled ? (
+                  <IconButton
+                    iconProps={enableIcon}
+                    title="Enable User"
+                    ariaLabel="Enable User"
+                    onClick={trigger}
+                  />
+                ) : (
+                  <IconButton
+                    iconProps={disableIcon}
+                    title="Disable User"
+                    ariaLabel="Disable User"
+                    onClick={trigger}
+                  />
+                )}
                 {renderDialog()}
               </>
             )}

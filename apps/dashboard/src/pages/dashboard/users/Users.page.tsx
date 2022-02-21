@@ -146,6 +146,25 @@ export const UsersPage: React.FC<IUsersPageProps> = () => {
       });
   };
 
+  const handleEnable = ({ id }: IUser) => {
+    UserService.enable_user(id)
+      .then(async (response) => {
+        if (response.status !== 200) {
+          //@TODO
+          alert('Error while enabling user!');
+          return;
+        }
+        const user = (await response.json()) as IUser;
+        //@TODO: Success deleting user
+        setUsers(users.filter((_) => _.id !== id));
+        return user;
+      })
+      .catch((err) => {
+        //@TODO
+        console.log({ err });
+      });
+  };
+
   return (
     <div className="users_container">
       <header className="users_page_header">
@@ -198,6 +217,7 @@ export const UsersPage: React.FC<IUsersPageProps> = () => {
                     key={_.id}
                     onDelete={handleDelete}
                     doDisable={handleDisable}
+                    doEnable={handleEnable}
                   />
                 )
                 // console.log({ _ })

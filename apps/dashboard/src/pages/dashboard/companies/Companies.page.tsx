@@ -84,7 +84,7 @@ export const CompaniesPage: React.FC<ICompaniesProps> = () => {
           return;
         }
         const company = (await response.json()) as ICompany;
-        //@TODO #4 : Success deleting company
+        //@TODO #4 : Success disabling company
         setCompanies(companies.filter((_) => _.id !== id));
         return company;
       })
@@ -104,7 +104,9 @@ export const CompaniesPage: React.FC<ICompaniesProps> = () => {
         }
         //@TODO #4 : Success deleting company
         const company = (await response.json()) as ICompany;
-        setCompanies(companies.map((_) => (_.id !== id ? company : _)));
+        // setCompanies(companies.map((_) => (_.id !== id ? company : _)));
+        setCompanies(companies.filter((_) => _.id !== id));
+        console.log('the enabled company:', company);
         return response.json();
       })
       .catch((err) => {
@@ -191,6 +193,7 @@ export const CompaniesPage: React.FC<ICompaniesProps> = () => {
                     <CompanyComponent
                       company={company}
                       doDisable={handleDisable}
+                      doEnable={handleEnable}
                       onDelete={handleDelete}
                       key={company.id}
                     />

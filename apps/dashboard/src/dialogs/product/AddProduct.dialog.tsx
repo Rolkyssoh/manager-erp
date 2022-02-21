@@ -51,10 +51,6 @@ export const AddProductDialog: React.FC<IAddProductProps> = ({
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isOpen, { toggle: toggleIsOpen }] = useBoolean(false);
 
-  useEffect(() => {
-    console.log('the product details:', productDetails);
-  }, []);
-
   const onSubmit = async (value: IAddProduct) => {
     const { onCreate } = props;
     console.log('the sumbited value:', value);

@@ -15,7 +15,8 @@ import { NewCompanyDtoIn } from '@merp/dto';
 
 export interface ICompanyProps {
   company: ICompany;
-  doDisable: (componay: ICompany) => void;
+  doDisable: (company: ICompany) => void;
+  doEnable: (company: ICompany) => void;
   onDelete: (company: ICompany) => void;
   renderError?: () => void;
 }
@@ -25,9 +26,11 @@ const handleEdit = () => {};
 export const CompanyComponent: React.FC<ICompanyProps> = ({
   company,
   doDisable,
+  doEnable,
   onDelete,
 }) => {
   const disableIcon: IIconProps = { iconName: 'StatusCircleBlock' };
+  const enableIcon: IIconProps = { iconName: 'AcceptMediumIcon' };
   const editIcon: IIconProps = { iconName: 'Edit' };
   const deleteIcon: IIconProps = { iconName: 'Delete' };
   const tooltipId = useId('tooltip');
@@ -53,25 +56,43 @@ export const CompanyComponent: React.FC<ICompanyProps> = ({
             )}
           />
         </TooltipHost>
-        <TooltipHost content="Disable Company" id={tooltipId}>
+        <TooltipHost
+          content={company.disabled ? 'Enable Company' : 'Disable Company'}
+          id={tooltipId}
+        >
           <ConfirmActionDialog
-            title="Disable Company"
+            title={company.disabled ? 'Enable Company' : 'Disable Company'}
             message={{
-              values:
-                'Are you sure you want to disable this company? All users of the company will be disabled as a result.',
+              values: company.disabled
+                ? 'Are you sure you want to enable this company?'
+                : 'Are you sure you want to disable this company? All users of the company will be disabled as a result.',
               id: 'lksdlksdo',
             }}
             negativeText="Cancel"
-            positiveText="Disable Company"
-            onPositive={() => doDisable(company)}
+            positiveText={
+              company.disabled ? 'Enable Company' : 'Disable Company'
+            }
+            onPositive={() =>
+              company.disabled ? doEnable(company) : doDisable(company)
+            }
             renderTrigger={(trigger, renderDialog) => (
               <>
-                <IconButton
-                  iconProps={disableIcon}
-                  title="Disable company"
-                  ariaLabel="Disable company"
-                  onClick={trigger}
-                />
+                {console.log('the disbaled val:', company.disabled)}
+                {company.disabled ? (
+                  <IconButton
+                    iconProps={enableIcon}
+                    title="Enable company"
+                    ariaLabel="Enable company"
+                    onClick={trigger}
+                  />
+                ) : (
+                  <IconButton
+                    iconProps={disableIcon}
+                    title="Disable company"
+                    ariaLabel="Disable company"
+                    onClick={trigger}
+                  />
+                )}
                 {renderDialog()}
               </>
             )}

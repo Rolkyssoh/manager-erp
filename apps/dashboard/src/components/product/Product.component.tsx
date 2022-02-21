@@ -10,6 +10,7 @@ import { NewProductDtoIn } from '@merp/dto';
 export interface IProductProps {
   product: IProduct;
   doDisable: (product: IProduct) => void;
+  doEnable: (product: IProduct) => void;
   doDelete: (company: IProduct) => void;
   renderError?: () => void;
   onEdit: (data: NewProductDtoIn) => void;
@@ -19,9 +20,11 @@ export const ProductComponent: React.FC<IProductProps> = ({
   product,
   onEdit,
   doDisable,
+  doEnable,
   doDelete,
 }) => {
   const disableIcon: IIconProps = { iconName: 'StatusCircleBlock' };
+  const enableIcon: IIconProps = { iconName: 'StatusCircleBlock' };
   const editIcon: IIconProps = { iconName: 'Edit' };
   const deleteIcon: IIconProps = { iconName: 'Delete' };
   const tooltipId = useId('tooltip');
@@ -63,24 +66,42 @@ export const ProductComponent: React.FC<IProductProps> = ({
             )}
           />
         </TooltipHost>
-        <TooltipHost content="Disable Product" id={tooltipId}>
+        <TooltipHost
+          content={product.disabled ? 'Enable Product' : 'Disable Product'}
+          id={tooltipId}
+        >
           <ConfirmActionDialog
-            title="Disable Product"
+            title={product.disabled ? 'Enable Product' : 'Disable Product'}
             message={{
-              values: 'Are you sure you want to disable this product?',
+              values: product.disabled
+                ? 'Are you sure you want to enable this product? '
+                : 'Are you sure you want to disable this product?',
               id: 'lkssdsdo',
             }}
             negativeText="Cancel"
-            positiveText="Disable Product"
-            onPositive={() => doDisable(product)}
+            positiveText={
+              product.disabled ? 'Enable Product' : 'Disable Product'
+            }
+            onPositive={() =>
+              product.disabled ? doEnable(product) : doDisable(product)
+            }
             renderTrigger={(trigger, renderDialog) => (
               <>
-                <IconButton
-                  iconProps={disableIcon}
-                  title="Disable Product"
-                  ariaLabel="Disable Product"
-                  onClick={trigger}
-                />
+                {product.disabled ? (
+                  <IconButton
+                    iconProps={enableIcon}
+                    title="Enable Product"
+                    ariaLabel="Enable Product"
+                    onClick={trigger}
+                  />
+                ) : (
+                  <IconButton
+                    iconProps={disableIcon}
+                    title="Disable Product"
+                    ariaLabel="Disable Product"
+                    onClick={trigger}
+                  />
+                )}
                 {renderDialog()}
               </>
             )}

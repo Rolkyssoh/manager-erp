@@ -1,14 +1,15 @@
 import { DefaultButton } from '@fluentui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useProfileRouteHooks, useUserRouteHooks } from '../../hooks';
-import { useAuthStore } from './../../stores';
+import { useProfileRouteHooks, useUserRouteHooks } from '../../../hooks';
+import { useAuthStore } from '../../../stores';
 
 export interface IProfileNavProps {
   default_props?: boolean;
+  accessRoutes: INavRoute[];
 }
 
-export interface IProfileRoute {
+export interface INavRoute {
   path: string;
   icon: string;
   label: string;
@@ -16,12 +17,18 @@ export interface IProfileRoute {
   component: any;
 }
 
-export const ProfileNavComponent: React.FC<IProfileNavProps> = () => {
-  const subMenuRoutes = useProfileRouteHooks();
+export const ShareNavComponent: React.FC<IProfileNavProps> = ({
+  accessRoutes,
+}) => {
+  // const subMenuRoutes = useProfileRouteHooks();
+
+  useEffect(() => {
+    console.log({ accessRoutes });
+  }, []);
 
   return (
     <nav className="profilenav">
-      {subMenuRoutes.map((_) => (
+      {accessRoutes.map((_) => (
         <NavLink
           key={_.path}
           to={_.path}

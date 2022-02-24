@@ -5,3 +5,4 @@ export * from './company/AddCompany.dialog';
 export * from './orders/OderDetails.dialog';
 export * from './product/AddProduct.dialog';
 export * from './auth/register/Register.dialog';
+export * from './confirm-action/ConfirmAction.dialog';

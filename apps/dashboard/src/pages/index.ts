@@ -18,3 +18,4 @@ export * from './dashboard/orders/Orders.page';
 export * from './dashboard/profile/UserProfile.page';
 export * from './dashboard/profile/UserProfileShell.page';
 export * from './dashboard/dashboard-shell/CompaniesShell.page';
+export * from './dashboard/company/companyNavShell.page';

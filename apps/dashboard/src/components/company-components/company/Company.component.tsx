@@ -9,9 +9,8 @@ import {
 import { useId } from '@fluentui/react-hooks';
 import { ICompany } from '@merp/entities';
 
-import { ConfirmActionDialog } from './../../dialogs/confirm-action/ConfirmAction.dialog';
-import { CreateCompanyDialog } from '../../dialogs';
 import { NewCompanyDtoIn } from '@merp/dto';
+import { CreateCompanyDialog, ConfirmActionDialog } from '../../../dialogs';
 
 export interface ICompanyProps {
   company: ICompany;

@@ -6,7 +6,7 @@ import {
   CUSTOMER,
 } from '@merp/constants';
 import { useEffect, useState } from 'react';
-import { IProfileRoute, IRoute } from '../components';
+import { INavRoute, IRoute } from '../components';
 import {
   UserPage,
   CompaniesPage,
@@ -21,11 +21,11 @@ import {
 import { useAuthStore } from '../stores';
 
 export function useProfileRouteHooks() {
-  const [ProfileRoutes, setProfileRoutes] = useState<IProfileRoute[]>([]);
+  const [profileRoutes, setProfileRoutes] = useState<INavRoute[]>([]);
 
   const { user } = useAuthStore();
 
-  const menuRoutes: IProfileRoute[] = [
+  const menuRoutes: INavRoute[] = [
     /**
      * Admin part
      */
@@ -65,5 +65,5 @@ export function useProfileRouteHooks() {
     setProfileRoutes(menuRoutes);
   }, [user]);
 
-  return ProfileRoutes;
+  return profileRoutes;
 }

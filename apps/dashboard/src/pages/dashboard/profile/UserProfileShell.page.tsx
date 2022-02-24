@@ -1,4 +1,4 @@
-import { ProfileNavComponent } from '../../../components';
+import { ShareNavComponent } from '../../../components';
 import React from 'react';
 import { Navigate, Route, RouteProps, Routes } from 'react-router';
 import { useProfileRouteHooks } from '../../../hooks';
@@ -14,7 +14,7 @@ export const UserProfileShellPage: React.FC<IUserProfileShellPageProps> =
     return (
       <div className="user-profile_shell__container">
         <div className="user-profile__nav">
-          <ProfileNavComponent />
+          <ShareNavComponent accessRoutes={accessRoutes} />
         </div>
         <div className="user-profile__content">
           <Routes>

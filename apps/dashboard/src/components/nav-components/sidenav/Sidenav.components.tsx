@@ -1,8 +1,8 @@
 import { IRole } from '@merp/constants';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useUserRouteHooks } from '../../hooks';
-import { useAuthStore } from './../../stores';
+import { useUserRouteHooks } from '../../../hooks';
+import { useAuthStore } from '../../../stores';
 
 export interface ISidenavProps {
   default_props?: boolean;

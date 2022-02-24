@@ -14,6 +14,8 @@ import { ICompany, IProduct } from '@merp/entities';
 import { ProductDtoIn } from '@merp/dto';
 import { DefaultButton, SearchBox, Text } from '@fluentui/react';
 import { LoginDialog } from 'apps/dashboard/src/dialogs';
+import { useProfileRouteHooks } from 'apps/dashboard/src/hooks';
+import { CompanyNavShellPage } from './companyNavShell.page';
 
 export interface ICompanyPageProps extends RouteProps {
   default_props?: boolean;
@@ -33,6 +35,8 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
   const [priceProductsOrderd, setPriceProductsOrdered] = useState<number>();
   const [search, setSearch] = useState<string>('');
   const [token, setToken] = useState<string>('');
+
+  const companyRoute = useProfileRouteHooks();
 
   useEffect(() => {
     console.log('the received company:', company);
@@ -176,20 +180,32 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
             <span className="company-subtitle">Subtitle</span>
           </div>
           <div className="products-items">
-            <div className="nav-menu">
-              Menu de navigation test of text align
+            <div className="container_sections_search">
+              <div className="sections_bar">Rayons</div>
+              <SearchBox
+                className="search-bar"
+                placeholder="Search"
+                onEscape={(ev) => setSearch('')}
+                onClear={(ev) => setSearch('')}
+                onChange={(_, newValue) => setSearch(newValue || '')}
+              />
             </div>
-            <div className="render-part">
-              <div>
-                <SearchBox
-                  className="search-bar"
-                  placeholder="Search"
-                  onEscape={(ev) => setSearch('')}
-                  onClear={(ev) => setSearch('')}
-                  onChange={(_, newValue) => setSearch(newValue || '')}
-                />
-              </div>
-              <div className="items">
+            {/* <div className="nav-menu"> */}
+            {/* Menu de navigation test of text align */}
+            {/* <ProfileNavComponent accessRoutes={companyRoute} /> */}
+            {companyProductsToDisplay.length ? (
+              <CompanyNavShellPage
+                productToDisplay={companyProductsToDisplay}
+                doAddOrderProduct={doAddOrderProduct}
+                load={loading}
+              />
+            ) : (
+              <EmptyComponent displayText="There are no product now!" />
+              // <LoadingComponent />
+            )}
+            {/* </div> */}
+            {/* <div className="render-part"> */}
+            {/* <div className="items">
                 {loading ? (
                   <LoadingComponent />
                 ) : (
@@ -207,8 +223,9 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
                     )}
                   </>
                 )}
-              </div>
-            </div>
+              </div> */}
+            {/* <CompanyNavShellPage /> */}
+            {/* </div> */}
           </div>
         </div>
         <div className="command-box">

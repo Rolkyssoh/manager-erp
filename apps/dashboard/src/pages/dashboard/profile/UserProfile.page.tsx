@@ -1,5 +1,4 @@
 import { Text, TextField, values } from '@fluentui/react';
-import { ProfileNavComponent } from 'apps/dashboard/src/components';
 import React, { useState } from 'react';
 import { RouteProps } from 'react-router';
 

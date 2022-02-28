@@ -69,7 +69,6 @@ export const LoginDialog: React.FC<ILoginProps> = ({
       .then(async (response) => {
         if ([200, 201].includes(response.status)) {
           const { user, token } = (await response.json()) as LoginDtoOut;
-          console.log('le token dans le auth:', token);
           if (user.disabled) {
             console.log('auth:user_disabled');
             // new_notification({
@@ -157,7 +156,7 @@ export const LoginDialog: React.FC<ILoginProps> = ({
         navigate(`/dashboard/`);
         break;
       case CUSTOMER:
-        navigate(`/${user?.id}`);
+        navigate(`/${user?.id}`, { state: { user } });
         break;
     }
   };

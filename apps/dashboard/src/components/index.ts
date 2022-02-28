@@ -14,3 +14,4 @@ export * from './loading_component/Loading.component';
 export * from './empty_component/empty.component';
 export * from './product/Product.component';
 export * from './company-components/company-product/companyProduct.component';
+export * from './custom-dropdown/customDropdown.component';

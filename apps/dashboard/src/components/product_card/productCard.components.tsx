@@ -14,9 +14,9 @@ export const ProductCardComponent: React.FC<IProductCardProps> = ({
   newOrderProduct,
 }) => {
   const addIcon: IIconProps = { iconName: 'Add' };
-  useEffect(() => {
-    console.log('the product:', product);
-  }, []);
+  // useEffect(() => {
+  //   console.log('the product:', product);
+  // }, []);
 
   const AddOrderProduct = () => {
     newOrderProduct(product);

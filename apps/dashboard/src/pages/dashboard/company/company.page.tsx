@@ -43,12 +43,10 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
     if (location.state) {
       getProductsByCompany(company);
     }
-    // const tokennn = localStorage.getItem('user') as string;
     const accessTok = localStorage.getItem('access_token')
       ? localStorage.getItem('access_token') || ''
       : '';
     setToken(accessTok);
-    // const tokenParsed = JSON.parse(accessTok);
     console.log({ token });
   }, [location]);
   useEffect(() => {

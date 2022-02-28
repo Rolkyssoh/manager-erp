@@ -20,6 +20,15 @@ export const HomePage: React.FC<IHomePageProps> = () => {
   const [companies, setCompanies] = useState<ICompany[]>([]);
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [currentToken, setCurrentToken] = useState<string>('');
+
+  useEffect(() => {
+    const accessTok = localStorage.getItem('access_token')
+      ? localStorage.getItem('access_token') || ''
+      : '';
+    console.log('the token:', localStorage.getItem('access_token'));
+    setCurrentToken(accessTok);
+  }, []);
 
   const getCompaniesHome = async () => {
     CompanyService.get_companies()
@@ -60,15 +69,17 @@ export const HomePage: React.FC<IHomePageProps> = () => {
           {/* <span className="home-indication">En Livraison Chez vous </span> */}
           <Text className="home-indication">En Livraison chez vous </Text>
           <div className="home-action">
-            <LoginDialog
-              renderTrigger={(trigger) => (
-                <DefaultButton
-                  text="Se connecter"
-                  className="home-action-button"
-                  onClick={trigger}
-                />
-              )}
-            />
+            {currentToken ? null : (
+              <LoginDialog
+                renderTrigger={(trigger) => (
+                  <DefaultButton
+                    text="Se connecter"
+                    className="home-action-button"
+                    onClick={trigger}
+                  />
+                )}
+              />
+            )}
           </div>
 
           <div className="search-zone-items">

@@ -66,7 +66,6 @@ export const RegisterDialog: React.FC<IRegisterProps> = ({
   const [errorMessage, setErrorMessage] = useState<string>('');
 
   useEffect(() => {
-    console.log({ open });
     if (open) toggleIsOpen();
   }, [open]);
 

@@ -16,18 +16,36 @@ export const OffDialog: React.FC<IOffDialogProps> = ({
   const [loginOpen, setLoginOpen] = useState<boolean>(false);
   const [registerOpen, setRegisterOpen] = useState<boolean>(false);
 
+  const checkRegisterState = () => {
+    if (registerOpen) {
+      setRegisterOpen(false);
+    }
+  };
+
+  const checkLoginState = () => {
+    if (loginOpen) {
+      setLoginOpen(false);
+    }
+  };
+
   return (
     <div>
       {dialogType == 'register' ? (
         <>
           {' '}
           <RegisterDialog
-            onLogin={() => setLoginOpen(true)}
+            onLogin={() => {
+              setLoginOpen(true);
+              checkRegisterState();
+            }}
             open={registerOpen}
             renderTrigger={(trigger) => renderDialog(trigger)}
           />
           <LoginDialog
-            onRegister={() => setRegisterOpen(true)}
+            onRegister={() => {
+              setRegisterOpen(true);
+              checkLoginState();
+            }}
             open={loginOpen}
             renderTrigger={(trigger) => <></>}
           />{' '}
@@ -35,12 +53,18 @@ export const OffDialog: React.FC<IOffDialogProps> = ({
       ) : (
         <>
           <LoginDialog
-            onRegister={() => setRegisterOpen(true)}
+            onRegister={() => {
+              setRegisterOpen(true);
+              checkLoginState();
+            }}
             open={loginOpen}
             renderTrigger={(trigger) => renderDialog(trigger)}
           />
           <RegisterDialog
-            onLogin={() => setLoginOpen(true)}
+            onLogin={() => {
+              setLoginOpen(true);
+              checkRegisterState();
+            }}
             open={registerOpen}
             renderTrigger={(trigger) => {}}
           />

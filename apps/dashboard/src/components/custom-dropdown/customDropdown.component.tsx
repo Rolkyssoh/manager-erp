@@ -1,22 +1,24 @@
 import { ActionButton, Text } from '@fluentui/react';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
+import { useAuthStore } from '../../stores';
 
-export const CustomDropdownComponent: React.FunctionComponent = () => {
+export interface IDropDwonProps {
+  default_props?: boolean;
+}
+
+export const CustomDropdownComponent: React.FC<IDropDwonProps> = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [timeOutId, setTimeOutId] = useState<any>(null);
 
-  const state = useLocation();
+  const { updateToken } = useAuthStore();
   // const {user} = state;
-
-  useEffect(() => {
-    console.log('the current user', state);
-  }, [localStorage]);
 
   const doLogout = () => {
     setOpen(false);
     localStorage.clear();
+    updateToken('');
   };
 
   return (
@@ -37,7 +39,7 @@ export const CustomDropdownComponent: React.FunctionComponent = () => {
           <hr />
           <div className="dropdowninfos">
             <div className="dropdowninfos_details">
-              <Text>Fist name</Text>
+              <Text>First name</Text>
               <Text>Last name</Text>
               <Text>Email</Text>
             </div>

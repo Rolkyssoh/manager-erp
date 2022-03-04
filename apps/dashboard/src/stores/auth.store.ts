@@ -1,4 +1,3 @@
-import { CUSTOMER, SUPER_ADMIN } from '@merp/constants';
 import { LoginDtoOut } from '@merp/dto';
 import create, { SetState, GetState } from 'zustand';
 

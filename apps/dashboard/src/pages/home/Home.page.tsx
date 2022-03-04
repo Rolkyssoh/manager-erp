@@ -1,5 +1,5 @@
 import { DefaultButton, PrimaryButton, Text } from '@fluentui/react';
-import { LoginDialog } from '../../dialogs';
+import { LoginDialog, OffDialog } from '../../dialogs';
 import React, { useEffect, useState } from 'react';
 import { RouteProps } from 'react-router';
 import {
@@ -11,6 +11,7 @@ import {
 import { CompaniesDtoIn } from '@merp/dto';
 import { CompanyService } from '../../services';
 import { ICompany } from '@merp/entities';
+import { useAuthStore } from '../../stores';
 
 export interface IHomePageProps extends RouteProps {
   default_props?: boolean;
@@ -20,15 +21,7 @@ export const HomePage: React.FC<IHomePageProps> = () => {
   const [companies, setCompanies] = useState<ICompany[]>([]);
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [currentToken, setCurrentToken] = useState<string>('');
-
-  useEffect(() => {
-    const accessTok = localStorage.getItem('access_token')
-      ? localStorage.getItem('access_token') || ''
-      : '';
-    console.log('the token:', localStorage.getItem('access_token'));
-    setCurrentToken(accessTok);
-  }, []);
+  const token = useAuthStore((state) => state.token);
 
   const getCompaniesHome = async () => {
     CompanyService.get_companies()
@@ -69,9 +62,16 @@ export const HomePage: React.FC<IHomePageProps> = () => {
           {/* <span className="home-indication">En Livraison Chez vous </span> */}
           <Text className="home-indication">En Livraison chez vous </Text>
           <div className="home-action">
-            {currentToken ? null : (
-              <LoginDialog
-                renderTrigger={(trigger) => (
+            {token ? null : (
+              // <LoginDialog
+              //   onRegister={() => {}}
+              //   renderTrigger={(trigger) => (
+              //   )}
+              // />
+
+              <OffDialog
+                dialogType="login"
+                renderDialog={(trigger) => (
                   <DefaultButton
                     text="Se connecter"
                     className="home-action-button"

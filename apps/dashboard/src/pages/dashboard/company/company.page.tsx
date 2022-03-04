@@ -153,15 +153,15 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
     if (!token) {
       /** Open the login diaglog! */
       console.log('token not exist!!');
-      <LoginDialog
-        renderTrigger={(trigger) => (
-          <DefaultButton
-            text="Se connecter"
-            className="home-action-button"
-            onClick={trigger}
-          />
-        )}
-      />;
+      // <LoginDialog
+      //   renderTrigger={(trigger) => (
+      //     <DefaultButton
+      //       text="Se connecter"
+      //       className="home-action-button"
+      //       onClick={trigger}
+      //     />
+      //   )}
+      // />;
     } else {
       /** check the order */
       console.log('cheking order', token);

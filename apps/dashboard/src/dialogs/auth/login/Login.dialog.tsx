@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   IconButton,
@@ -27,11 +27,10 @@ import {
   // adminUser
 } from '../../../stores';
 import { useNavigate } from 'react-router';
-import { userInfo } from 'os';
-import { RegisterDialog } from '../..';
 
 export interface ILoginProps {
   renderTrigger?: (setOpen: () => void) => void;
+  onRegister: () => void;
   open?: boolean;
 }
 
@@ -49,6 +48,8 @@ const cancelIcon: IIconProps = { iconName: 'Cancel' };
 
 export const LoginDialog: React.FC<ILoginProps> = ({
   renderTrigger,
+  onRegister,
+  open,
   ...props
 }) => {
   const navigate = useNavigate();
@@ -59,6 +60,10 @@ export const LoginDialog: React.FC<ILoginProps> = ({
   const subTextId: string = useId('subTextLabel');
   const titleId = useId('Login');
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  useEffect(() => {
+    if (open) toggleIsOpen();
+  }, [open]);
 
   const onSubmit = async (
     value: ILogin,
@@ -156,7 +161,7 @@ export const LoginDialog: React.FC<ILoginProps> = ({
         navigate(`/dashboard/`);
         break;
       case CUSTOMER:
-        navigate(`/${user?.id}`, { state: { user } });
+        navigate(`/${user?.id}`);
         break;
     }
   };
@@ -180,23 +185,16 @@ export const LoginDialog: React.FC<ILoginProps> = ({
             />
           </div>
           <div className="modal__body">
-            <p
-              style={{
-                fontSize: 16,
-                textDecoration: 'underline',
+            {/** Go to register */}
+
+            <ActionButton
+              text="Cliquez ici pour vous Inscrire"
+              // className="home-action-button"
+              onClick={() => {
+                onRegister();
+                toggleIsOpen();
               }}
-            >
-              {/** Go to register */}
-              <RegisterDialog
-                renderTrigger={(trigger) => (
-                  <ActionButton
-                    text="Cliquez ici pour vous Inscrire"
-                    // className="home-action-button"
-                    onClick={trigger}
-                  />
-                )}
-              />
-            </p>
+            />
             <TextField
               type="text"
               label={'Email'}

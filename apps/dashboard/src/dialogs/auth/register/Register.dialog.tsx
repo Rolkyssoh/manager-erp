@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   IconButton,
@@ -27,12 +27,11 @@ import {
   // adminUser
 } from '../../../stores';
 import { useNavigate } from 'react-router';
-import { userInfo } from 'os';
-import { LoginDialog } from '../..';
 import { IUser } from '@merp/entities';
 
 export interface IRegisterProps {
   renderTrigger?: (setOpen: () => void) => void;
+  onLogin: () => void;
   open?: boolean;
 }
 
@@ -53,6 +52,8 @@ const cancelIcon: IIconProps = { iconName: 'Cancel' };
 
 export const RegisterDialog: React.FC<IRegisterProps> = ({
   renderTrigger,
+  open,
+  onLogin,
   ...props
 }) => {
   const navigate = useNavigate();
@@ -63,6 +64,11 @@ export const RegisterDialog: React.FC<IRegisterProps> = ({
   const subTextId: string = useId('subTextLabel');
   const titleId = useId('Login');
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  useEffect(() => {
+    console.log({ open });
+    if (open) toggleIsOpen();
+  }, [open]);
 
   const onSubmit = async (
     value: IRegister,
@@ -151,23 +157,14 @@ export const RegisterDialog: React.FC<IRegisterProps> = ({
             />
           </div>
           <div className="modal__body">
-            <p
-              style={{
-                fontSize: 16,
-                textDecoration: 'underline',
+            <ActionButton
+              text="Cliquez ici pour vous Connecter"
+              // className="home-action-button"
+              onClick={() => {
+                onLogin();
+                toggleIsOpen();
               }}
-            >
-              {/** Cliquez ici pour vous Connecter */}
-              <LoginDialog
-                renderTrigger={(trigger) => (
-                  <ActionButton
-                    text="Cliquez ici pour vous Connecter"
-                    // className="home-action-button"
-                    onClick={trigger}
-                  />
-                )}
-              />
-            </p>
+            />
             <TextField
               type="text"
               label={'Prénom'}

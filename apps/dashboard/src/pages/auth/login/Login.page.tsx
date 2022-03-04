@@ -12,6 +12,7 @@ export const LoginPage: React.FC<ILoginPageProps> = () => {
   return (
     <div>
       <LoginDialog
+        onRegister={() => {}}
         renderTrigger={(trigger) => (
           <PrimaryButton onClick={trigger} text="Send" className="singing" />
         )}

@@ -9,13 +9,15 @@
   background-color: #f2f5fa;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border: 2em;
-  border-radius: 1em 0 0 1em;
+  // border-radius: 1em 0 0 1em;
   //   padding: 1rem;
   overflow: hidden;
 }
-hr {
-  height: 0.5px;
-  size: 1px;
+hr.someClass {
+  background-color: grey;
+  // width: 120%;
+  // height: 0.5px;
+  // border-top: 1px solid black;
 }
 .dropdown-item {
   height: 50px;

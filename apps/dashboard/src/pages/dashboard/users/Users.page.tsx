@@ -11,6 +11,7 @@ import { IUser } from '@merp/entities';
 import { UserComponent } from 'apps/dashboard/src/components';
 import { AddUserDialog } from 'apps/dashboard/src/dialogs';
 import UserService from 'apps/dashboard/src/services/user.service';
+import { useAuthStore } from 'apps/dashboard/src/stores';
 import React, { useEffect, useState } from 'react';
 import { RouteProps } from 'react-router';
 
@@ -43,6 +44,8 @@ export const UsersPage: React.FC<IUsersPageProps> = () => {
   const [search, setSearch] = useState<string>('');
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
 
+  const { user } = useAuthStore();
+
   const getUsers = async () => {
     await UserService.get_users()
       .then(async (response) => {
@@ -61,9 +64,15 @@ export const UsersPage: React.FC<IUsersPageProps> = () => {
         // setLoading(false);
         // return datas;
       })
-      .then((respUsers) => {
+      .then((respUsers: IUser[]) => {
         console.log('the users datas:', respUsers);
-        setUsers(respUsers);
+        let usersByCompany;
+        user.role.name === 'super_admin'
+          ? (usersByCompany = respUsers)
+          : (usersByCompany = respUsers.filter(
+              (_) => _.company?.id == user.company?.id
+            ));
+        setUsers(usersByCompany);
         setLoading(false);
       })
       .catch((err) => {

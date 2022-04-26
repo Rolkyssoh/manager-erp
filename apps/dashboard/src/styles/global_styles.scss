@@ -19,6 +19,8 @@
 @import './components/product-card.component';
 @import './components/header.component';
 @import './components//dropdown.component';
+@import './components/company-product.component';
+@import './components/company-card.component';
 
 // pages
 @import './pages/Login.page';
@@ -33,6 +35,7 @@
 @import './pages/Home.page';
 @import './pages/Company.page';
 @import './pages/UserProfile.shell';
+@import './pages/company-nav-shell.page';
 
 html,
 body,

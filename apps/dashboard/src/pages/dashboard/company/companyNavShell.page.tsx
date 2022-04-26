@@ -27,13 +27,13 @@ export const CompanyNavShellPage: React.FC<ICompanyNavShellPageProps> = ({
 
   console.log({ accessRoutes });
   return (
-    <div className="user-profile_shell__container">
-      <div className="user-profile__nav">
+    <div className="company_nav_shell__container">
+      <div className="compnay_ray_nav">
         <ShareNavComponent accessRoutes={accessRoutes} />
       </div>
-      <div className="user-profile__content">
+      <div className="company_prdt__content">
         {/* <Routes>
-          {accessRoutes.map((route) => (
+          {accessRoutes.map((route) => ( 
             <Route
               key={route.path}
               path={route.path}

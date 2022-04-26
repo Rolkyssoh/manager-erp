@@ -18,7 +18,7 @@ export const CompanyProductComponent: React.FC<ICompanyProductComponentProps> =
     }, []);
 
     return (
-      <div className="items">
+      <div className="item_prdt_container">
         {load ? (
           <LoadingComponent />
         ) : (

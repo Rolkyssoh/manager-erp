@@ -3,8 +3,6 @@ import { ICompany } from '@merp/entities';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import './companyCard.styles.scss';
-
 export interface ICompanyCardProps {
   company: ICompany;
   default_props?: boolean;

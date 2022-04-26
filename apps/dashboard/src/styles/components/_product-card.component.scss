@@ -3,23 +3,19 @@
   display: grid;
   grid-template-columns: 3fr 6fr 1fr;
   height: 180px;
-  width: 320px;
-  // width: 48%;
-  margin-bottom: 35px;
+  width: 300px;
   padding: 10px;
-  // // width: 100%;
+  margin: 0 10px 20px 10px;
   @media (width < 1024px) {
     width: 100%;
   }
   border-radius: 15px;
 }
 .left-part {
-  // background-color: yellow;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  // padding: 10px 0 10px 10px;
 }
 .product-detail {
   // background-color: green;

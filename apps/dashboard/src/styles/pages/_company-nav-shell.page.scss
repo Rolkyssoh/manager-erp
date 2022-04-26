@@ -1,0 +1,17 @@
+.company_nav_shell__container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  position: relative;
+  margin: 1em;
+}
+
+.compnay_ray_nav {
+  position: static;
+  background-color: rgb(222, 231, 222);
+  border-radius: 1em;
+  padding: 1em;
+  height: 30em;
+}
+.company_prdt__content {
+  position: relative;
+}

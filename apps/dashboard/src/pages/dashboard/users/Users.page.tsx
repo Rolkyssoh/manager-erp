@@ -66,12 +66,10 @@ export const UsersPage: React.FC<IUsersPageProps> = () => {
       })
       .then((respUsers: IUser[]) => {
         console.log('the users datas:', respUsers);
-        let usersByCompany;
-        user.role.name === 'super_admin'
-          ? (usersByCompany = respUsers)
-          : (usersByCompany = respUsers.filter(
-              (_) => _.company?.id == user.company?.id
-            ));
+        const usersByCompany =
+          user.role.name === 'super_admin'
+            ? respUsers
+            : respUsers.filter((_) => _.company?.id == user.company?.id);
         setUsers(usersByCompany);
         setLoading(false);
       })

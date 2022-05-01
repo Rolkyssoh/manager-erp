@@ -1,4 +1,6 @@
-import { Text, TextField, values } from '@fluentui/react';
+import { DefaultButton, Text, TextField, values } from '@fluentui/react';
+import { useAuthStore } from 'apps/dashboard/src/stores';
+import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import { RouteProps } from 'react-router';
 
@@ -6,7 +8,29 @@ export interface IUserProfileProps extends RouteProps {
   default_props?: boolean;
 }
 
+interface IBasicInfosUpdate {
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
 export const UserProfilePage: React.FC<IUserProfileProps> = () => {
+  const { user } = useAuthStore();
+  console.log({ user });
+
+  const onSubmit = (val: IBasicInfosUpdate) => {
+    console.log({ val });
+  };
+
+  const { values, handleChange, handleSubmit } = useFormik<IBasicInfosUpdate>({
+    initialValues: {
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+    },
+    onSubmit,
+  });
+
   return (
     <div className="user-profile__content">
       <div className="user-profile__header">
@@ -16,31 +40,63 @@ export const UserProfilePage: React.FC<IUserProfileProps> = () => {
           <span>UserStatus</span>
         </div>
       </div>
-      <div className="user-profile__infos">
-        <Text variant="xLargePlus">Basic Info</Text>
-        <div className="user-profile__infos-input">
-          <TextField type="text" label={'First Name'} name="first_name" />
-          <TextField type="text" label={'Last Name'} name="last_name" />
+      <form>
+        <div className="user-profile__infos">
+          <Text variant="xLargePlus">Basic Info</Text>
+          <div className="user-profile__infos-input">
+            <TextField
+              type="text"
+              label={'First Name'}
+              name="first_name"
+              value={values.first_name}
+              onChange={handleChange}
+            />
+            <TextField
+              type="text"
+              label={'Last Name'}
+              name="last_name"
+              value={values.last_name}
+              onChange={handleChange}
+            />
+          </div>
+          <TextField
+            type="email"
+            label={'Email'}
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+          />
+          <DefaultButton text="Update" style={{ marginTop: '10px' }} />
         </div>
-        <TextField type="text" label={'Email'} name="email" />
-      </div>
+      </form>
       <div className="user-profile__pwd">
-        <div>
+        <form onSubmit={handleSubmit}>
           <Text variant="xLargePlus">Change password</Text>
           <TextField
-            type="text"
+            type="password"
             label={'Current password'}
             // value={values.first_name}
             // onChange={handleChange}
+            canRevealPassword
+            revealPasswordAriaLabel="Show password"
             name="current_pwd"
           />
-          <TextField type="text" label={'New password'} name="new_pwd" />
           <TextField
-            type="text"
+            type="password"
+            label={'New password'}
+            name="new_pwd"
+            canRevealPassword
+            revealPasswordAriaLabel="Show password"
+          />
+          <TextField
+            type="password"
             label={'Confirm new password'}
             name="new_pwd_confirm"
+            canRevealPassword
+            revealPasswordAriaLabel="Show password"
           />
-        </div>
+          <DefaultButton text="Change" style={{ marginTop: '10px' }} />
+        </form>
         <div>
           <Text variant="xLarge">Password requirements</Text>
           <p>Please follow this guide for a strong password:</p>

@@ -47,7 +47,6 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
       ? localStorage.getItem('access_token') || ''
       : '';
     setToken(accessTok);
-    console.log({ token });
   }, [location]);
   useEffect(() => {
     getProductQuantitiesAndPrices();
@@ -56,7 +55,6 @@ export const CompanyPage: React.FC<ICompanyPageProps> = () => {
   }, [orders, companyProducts, search]);
 
   const getProductsByCompany = async ({ id }: ICompany) => {
-    console.log('The company id:', id);
     await CompanyService.get_products_by_company(id)
       .then((response) => {
         if (response.status !== 200) {

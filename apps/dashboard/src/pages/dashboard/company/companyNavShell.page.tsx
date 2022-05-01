@@ -21,11 +21,6 @@ export const CompanyNavShellPage: React.FC<ICompanyNavShellPageProps> = ({
 }) => {
   const accessRoutes = useCompanyRouteHooks();
 
-  useEffect(() => {
-    console.log({ productToDisplay });
-  }, []);
-
-  console.log({ accessRoutes });
   return (
     <div className="company_nav_shell__container">
       <div className="compnay_ray_nav">

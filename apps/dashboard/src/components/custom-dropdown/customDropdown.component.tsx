@@ -1,7 +1,5 @@
-// import React, { useEffect, useState } from 'react';
-// import { useLocation } from 'react-router';
 import { useAuthStore } from '../../stores';
-import * as React from 'react';
+import React from 'react';
 import {
   Callout,
   Link,
@@ -89,7 +87,6 @@ const styles = mergeStyleSets({
   callout: {
     width: 320,
     maxWidth: '90%',
-    // padding: '20px 24px',
   },
   title: {
     marginBottom: 12,

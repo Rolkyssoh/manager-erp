@@ -13,7 +13,7 @@ export const HeaderComponent: React.FC<IHeaderProps> = () => {
   const navigate = useNavigate();
   const [loginOpen, setLoginOpen] = useState<boolean>(false);
   const [registerOpen, setRegisterOpen] = useState<boolean>(false);
-  const { user } = useAuthStore();
+  const { user, token } = useAuthStore();
 
   return (
     <div className="header">
@@ -22,7 +22,7 @@ export const HeaderComponent: React.FC<IHeaderProps> = () => {
       </div>
       <div className="first-search-bar">search bar</div>
       <div className="menu-item">
-        {user ? (
+        {token ? (
           <CustomDropdownComponent />
         ) : (
           <OffDialog

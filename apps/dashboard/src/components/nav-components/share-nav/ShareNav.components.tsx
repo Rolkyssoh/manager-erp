@@ -1,7 +1,6 @@
 import { DefaultButton } from '@fluentui/react';
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useProfileRouteHooks, useUserRouteHooks } from '../../../hooks';
 import { useAuthStore } from '../../../stores';
 
 export interface IProfileNavProps {
@@ -20,7 +19,12 @@ export interface INavRoute {
 export const ShareNavComponent: React.FC<IProfileNavProps> = ({
   accessRoutes,
 }) => {
-  // const subMenuRoutes = useProfileRouteHooks();
+  const { updateToken } = useAuthStore();
+
+  const doLogout = () => {
+    localStorage.clear();
+    updateToken('');
+  };
 
   useEffect(() => {
     console.log({ accessRoutes });
@@ -45,29 +49,6 @@ export const ShareNavComponent: React.FC<IProfileNavProps> = ({
           <span>{_.label}</span>
         </NavLink>
       ))}
-      {/* <NavLink
-        to="/dashboard"
-        className={({ isActive }) =>
-          ['profilenav__route', isActive ? 'profilenav__route--current' : null]
-            .filter(Boolean)
-            .join(' ')
-        }
-      >
-        <i className={'las la-id-badge'}></i>
-        <span>Settings</span>
-      </NavLink> */}
-
-      {/* <NavLink
-        to="/dashboard/lkdhfjhk"
-        className={({ isActive }) =>
-          ['profilenav__route', isActive ? 'profilenav__route--current' : null]
-            .filter(Boolean)
-            .join(' ')
-        }
-      >
-        <i className={'las la-id-badge'}></i>
-        <span>Other</span>
-      </NavLink> */}
 
       <NavLink
         to="/"
@@ -77,11 +58,7 @@ export const ShareNavComponent: React.FC<IProfileNavProps> = ({
             .join(' ')
         }
       >
-        <DefaultButton
-          text="Disconnection"
-          onClick={() => localStorage.clear()}
-          // checked={showingDisabled}
-        />
+        <DefaultButton text="Disconnection" onClick={doLogout} />
       </NavLink>
     </nav>
   );

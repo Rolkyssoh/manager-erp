@@ -1,5 +1,6 @@
 import { CompanyEntity, UserEntity } from '@merp/entities';
 import {
+  Bind,
   Body,
   Controller,
   Delete,
@@ -7,7 +8,9 @@ import {
   Param,
   Patch,
   Post,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { RoleValidationGuard } from '../auth/role-validation.guard';
@@ -16,6 +19,7 @@ import { CompanyService } from './company.service';
 import { CompaniesDtoIn, NewCompanyDto } from '@merp/dto';
 import { COMMERCIAL_DIRECTOR, SUPER_ADMIN } from '@merp/constants';
 import { ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('/company')
 @ApiTags('Companies')
@@ -30,7 +34,14 @@ export class CompanyController {
 
   @Post('add')
   @UseGuards(AuthGuard(), new RoleValidationGuard())
-  newCompany(@Body() data: NewCompanyDto, @User() commDirector: UserEntity) {
+  @UseInterceptors(FileInterceptor('logo'))
+  @Bind(UploadedFile())
+  newCompany(
+    @Body() data: NewCompanyDto,
+    @User() commDirector: UserEntity,
+    logo: File
+  ) {
+    console.log({ logo });
     return this.companyService.newCompany(data, commDirector);
   }
 

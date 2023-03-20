@@ -15,8 +15,25 @@ export const HeaderComponent: React.FC<IHeaderProps> = () => {
   const [registerOpen, setRegisterOpen] = useState<boolean>(false);
   const { user, token } = useAuthStore();
 
+  useEffect(() => {
+    console.log('the scroll event:', document.documentElement.scrollTop);
+  }, []);
+
+  // For scroll event
+  window.onscroll = () => {
+    if (document.documentElement.scrollTop > 58) {
+      (
+        document.getElementById('header_nav') as HTMLInputElement
+      ).style.background = 'red';
+    } else {
+      (
+        document.getElementById('header_nav') as HTMLInputElement
+      ).style.background = 'inherit';
+    }
+  };
+
   return (
-    <div className="header">
+    <div className="header" id="header_nav">
       <div className="brand">
         <ActionButton text="Yango-Mboka" onClick={() => navigate('/')} />
       </div>

@@ -1,4 +1,4 @@
 {
-    "editor.cursorBlinking": "phase",
-    "editor.cursorSmoothCaretAnimation": true
+  "editor.cursorBlinking": "phase",
+  "editor.cursorSmoothCaretAnimation": "on"
 }

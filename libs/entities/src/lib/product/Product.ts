@@ -11,4 +11,5 @@ export interface IProduct {
   user?: IUser;
   disabled: boolean;
   products_to_orders?: IProductOrder[];
+  // product_image: File;
 }

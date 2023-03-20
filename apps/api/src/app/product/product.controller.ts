@@ -15,8 +15,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { RoleValidationGuard } from '../auth/role-validation.guard';
 import { User } from '../auth/user.decorator';
 import { ProductService } from './product.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('/product')
+@ApiTags('Products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 

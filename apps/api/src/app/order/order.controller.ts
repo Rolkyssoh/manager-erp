@@ -12,8 +12,10 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '../auth/user.decorator';
 import { OrderService } from './order.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('/order')
+@ApiTags('Orders')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 

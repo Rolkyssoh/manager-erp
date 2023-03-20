@@ -6,6 +6,7 @@ export class NewProductDto {
   product_unit_price: number;
   stock_quantity: number;
   stock_alert_level: number;
+  product_image: string | File;
 }
 
 export interface NewProductDtoIn {

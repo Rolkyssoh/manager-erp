@@ -118,6 +118,7 @@ export const AddProductDialog: React.FC<IAddProductProps> = ({
       stock_alert_level: productDetails
         ? productDetails.stock_alert_level
         : null,
+      product_image: '',
     },
     validationSchema,
     onSubmit,
@@ -184,6 +185,13 @@ export const AddProductDialog: React.FC<IAddProductProps> = ({
                 value={values.stock_alert_level}
                 onChange={handleChange}
                 name="stock_alert_level"
+              />
+              <TextField
+                type="file"
+                label={'Product image'}
+                value={values.product_image}
+                onChange={handleChange}
+                name="product_image"
               />
               <div className="modal__footer modal__footer--thin no-padding-top">
                 <DefaultButton

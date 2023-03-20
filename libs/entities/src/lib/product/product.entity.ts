@@ -18,6 +18,8 @@ export class ProductEntity extends AbstractEntity implements IProduct {
       product.stock_quantity = PartialProduct.stock_quantity;
     if (PartialProduct.stock_alert_level)
       product.stock_alert_level = PartialProduct.stock_alert_level;
+    // if (PartialProduct.product_image)
+    //   product.product_image = PartialProduct.product_image;
     if (PartialProduct.user) product.user = PartialProduct.user;
     return product;
   }
@@ -36,6 +38,9 @@ export class ProductEntity extends AbstractEntity implements IProduct {
 
   @Column({ nullable: false })
   stock_alert_level: number;
+
+  // @Column({ nullable: false })
+  // product_image: File;
 
   @ManyToOne('UserEntity', 'product', { eager: true })
   user: UserEntity;
